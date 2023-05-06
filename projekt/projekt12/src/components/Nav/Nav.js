@@ -10,6 +10,7 @@ export default function Nav(){
                     <NavLink to="/termekek">Termékek</NavLink>
                     <NavLink to="/rolunk">Rolunk</NavLink>
                     <NavLink to="/kapcsolat">Kapcsolat</NavLink>
+                    <NavLink to="/kereses">Kereses</NavLink>
                 </div>
                 <div className="nav-bar-right">
                     <NavLink to="/#">Bejelentkezés</NavLink>
