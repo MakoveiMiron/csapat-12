@@ -1,24 +1,26 @@
-import  { readProducts } from "../../Services/Crud";
-import {useEffect, useState} from "react"
+import { readProducts } from "../../Services/Crud";
+import { useEffect, useState } from "react";
 import ProductCard from "./ProductCard";
 import { SelectSort } from "./SelectSort";
+import Pagination from "../Pagination/Pagination";
+import formatData from "../../Utils/formdata";
 
+export default function Products() {
+	const [productList, setProductList] = useState([]);
 
-export default function Products(){
-    const [productList, setProductList] = useState([]);
-     
-    useEffect(() => {
-        readProducts().then(products => {
-            setProductList(Object.values(products));
-            
-        });
-    }, [])
+	useEffect(() => {
+		readProducts().then((products) => {
+			setProductList(formatData(products));
+		});
+	}, []);
 
-    return (
-        <>
-           <SelectSort setProductList={setProductList}/>
-            {console.log(productList)}
-            {productList.length > 0 && productList.map(product => <ProductCard product={product}/>)}
-        </>
-    )
+	return (
+		<>
+			<SelectSort setProductList={setProductList} />
+			{console.log(productList)}
+			{productList.length > 0 &&
+				productList.map((product) => <ProductCard product={product} />)}
+			<Pagination pageLimit={7} totalPages={15} />
+		</>
+	);
 }
