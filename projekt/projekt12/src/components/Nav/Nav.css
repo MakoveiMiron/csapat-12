@@ -1,0 +1,30 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+}
+
+.nav{
+   background-color: bisque;
+   color: black;
+   display: flex; 
+   justify-content: space-between;
+   align-items: center;
+   padding: 1rem;
+   width: 100%;
+}
+
+.nav-bar-left, .nav-bar-right{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    
+}
+
+.nav-bar-left > *, .nav-bar-right > *{
+    text-decoration: none;
+    color: inherit;
+    display: inline-flex;
+}
