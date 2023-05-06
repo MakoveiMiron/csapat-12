@@ -5,6 +5,8 @@ export default function Nav(){
         <>
             <NavLink to="/">Home</NavLink>
             <NavLink to="/termekek">Termékek</NavLink>
+            <NavLink to="/rolunk">Rolunk</NavLink>
+            <NavLink to="/kapcsolat">Kapcsolat</NavLink>
         </>
     )
 }
