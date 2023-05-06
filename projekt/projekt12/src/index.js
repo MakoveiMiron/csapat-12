@@ -9,6 +9,7 @@ import Admin from './Pages/Admin';
 import Contact from './components/Contact/Contact';
 import AboutUs from './components/AboutUs/AboutUs'
 import Layout from './components/Layout/Layout';
+import Search from './components/SearchBar/Search';
 
 const router = createBrowserRouter([
   {
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
       {
         path: '/rolunk',
         element: <AboutUs />
+      },
+      {
+        path: '/kereses',
+        element: <Search />
       }
     ]
   },
