@@ -1,24 +1,24 @@
-import listProduct from "../../Services/Crud";
-import  { getProducts } from "../../Services/Crud";
+import  { readProducts } from "../../Services/Crud";
 import {useEffect, useState} from "react"
 import ProductCard from "./ProductCard";
+import { SelectSort } from "./SelectSort";
 
 
 export default function Products(){
     const [productList, setProductList] = useState([]);
-
+     
     useEffect(() => {
-        getProducts().then(products => {
+        readProducts().then(products => {
             setProductList(Object.values(products));
             
         });
-        
     }, [])
-
 
     return (
         <>
-            {productList.map(product => <ProductCard product={product}/>)}
+           <SelectSort setProductList={setProductList}/>
+            {console.log(productList)}
+            {productList.length > 0 && productList.map(product => <ProductCard product={product}/>)}
         </>
     )
 }
