@@ -17,10 +17,7 @@ export default function Products() {
 	return (
 		<>
 			<SelectSort setProductList={setProductList} />
-			{console.log(productList)}
-			{productList.length > 0 &&
-				productList.map((product) => <ProductCard product={product} />)}
-			<Pagination pageLimit={7} totalPages={15} />
+			<Pagination pageLimit={2} />
 		</>
 	);
 }
