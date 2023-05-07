@@ -1,0 +1,18 @@
+.sort-box{
+    display: flex;
+    justify-items: center;
+    align-items: center;
+    gap: 0.3rem;
+    height: fit-content;
+}
+
+.sort-text{
+    font-size: 1em;
+
+}
+
+.select-box{
+    height:fit-content;
+    background-color: azure;
+    font-weight: 700;
+}

@@ -1,3 +1,4 @@
+import "./SelectSort.css"
 import { fromAtoZ, fromZtoA } from "../../Utils/ProductSorting";
 import { useSearchParams } from "react-router-dom";
 
@@ -19,11 +20,13 @@ export function SelectSort(props){
 
     return(
         <>
-        sort by name:
-            <select onChange={(e) => handleChange(e)}>
-                <option value="a-z">a-z</option>
-                <option value="z-a">z-a</option>
-            </select>
+            <div className="sort-box">
+                <p className="sort-text">Szűrés:</p>
+                <select onChange={(e) => handleChange(e)} className="select-box">
+                    <option value="a-z">a-z</option>
+                    <option value="z-a">z-a</option>
+                </select>
+            </div>
         </>
     )
 }
