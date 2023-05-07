@@ -42,7 +42,7 @@ const Pagination = ({ pageLimit }) => {
 				.map((product) => (
 					<div key={product.id}>{product.title}</div>
 				))}
-			<div>
+			<div className="pagination-box">
 				{currentPage >= 1 && (
 					<Link
 						className="pagination"
