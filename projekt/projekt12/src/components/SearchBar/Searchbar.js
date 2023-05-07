@@ -3,30 +3,29 @@ import { useState } from 'react';
 
 const Searchbar = (props) => {
     const [value, setValue] = useState("");
-    const products = [{title:"kave1"},{title:"kave"}, {title:"kave",}]
+    const products = [{nev:"kave1",ar :10},{nev:"kave2", ar :10}, {nev:"kave3", ar :10}]
     
-    const [filteredProduct, setFilteredProduct] = useState()
+    const [filteredProduct, setFilteredProduct] = useState() ///
   
     const onChange = (event) => {
-        setValue(event.target.value);
+        setValue(event.target.value); /// ez majd extrahoz kell 
       };
-    
-    const onSearch = (searchTerm) => {
-        setValue(searchTerm)
-       //  props.onSearching(searchTerm)
-        //console.log("search ", searchTerm);
 
+      function klick(e) {
+        e.preventDefault();
+      
         const searchedProduct = products.filter((product)=>
-        searchTerm === product.title)
-              //console.log(searchedProduct)
-        setFilteredProduct(searchedProduct)
+              value === product.nev)
+
+        console.log(searchedProduct)
+        setFilteredProduct(searchedProduct) ///
         props.onSearching(searchedProduct)
       }
       
     return(
         <div className="Filter">
             <input type="text" value={value} onChange={onChange}/>
-            <button onClick={(()=>{onSearch(value)})}>Kereses</button>
+            <button onClick={klick}>Kereses</button>
            
         </div>
 
