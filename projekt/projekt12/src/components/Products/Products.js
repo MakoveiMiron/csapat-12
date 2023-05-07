@@ -1,7 +1,5 @@
 import { readProducts } from "../../Services/Crud";
 import { useEffect, useState } from "react";
-import ProductCard from "./ProductCard";
-import { SelectSort } from "./SelectSort";
 import Pagination from "../Pagination/Pagination";
 import formatData from "../../Utils/formdata";
 
@@ -16,7 +14,6 @@ export default function Products() {
 
 	return (
 		<>
-			<SelectSort setProductList={setProductList} />
 			<Pagination pageLimit={2} />
 		</>
 	);

@@ -10,11 +10,11 @@ export function SelectSort(props){
     function handleChange(e){
         if(e.target.value === "a-z"){
             setSearchParams("novekvo");
-            props.setProductList((products) => fromAtoZ(products))
+            props.setProducts((products) => fromAtoZ(products))
         }
         else if(e.target.value === "z-a"){
             setSearchParams("csokkeno");
-            props.setProductList((products) => fromZtoA(products)); 
+            props.setProducts((products) => fromZtoA(products)); 
         }
     }
 

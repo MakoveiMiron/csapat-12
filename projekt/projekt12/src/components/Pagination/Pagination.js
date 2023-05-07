@@ -1,13 +1,15 @@
 import "./pagination.css";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useSearchParams } from "react";
 import { Link } from "react-router-dom";
 import { API_URL } from "../../Constans/firebaseConstans";
 import formatData from "../../Utils/formdata";
+import { SelectSort } from "../Products/SelectSort";
 
 const Pagination = ({ pageLimit }) => {
 	const [products, setProducts] = useState([]);
 	const [currentPage, setCurrentPage] = useState(1);
 	const [totalPages, setTotalPages] = useState(1);
+	
 
 	useEffect(() => {
 		const query = new URLSearchParams(window.location.search);
@@ -36,6 +38,8 @@ const Pagination = ({ pageLimit }) => {
 	};
 
 	return (
+		<>
+		<SelectSort setProducts={setProducts}/>
 		<div>
 			{products
 				.slice((currentPage - 1) * pageLimit, currentPage * pageLimit)
@@ -62,6 +66,7 @@ const Pagination = ({ pageLimit }) => {
 				</Link>
 			</div>
 		</div>
+		</>
 	);
 };
 
