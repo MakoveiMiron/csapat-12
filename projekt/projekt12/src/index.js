@@ -1,7 +1,6 @@
 import React, { Children } from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from './Pages/Home';
 import Products from './components/Products/Products';
@@ -13,7 +12,8 @@ import Search from './components/SearchBar/Search';
 import AdminLayout from './components/Layout/AdminLayout';
 import CreateProduct from './components/CreateProduct/CreateProduct';
 import AdminProducts from './components/Admin products/AdminProducts';
-
+import AdminDeleteProduct from './components/Admin products/AdminDeleteProduct';
+import AdminModifyProduct from './components/Admin products/AdminModifyProduct';
 const router = createBrowserRouter([
   {
     path: '/',
@@ -56,6 +56,14 @@ const router = createBrowserRouter([
       {
         path: '/admin/termekek',
         element: <AdminProducts />
+      },
+      {
+        path:'/admin/termekek/:id/torles',
+        element: <AdminDeleteProduct/>
+      },
+      {
+        path:'/admin/termekek/:id/modositas',
+        element: <AdminModifyProduct/>
       }
     ]
   }
