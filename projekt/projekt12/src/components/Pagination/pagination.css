@@ -1,4 +1,4 @@
-.pagination-box{
+.pagination-box {
 	display: flex;
 	justify-content: center;
 	gap: 1rem;
@@ -14,10 +14,6 @@
 	padding: 0.5rem 2rem;
 	margin: 0 0.3rem;
 	cursor: pointer;
-}
-
-.pagination:hover {
-	background-color: #9d9d9d;
 }
 
 .pagination button:disabled {

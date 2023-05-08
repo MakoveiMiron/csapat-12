@@ -9,11 +9,15 @@ export function SelectSort(props){
 
     function handleChange(e){
         if(e.target.value === "a-z"){
-            setSearchParams("novekvo");
+            const query = new URLSearchParams(window.location.search);
+			query.set("sortOrientation", "novekvo");
+			window.history.pushState(null, "", `?${query.toString()}`);
             props.setProducts((products) => fromAtoZ(products))
         }
         else if(e.target.value === "z-a"){
-            setSearchParams("csokkeno");
+            const query = new URLSearchParams(window.location.search);
+			query.set("sortOrientation", "csokkeno");
+			window.history.pushState(null, "", `?${query.toString()}`);
             props.setProducts((products) => fromZtoA(products)); 
         }
     }

@@ -9,7 +9,6 @@ const Pagination = ({ pageLimit }) => {
 	const [products, setProducts] = useState([]);
 	const [currentPage, setCurrentPage] = useState(1);
 	const [totalPages, setTotalPages] = useState(1);
-	
 
 	useEffect(() => {
 		const query = new URLSearchParams(window.location.search);
@@ -28,44 +27,32 @@ const Pagination = ({ pageLimit }) => {
 	}, [pageLimit]);
 
 	const handleNextPage = () => {
-		if (currentPage < totalPages) {
-			setCurrentPage(currentPage + 1);
-		}
+		setCurrentPage(currentPage + 1);
 	};
 
 	const handlePrevPage = () => {
-		if (currentPage > 1) setCurrentPage(currentPage - 1);
+		setCurrentPage(currentPage - 1);
 	};
 
 	return (
 		<>
-		<SelectSort setProducts={setProducts}/>
-		<div>
-			{products
-				.slice((currentPage - 1) * pageLimit, currentPage * pageLimit)
-				.map((product) => (
-					<div key={product.id}>{product.title}</div>
-				))}
-			<div className="pagination-box">
-				{currentPage >= 1 && (
-					<Link
-						className="pagination"
-						to={`/termekek/?page=${currentPage - 1}`}
-						onClick={handlePrevPage}
-					>
-						Prev
-					</Link>
-				)}
+			<SelectSort setProducts={setProducts} currentPage={currentPage} />
+			<div>
+				{products
+					.slice((currentPage - 1) * pageLimit, currentPage * pageLimit)
+					.map((product) => (
+						<div key={product.id}>{product.title}</div>
+					))}
+				<div className="pagination-box">
+					<div>
+						{currentPage > 1 && <button onClick={handlePrevPage}>Prev</button>}
 
-				<Link
-					className="pagination"
-					to={`/termekek/?page=${currentPage + 1}`}
-					onClick={handleNextPage}
-				>
-					Next
-				</Link>
+						{currentPage < totalPages && (
+							<button onClick={handleNextPage}>Next</button>
+						)}
+					</div>
+				</div>
 			</div>
-		</div>
 		</>
 	);
 };
