@@ -1,7 +1,9 @@
+import {createProduct} from '../../Services/Crud'
+
 export default function Admin1(){
     return(
         <>
-            <h1>Termék felvétel</h1>
+            <button onClick={createProduct}>Create product</button>
         </>
     )
 }
