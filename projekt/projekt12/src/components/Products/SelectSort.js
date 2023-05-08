@@ -1,22 +1,21 @@
 import "./SelectSort.css"
 import { fromAtoZ, fromZtoA } from "../../Utils/ProductSorting";
-import { useSearchParams } from "react-router-dom";
+
 
 
 export function SelectSort(props){
 
-    let [searchParams, setSearchParams] = useSearchParams();
 
     function handleChange(e){
         if(e.target.value === "a-z"){
             const query = new URLSearchParams(window.location.search);
-			query.set("sortOrientation", "novekvo");
+			query.set("sortOrientation", "increasing");
 			window.history.pushState(null, "", `?${query.toString()}`);
             props.setProducts((products) => fromAtoZ(products))
         }
         else if(e.target.value === "z-a"){
             const query = new URLSearchParams(window.location.search);
-			query.set("sortOrientation", "csokkeno");
+			query.set("sortOrientation", "decreasing");
 			window.history.pushState(null, "", `?${query.toString()}`);
             props.setProducts((products) => fromZtoA(products)); 
         }
