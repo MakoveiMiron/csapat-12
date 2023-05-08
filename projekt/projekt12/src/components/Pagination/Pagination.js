@@ -30,16 +30,20 @@ const Pagination = ({ pageLimit }) => {
 	const handleNextPage = () => {
 		if (currentPage < totalPages) {
 			setCurrentPage(currentPage + 1);
+			
 		}
 	};
 
 	const handlePrevPage = () => {
-		if (currentPage > 1) setCurrentPage(currentPage - 1);
+		if (currentPage > 1){ 
+			setCurrentPage(currentPage - 1)
+			
+		};
 	};
 
 	return (
 		<>
-		<SelectSort setProducts={setProducts}/>
+		<SelectSort setProducts={setProducts} currentPage={currentPage}/>
 		<div>
 			{products
 				.slice((currentPage - 1) * pageLimit, currentPage * pageLimit)
@@ -47,27 +51,18 @@ const Pagination = ({ pageLimit }) => {
 					<div key={product.id}>{product.title}</div>
 				))}
 			<div className="pagination-box">
-				{currentPage >= 1 && (
-					<Link
-						className="pagination"
-						to={`/termekek/?page=${currentPage - 1}`}
-						onClick={handlePrevPage}
-					>
-						Prev
-					</Link>
-				)}
 
-				<Link
-					className="pagination"
-					to={`/termekek/?page=${currentPage + 1}`}
-					onClick={handleNextPage}
-				>
-					Next
-				</Link>
+
+				<button onClick={handlePrevPage}>Prev</button>
+				<button onClick={handleNextPage}>Next</button>
+
 			</div>
 		</div>
 		</>
 	);
+
+
+	
 };
 
 export default Pagination;
