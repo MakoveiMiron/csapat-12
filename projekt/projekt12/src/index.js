@@ -10,9 +10,13 @@ import Contact from './components/Contact/Contact';
 import AboutUs from './components/AboutUs/AboutUs'
 import Layout from './components/Layout/Layout';
 import Search from './components/SearchBar/Search';
+import AdminLayout from './components/Layout/AdminLayout';
+import Admin1 from './components/Admin1/Admin1';
+import AdminProducts from './components/Admin products/AdminProducts';
 
 const router = createBrowserRouter([
   {
+    path: '/',
     element: <Layout />,
     children: [
       {
@@ -22,10 +26,6 @@ const router = createBrowserRouter([
       {
         path: '/termekek',
         element: <Products />
-      },
-      {
-        path: '/admin',
-        element: <Admin />
       },
       {
         path: '/kapcsolat',
@@ -41,6 +41,24 @@ const router = createBrowserRouter([
       }
     ]
   },
+  {
+    path: '/admin',
+    element: <AdminLayout />,
+    children: [
+      {
+        path: '/admin',
+        element: <Admin/>
+      },
+      {
+        path: '/admin/termek-felvetel',
+        element: <Admin1 />
+      },
+      {
+        path: '/admin/termekek',
+        element: <AdminProducts />
+      }
+    ]
+  }
   
 ])
 const root = ReactDOM.createRoot(document.getElementById('root'));
