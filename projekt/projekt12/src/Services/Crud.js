@@ -8,14 +8,14 @@ export function readProducts(){
 }
 
 
-export function createProduct(){
+export function createProduct(price, title, description){
     return(
         fetch(`${API_URL}termekek.json`,{
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({title: "Szuper kávé, vedd meg!", price : 69})
+            body: JSON.stringify({title, price, description})
         })
         .then(data => data.json())
         .then(resp => updateProduct(resp.name))

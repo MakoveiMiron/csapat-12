@@ -9,9 +9,9 @@ import Admin from './Pages/Admin';
 import Contact from './components/Contact/Contact';
 import AboutUs from './components/AboutUs/AboutUs'
 import Layout from './components/Layout/Layout';
-import Search from './components/SearchBar/Search';
+import Search from './components/Searchbar/Search';
 import AdminLayout from './components/Layout/AdminLayout';
-import Admin1 from './components/Admin1/Admin1';
+import CreateProduct from './components/CreateProduct/CreateProduct';
 import AdminProducts from './components/Admin products/AdminProducts';
 
 const router = createBrowserRouter([
@@ -51,7 +51,7 @@ const router = createBrowserRouter([
       },
       {
         path: '/admin/termek-felvetel',
-        element: <Admin1 />
+        element: <CreateProduct />
       },
       {
         path: '/admin/termekek',
