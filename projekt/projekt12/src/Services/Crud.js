@@ -33,3 +33,12 @@ export function updateProduct(id){
         })
     )
 }
+
+
+export function deleteProduct(id){
+    return(
+        fetch(`${API_URL}termekek/-NUw57F_mVwK4KK7o-WZ.json`,{
+            method: 'DELETE'
+        })
+    )
+}
