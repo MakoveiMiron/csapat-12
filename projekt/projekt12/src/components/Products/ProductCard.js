@@ -1,11 +1,14 @@
 export default function ProductCard(props) {
 	return (
 		<div className="product-row">
-			<span className="product-title">{props.product.title}</span>
+			<img src="https://picsum.photos/100/100" alt="image"/>
+			<h3 className="product-title">{props.product.title}</h3>
 
-			<span className="product-price">{props.product.price}</span>
+			<p className="product-description">{props.product.description}</p>
 
-			<span className="product-description">{props.product.description}</span>
+			<p className="product-price">{props.product.price + " Ft"}</p>
+
+			<button>Kosárba</button>
 		</div>
 	);
 }
