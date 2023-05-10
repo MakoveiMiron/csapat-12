@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Pagination from "../Pagination/Pagination";
 import formatData from "../../Utils/formdata";
 import Searchbar from "../SearchBar/Searchbar";
+import { SelectSort } from "./SelectSort";
 
 export default function Products() {
 	const [productList, setProductList] = useState([]);
@@ -22,6 +23,7 @@ export default function Products() {
 	return (
 		<>	
 			<Searchbar productList={productList} setFilteredProducts={setFilteredProducts} />
+			<SelectSort setProducts={setFilteredProducts} />
 			<Pagination products={filteredProducts} pageLimit={2} />
 		</>
 	);

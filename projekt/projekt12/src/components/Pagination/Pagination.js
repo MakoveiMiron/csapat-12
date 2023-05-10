@@ -54,8 +54,7 @@ function Pagination(props) {
 	};
 
 	return (
-		<>
-			<SelectSort setProducts={setProducts} currentPage={currentPage} />
+		<>			
 			<div>
 				{isAdmin &&
 					props.products
