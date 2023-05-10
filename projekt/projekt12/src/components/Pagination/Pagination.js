@@ -6,7 +6,6 @@ import { SelectSort } from "../Products/SelectSort";
 import ProductCard from "../Products/ProductCard";
 import AdminProductCard from "../Admin products/AdminProductCard";
 import { useLocation } from "react-router-dom";
-
 function Pagination(props) {
 	const [products, setProducts] = useState([]);
 	const [currentPage, setCurrentPage] = useState(1);
@@ -59,7 +58,7 @@ function Pagination(props) {
 			<SelectSort setProducts={setProducts} currentPage={currentPage} />
 			<div>
 				{isAdmin &&
-					products
+					props.products
 						.slice(
 							(currentPage - 1) * props.pageLimit,
 							currentPage * props.pageLimit
@@ -73,7 +72,7 @@ function Pagination(props) {
 						))}
 
 				{!isAdmin &&
-					products
+					props.products
 						.slice(
 							(currentPage - 1) * props.pageLimit,
 							currentPage * props.pageLimit
@@ -83,12 +82,12 @@ function Pagination(props) {
 						))}
 				<div className="pagination-box">
 					<div>
-						{currentPage > 1 && (
+						
 							<>
 								<button onClick={handleFirstPage}>First</button>
 								<button onClick={handlePrevPage}>Prev</button>
 							</>
-						)}
+						
 
 						{currentPage > 4 && (
 							<>
