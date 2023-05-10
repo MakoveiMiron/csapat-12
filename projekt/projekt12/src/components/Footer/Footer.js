@@ -13,9 +13,12 @@ export default function Footer(){
                 <div className="ContactMe">
                     <a href="/#">Lépj velünk kapcsolatba!</a>
                 </div>
-                <div className="Map">
-                    térkép
+                <div className="Social">
+                    <a>Facebook</a>
+                    <a>Instagram</a>
+                    <a>Twitter</a>
                 </div>
+                <div className="Copyright"></div>
             </footer>
         </>
     )
