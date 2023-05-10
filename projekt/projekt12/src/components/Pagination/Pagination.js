@@ -78,7 +78,9 @@ function Pagination(props) {
 							currentPage * props.pageLimit
 						)
 						.map((product) => (
-							<ProductCard key={product.id} id={product.id} product={product} />
+							<div className="prodact-card-style">
+								<ProductCard key={product.id} id={product.id} product={product} />
+							</div>
 						))}
 				<div className="pagination-box">
 					<div>

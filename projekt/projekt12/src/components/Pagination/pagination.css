@@ -15,3 +15,7 @@
 	margin: 0 0.3rem;
 	cursor: pointer;
 }
+
+.prodact-card-style{
+	display: flex;
+}
