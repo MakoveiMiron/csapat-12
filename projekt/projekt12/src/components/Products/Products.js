@@ -14,7 +14,7 @@ export default function Products() {
 
 	return (
 		<>
-			<Pagination pageLimit={2} />
+			<Pagination products={productList} pageLimit={2} />
 		</>
 	);
 }
