@@ -1,0 +1,20 @@
+.product-wrap {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	border-bottom: 1px solid #ccc;
+	padding: 10px;
+}
+
+.product-wrap > span {
+	flex: 1;
+	margin: 0 10px;
+}
+
+.product-wrap button {
+	padding: 5px 10px;
+	border-radius: 5px;
+	border: none;
+	cursor: pointer;
+}
