@@ -14,7 +14,7 @@ export default function AdminProducts() {
 		<>
 			<h1>Admin termékek</h1>
 
-			<Pagination products={productList} pageLimit={2} />
+			<Pagination products={productList} pageLimit={9} />
 		</>
 	);
 }
