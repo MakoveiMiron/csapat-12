@@ -14,6 +14,9 @@ import CreateProduct from './components/CreateProduct/CreateProduct';
 import AdminProducts from './components/Admin products/AdminProducts';
 import AdminDeleteProduct from './components/Admin products/AdminDeleteProduct';
 import AdminModifyProduct from './components/Admin products/AdminModifyProduct';
+import Login from './components/Login/Login';
+import Registration from './Pages/Registration';
+
 const router = createBrowserRouter([
   {
     path: '/',
@@ -38,6 +41,14 @@ const router = createBrowserRouter([
       {
         path: '/kereses',
         element: <Search />
+      },
+      {
+        path: '/belepes',
+        element: <Login />
+      },
+      {
+        path: '/regisztracio',
+        element: <Registration />
       }
     ]
   },
