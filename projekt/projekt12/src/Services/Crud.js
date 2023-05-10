@@ -13,18 +13,26 @@ export function createProduct(price, title, description) {
 		body: JSON.stringify({ title, price, description }),
 	})
 		.then((data) => data.json())
-		.then((resp) => updateProduct(resp.name));
+		.then((resp) => fetch(`${API_URL}termekek/${resp.name}.json`, {
+			method: "PATCH",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({ id: resp.name }),
+		}));
 }
 
-export function updateProduct(id) {
+
+export function	updateProduct(id, title, price, description){
 	return fetch(`${API_URL}termekek/${id}.json`, {
 		method: "PATCH",
 		headers: {
 			"Content-Type": "application/json",
 		},
-		body: JSON.stringify({ id }),
+		body: JSON.stringify({ title, price, description }),
 	});
 }
+
 
 export function deleteProduct(id) {
 	return fetch(`${API_URL}termekek/${id}.json`, {
