@@ -8,7 +8,6 @@ import Admin from "./Pages/Admin";
 import Contact from "./components/Contact/Contact";
 import AboutUs from "./components/AboutUs/AboutUs";
 import Layout from "./components/Layout/Layout";
-import Search from "./components/SearchBar/Search";
 import AdminLayout from "./components/Layout/AdminLayout";
 import CreateProduct from "./components/CreateProduct/CreateProduct";
 import AdminProducts from "./components/Admin products/AdminProducts";
@@ -37,10 +36,6 @@ const router = createBrowserRouter([
 			{
 				path: "/rolunk",
 				element: <AboutUs />,
-			},
-			{
-				path: "/kereses",
-				element: <Search />,
 			},
 			{
 				path: "/belepes",
