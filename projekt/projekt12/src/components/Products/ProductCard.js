@@ -1,10 +1,11 @@
-export default function ProductCard(props){
+export default function ProductCard(props) {
+	return (
+		<div className="product-row">
+			<span className="product-title">{props.product.title}</span>
 
+			<span className="product-price">{props.product.price}</span>
 
-    return(
-    <>
-    <p>Név: {props.product.title}</p>
-    <p>Ár: {props.product.price}</p>
-    </>
-    )
+			<span className="product-description">{props.product.description}</span>
+		</div>
+	);
 }
