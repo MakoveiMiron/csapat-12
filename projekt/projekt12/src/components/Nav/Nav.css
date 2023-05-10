@@ -7,13 +7,14 @@ body {
 }
 
 .nav{
-   background-color: bisque;
+   background-color: var(--clr-light-brown);
    color: black;
    display: flex; 
    justify-content: space-between;
    align-items: center;
    padding: 1rem;
    width: 100%;
+   font-size: var(--fs-nav);
 }
 
 .nav-bar-left, .nav-bar-right{
