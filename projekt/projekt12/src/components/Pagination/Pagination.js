@@ -54,8 +54,8 @@ function Pagination(props) {
 	};
 
 	return (
-		<>			
-			<div>
+		<>	
+			<div className="product-box">
 				{isAdmin &&
 					props.products
 						.slice(
@@ -81,7 +81,7 @@ function Pagination(props) {
 								<ProductCard key={product.id} id={product.id} product={product} />
 							</div>
 						))}
-				<div>
+				</div>
 					<div className="pagination-box">
 						<div>
 							
@@ -127,7 +127,7 @@ function Pagination(props) {
 							)}
 						</div>
 					</div>
-				</div>
+				<div>
 			</div>
 		</>
 	);

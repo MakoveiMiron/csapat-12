@@ -4,6 +4,7 @@ import Pagination from "../Pagination/Pagination";
 import formatData from "../../Utils/formdata";
 import Searchbar from "../SearchBar/Searchbar";
 import { SelectSort } from "./SelectSort";
+import "./Product.css"
 
 export default function Products() {
 	const [productList, setProductList] = useState([]);
