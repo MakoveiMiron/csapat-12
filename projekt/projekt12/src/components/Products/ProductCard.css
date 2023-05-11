@@ -4,17 +4,14 @@
     display: flex;
     align-items: center;
     overflow: hidden;
-    margin-bottom: 2rem;
-    height: min-content;
-    width: 80vh;
 }
 
 .product-content{
     padding: var(--ps-medium);
     gap: var(--ps-medium);
     display: flex;
-    align-items: baseline;
-    align-content: center;
+    /* align-items: baseline;
+    align-content: center; */
     flex-wrap: wrap;
 
 }
@@ -24,16 +21,19 @@
     font-size: var(--fs-h1);
     font-family: var(--ff-primary);
     color: var(--clr-dark-yellow);
+    margin: 0;
 }
 
 .product-description{
     font-size: var(--fs-h3);
     line-height: var(--m-lagre);
+    margin: 0;
 }
 
 .porduct-price{
     font-size: var(--fs-h2);
     font-family: var(--ff-primary);
+    margin: 0;
 }
 
 .chart-button{

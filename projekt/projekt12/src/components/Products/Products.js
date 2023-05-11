@@ -22,9 +22,13 @@ export default function Products() {
 
 	return (
 		<>	
-			<Searchbar productList={productList} setFilteredProducts={setFilteredProducts} />
+		<div className="product-page">
+			<div className="fill-menu">
 			<SelectSort setProducts={setFilteredProducts} />
-			<Pagination products={filteredProducts} pageLimit={2} />
+			<Searchbar productList={productList} setFilteredProducts={setFilteredProducts} />
+			</div>
+			<Pagination products={filteredProducts} pageLimit={9} />
+		</div>
 		</>
 	);
 }
