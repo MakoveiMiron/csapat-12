@@ -81,49 +81,51 @@ function Pagination(props) {
 								<ProductCard key={product.id} id={product.id} product={product} />
 							</div>
 						))}
-				<div className="pagination-box">
-					<div>
-						
-							<>
-								<button onClick={handleFirstPage}>First</button>
-								<button onClick={handlePrevPage}>Prev</button>
-							</>
-						
+				<div>
+					<div className="pagination-box">
+						<div>
+							
+								<>
+									<button onClick={handleFirstPage}>First</button>
+									<button onClick={handlePrevPage}>Prev</button>
+								</>
+							
 
-						{currentPage > 4 && (
-							<>
-								<button onClick={handlePrevThreePages}>
-									{currentPage - 3}
-								</button>
-								<button onClick={handlePrevThreePages}>
-									{currentPage - 2}
-								</button>
-								<button onClick={handlePrevThreePages}>
-									{currentPage - 1}
-								</button>
-							</>
-						)}
+							{currentPage > 4 && (
+								<>
+									<button onClick={handlePrevThreePages}>
+										{currentPage - 3}
+									</button>
+									<button onClick={handlePrevThreePages}>
+										{currentPage - 2}
+									</button>
+									<button onClick={handlePrevThreePages}>
+										{currentPage - 1}
+									</button>
+								</>
+							)}
 
-						{currentPage < totalPages - 3 && (
-							<>
-								<button onClick={handleNextThreePages}>
-									{currentPage + 1}
-								</button>
-								<button onClick={handleNextThreePages}>
-									{currentPage + 2}
-								</button>
-								<button onClick={handleNextThreePages}>
-									{currentPage + 3}
-								</button>
-							</>
-						)}
+							{currentPage < totalPages - 3 && (
+								<>
+									<button onClick={handleNextThreePages}>
+										{currentPage + 1}
+									</button>
+									<button onClick={handleNextThreePages}>
+										{currentPage + 2}
+									</button>
+									<button onClick={handleNextThreePages}>
+										{currentPage + 3}
+									</button>
+								</>
+							)}
 
-						{currentPage < totalPages && (
-							<>
-								<button onClick={handleNextPage}>Next</button>
-								<button onClick={handleLastPage}>Last</button>
-							</>
-						)}
+							{currentPage < totalPages && (
+								<>
+									<button onClick={handleNextPage}>Next</button>
+									<button onClick={handleLastPage}>Last</button>
+								</>
+							)}
+						</div>
 					</div>
 				</div>
 			</div>

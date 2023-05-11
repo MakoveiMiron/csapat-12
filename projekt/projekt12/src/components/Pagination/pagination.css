@@ -18,4 +18,5 @@
 
 .prodact-card-style{
 	display: flex;
+	justify-items: end;
 }
