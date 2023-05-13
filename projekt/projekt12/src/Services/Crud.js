@@ -39,3 +39,5 @@ export function deleteProduct(id) {
 		method: "DELETE",
 	});
 }
+
+//Proba
