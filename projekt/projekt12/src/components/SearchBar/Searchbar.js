@@ -35,6 +35,8 @@
 
 import "./Searchbar-style.css";
 import { useState } from "react";
+import {FiSearch, FiDelete} from "react-icons/fi"
+
 
 const Searchbar = (props) => {
 	const [searchText, setSearchText] = useState("");
@@ -73,26 +75,29 @@ const Searchbar = (props) => {
 
 	return (
 		<div className="filter">
-			<input
+			<input 
+				className="searchInput"
 				type="text"
 				placeholder="Keresés"
 				value={searchText}
 				onChange={handleSearchInputChange}
 			/>
 			<input
+				className="searchInput"
 				type="number"
 				placeholder="Minimum ár"
 				value={minPrice}
 				onChange={handleMinPriceInputChange}
 			/>
 			<input
+				className="searchInput"
 				type="number"
 				placeholder="Maximum ár"
 				value={maxPrice}
 				onChange={handleMaxPriceInputChange}
 			/>
-			<button onClick={handleSearchButtonClick}>Keresés</button>
-			<button onClick={handleResetButtonClick}>Visszaállítás</button>
+			<button className="searchButton" onClick={handleSearchButtonClick}><FiSearch/></button>
+			<button className="searchButtonBack" onClick={handleResetButtonClick}><FiDelete/></button>
 		</div>
 	);
 };

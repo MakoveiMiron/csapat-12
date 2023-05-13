@@ -19,9 +19,65 @@
 .prodact-card-style {
 	display: flex;
 	justify-items: end;
+	
 }
 
 button.current {
-	background-color: red;
+	background-color: rgb(245, 173, 85);
 	color: white;
+	border-radius: 0.5em;
+	border: none;
+	padding-top: 0.3em;
+	padding-bottom: 0.3em;
+	padding-right: 1em;
+	padding-left: 1em;
+	align-items: stretch;
+	margin-right: 0.2em;
+	margin-left: 0.2em;
+
+}
+
+button.notCurrent {
+	background-color: rgb(202, 194, 175);
+	color: white;
+	border-radius: 0.5em;
+	border: none;
+	padding-top: 0.3em;
+	padding-bottom: 0.3em;
+	padding-right: 1em;
+	padding-left: 1em;
+	align-items: stretch;
+	margin-right: 0.2em;
+	margin-left: 0.2em;
+}
+
+
+.activeStepPage{
+	background-color: rgb(219, 217, 213);
+	color: rgb(173, 151, 125);
+	border:#1a171400 ;
+	margin-right: 0.3em;
+	margin-left: 0.3em;
+	padding-left: 3em;
+	padding-right: 3em;
+	padding-top: 0.35em;
+	padding-bottom: 0.3em;
+	border-radius: 0.5em;
+	font-size: medium;
+	align-items: stretch;
+}
+
+.stepPage {
+	background-color:bisque;
+	color: rgb(173, 151, 125);
+	border:#1a171400 ;
+	margin-right: 0.3em;
+	margin-left: 0.3em;
+	padding-left: 3em;
+	padding-right: 3em;
+	padding-top: 0.35em;
+	padding-bottom: 0.3em;
+	border-radius: 0.5em;
+	font-size: medium;
+	align-items: stretch;
 }

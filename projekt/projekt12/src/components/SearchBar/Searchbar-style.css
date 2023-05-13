@@ -1,0 +1,37 @@
+.searchButton {
+    border: bisque;
+    background-color:rgb(250, 215, 173);
+    border-radius: 0.3em;
+    position: relative;
+    right: 1em;
+    padding-top:0.45em;
+    padding-bottom:0.35em ;
+    padding-left: 0.5em;
+    align-self: center;
+   
+    
+}
+.searchButtonBack{
+    border: rgb(18, 16, 13);
+    background-color:rgb(250, 215, 173);
+    border-radius: 0.3em;
+    position: relative;
+    right: 1em;
+    padding-top:0.45em;
+    padding-bottom:0.35em ;
+    align-self: center;
+    position: relative;
+    right: 1em;
+}
+.filter {
+    
+    padding: 1em;
+}
+
+.searchInput {
+    border: bisque;
+    background-color:bisque;
+    border-radius: 0.2em;
+    font-size: medium;
+    padding: 0.3em;
+}

@@ -1,5 +1,9 @@
 import "./pagination.css";
 import React, { useState, useEffect } from "react";
+import { FiChevronsLeft } from "react-icons/fi";
+import {FiChevronLeft} from "react-icons/fi"
+import {FiChevronRight} from "react-icons/fi"
+import {FiChevronsRight} from "react-icons/fi"
 
 function Pagination({ limit, onPageChange, currentPage, total }) {
 	const pagesCount = Math.ceil(total / limit);
@@ -52,27 +56,27 @@ function Pagination({ limit, onPageChange, currentPage, total }) {
 	return (
 		
 		<>
-			<div>
+			<div className="all">
 				<>
-					<button disabled={isFirstPage} onClick={handleFirstPage}>
-						First
+					<button className={currentPage===1 ? "activeStepPage" :"stepPage"} disabled={isFirstPage} onClick={handleFirstPage}>
+					<FiChevronsLeft/>
 					</button>
-					<button disabled={isFirstPage} onClick={handlePrevPage}>
-						Prev
+					<button className={currentPage===1 ? "activeStepPage" :"stepPage"} disabled={isFirstPage} onClick={handlePrevPage}>
+						<FiChevronLeft/>
 					</button>
 					{pages.map((p) => (
 						<button
-							className={p === currentPage ? "current" : ""}
+							className={p === currentPage ? "current" : "notCurrent"}
 							onClick={() => onPageChange(p)}
 						>
 							{p}
 						</button>
 					))}
-					<button disabled={isLastPage} onClick={handleNextPage}>
-						Next
+					<button className={isLastPage ? "activeStepPage" :"stepPage"} disabled={isLastPage} onClick={handleNextPage}>
+						<FiChevronRight/>
 					</button>
-					<button disabled={isLastPage} onClick={handleLastPage}>
-						Last
+					<button className={isLastPage ? "activeStepPage" :"stepPage"} disabled={isLastPage} onClick={handleLastPage}>
+						<FiChevronsRight/>
 					</button>
 				</>
 			</div>
