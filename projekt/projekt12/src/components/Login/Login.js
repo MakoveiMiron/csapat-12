@@ -1,27 +1,88 @@
-import {useState} from 'react'
-
-export default function Login(){
-    const [login, setLogin] = useState("")
-
-    function loginHandler(e){
-        e.preventDefault()
-
-        const email = e.target.elements.email.value;
-        const password = e.target.elements.pw.value;
-        const obj={
-            email,
-            password
-        }
-
-        console.log(obj)
+import React, {useState} from 'react';
+import {  signInWithEmailAndPassword   } from 'firebase/auth';
+import { auth } from '../../Constans/firebaseConfig';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { API_URL } from '../../Constans/firebaseConstans';
+ 
+const Login = () => {
+    const navigate = useNavigate();
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+       
+    const onLogin = (e) => {
+        e.preventDefault();
+        signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+            // Signed in
+            const user = userCredential.user;
+            navigate("/")
+            console.log(user);
+        })
+        .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            console.log(errorCode, errorMessage)
+        });
+       
     }
+ 
     return(
-        <form onSubmit={loginHandler}>
-            <h3>Email cim</h3>
-            <p><input type='email' name='email' placeholder='E-mail cím' /></p>
-            <h3>Jelszó</h3>
-            <p><input type='password' name='pw' placeholder='jelszó' /></p>
-            <button type='submit'>Belépés</button>
-        </form>
+        <>
+            <main >        
+                <section>
+                    <div>                                            
+                        <p> FocusApp </p>                       
+                                                       
+                        <form>                                              
+                            <div>
+                                <label htmlFor="email-address">
+                                    Email address
+                                </label>
+                                <input
+                                    id="email-address"
+                                    name="email"
+                                    type="email"                                    
+                                    required                                                                                
+                                    placeholder="Email address"
+                                    onChange={(e)=>setEmail(e.target.value)}
+                                />
+                            </div>
+
+                            <div>
+                                <label htmlFor="password">
+                                    Password
+                                </label>
+                                <input
+                                    id="password"
+                                    name="password"
+                                    type="password"                                    
+                                    required                                                                                
+                                    placeholder="Password"
+                                    onChange={(e)=>setPassword(e.target.value)}
+                                />
+                            </div>
+                                                
+                            <div>
+                                <button                                    
+                                    onClick={onLogin}                                        
+                                >      
+                                    Login                                                                  
+                                </button>
+                            </div>                               
+                        </form>
+                       
+                        <p className="text-sm text-white text-center">
+                            No account yet? {' '}
+                            <NavLink to="/">
+                                Sign up
+                            </NavLink>
+                        </p>
+                                                   
+                    </div>
+                </section>
+            </main>
+        </>
     )
 }
+ 
+export default Login
