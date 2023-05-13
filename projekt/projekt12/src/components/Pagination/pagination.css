@@ -16,7 +16,12 @@
 	cursor: pointer;
 }
 
-.prodact-card-style{
+.prodact-card-style {
 	display: flex;
 	justify-items: end;
+}
+
+button.current {
+	background-color: red;
+	color: white;
 }

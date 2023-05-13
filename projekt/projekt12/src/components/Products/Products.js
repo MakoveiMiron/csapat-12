@@ -1,35 +1,77 @@
 import { readProducts } from "../../Services/Crud";
 import { useEffect, useState } from "react";
 import Pagination from "../Pagination/Pagination";
-import formatData from "../../Utils/formdata";
 import Searchbar from "../SearchBar/Searchbar";
+import ProductCard from "./ProductCard";
 import { SelectSort } from "./SelectSort";
-import "./Product.css"
+import "./Product.css";
 
 export default function Products() {
 	const [productList, setProductList] = useState([]);
-	const [filteredProducts, setFilteredProducts] = useState([])
+	const [sortedList, setSortedList] = useState([]);
+	const [filteredProducts, setFilteredProducts] = useState([]);
+	const [currentPage, setCurrentPage] = useState(1);
+	const [currentTable, setCurrentTable] = useState([]);
+	const [total, setTotal] = useState(0);
+	const limit = 9;
+
 	useEffect(() => {
 		readProducts().then((products) => {
-			setProductList(formatData(products));
+			setProductList(Object.values(products));
+			setSortedList(Object.values(products));
+			changeCurrentProducts(Object.values(products));
 		});
 	}, []);
 
-	useEffect(() => {
-		setFilteredProducts(productList);
-	},[productList])
+	function changeCurrentProducts(currentProducts) {
+		setTotal(currentProducts.length);
+		const firstPageIndex = (currentPage - 1) * limit;
+		const lastPageIndex = firstPageIndex + limit;
+		const currentTableData = currentProducts.slice(firstPageIndex, lastPageIndex);
+		setCurrentTable(currentTableData);
+	}
 
-	
+	useEffect(() => {
+		changeCurrentProducts(sortedList);
+		console.log(sortedList, "sorted");
+	}, [currentPage, sortedList, productList]);
 
 	return (
-		<>	
 		<div className="product-page">
 			<div className="fill-menu">
-			<SelectSort setProducts={setFilteredProducts} />
-			<Searchbar productList={productList} setFilteredProducts={setFilteredProducts} />
+				<Pagination
+					total={total}
+					currentPage={currentPage}
+					limit={limit}
+					onPageChange={setCurrentPage}
+				/>
+				<Searchbar
+					setSortedList={setSortedList}
+					productList={productList}
+					changeCurrentProducts={changeCurrentProducts}
+					setCurrentTable={setCurrentTable}
+					setFilteredProducts={setFilteredProducts}
+					filteredProducts={filteredProducts}
+				/>
+				<SelectSort
+					products={sortedList}
+					setCurrentTable={setCurrentTable}
+					setSortedList={setSortedList}
+				/>
 			</div>
-			<Pagination products={filteredProducts} pageLimit={9} />
+			<div className="products">
+				{currentTable.map((p) => (
+					<ProductCard key={p.id} id={p.id} product={p} />
+				))}
+			</div>
+			<div className="pagination-container">
+				<Pagination
+					total={total}
+					currentPage={currentPage}
+					limit={limit}
+					onPageChange={setCurrentPage}
+				/>
+			</div>
 		</div>
-		</>
 	);
 }
