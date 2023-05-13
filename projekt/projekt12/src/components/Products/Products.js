@@ -59,7 +59,7 @@ export default function Products() {
 					setSortedList={setSortedList}
 				/>
 			</div>
-			<div className="products">
+			<div className="product-box">
 				{currentTable.map((p) => (
 					<ProductCard key={p.id} id={p.id} product={p} />
 				))}
