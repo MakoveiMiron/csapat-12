@@ -1,7 +1,19 @@
 import { NavLink } from "react-router-dom";
-import "./Nav.css"
+import { signOut } from "firebase/auth";
+import "./Nav.css";
+import {auth} from '../../Constans/firebaseConfig'
+import { LoggedInUserContext } from "../../contexts/LoggedInUserContext";
+import { useContext } from "react";
 
-export default function Nav(){
+export default function LoggedInNav(){
+   
+    const [user, setUser] = useContext(LoggedInUserContext);
+
+   function handleLogOut(){
+        signOut(auth)
+        .then(resp => setUser(null))
+   }
+   
     return(
         <>
             <div className="nav">
@@ -12,8 +24,13 @@ export default function Nav(){
                     <NavLink to="/kapcsolat">Kapcsolat</NavLink>
                     <NavLink to="/admin">Admin</NavLink>
                 </div>
+                <div>
+                  {user && user.name}
+                </div>
                 <div className="nav-bar-right">
-                    <button></button>
+                    {user ? <button onClick={handleLogOut}>Kijelentkeztes</button> :
+                     <> <NavLink to="/belepes">Bejelentkezés</NavLink>
+                    <NavLink to="/regisztracio">Regisztráció</NavLink></>}
                     <NavLink to="/#">Kosár</NavLink>
                 </div>
             </div>

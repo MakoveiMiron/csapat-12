@@ -1,22 +1,26 @@
-import React, {useState} from 'react';
+import React, {useState,useContext,useEffect} from 'react';
 import {  signInWithEmailAndPassword   } from 'firebase/auth';
 import { auth } from '../../Constans/firebaseConfig';
 import { NavLink, useNavigate } from 'react-router-dom';
+import { LoggedInUserContext } from '../../contexts/LoggedInUserContext';
 import { API_URL } from '../../Constans/firebaseConstans';
  
 const Login = () => {
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-       
+    const [ user, setUser ] = useContext(LoggedInUserContext);
     const onLogin = (e) => {
         e.preventDefault();
         signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
             // Signed in
-            const user = userCredential.user;
+            console.log(userCredential)
+
+            fetch(`${API_URL}vasarlok/${userCredential._tokenResponse.localId}.json`)
+            .then(data => data.json())
+            .then(resp => {setUser({name: resp.name}); console.log(resp.name)})
             navigate("/")
-            console.log(user);
         })
         .catch((error) => {
             const errorCode = error.code;
@@ -25,8 +29,12 @@ const Login = () => {
         });
        
     }
- 
+    useEffect(()=>{
+        if(user)navigate("/");
+    },[])
+    
     return(
+        
         <>
             <main >        
                 <section>
@@ -82,6 +90,7 @@ const Login = () => {
                 </section>
             </main>
         </>
+        
     )
 }
  
