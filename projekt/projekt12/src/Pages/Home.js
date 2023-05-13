@@ -9,7 +9,7 @@ const [user, setUser] = useState(false)
         <>
             <main className="main">
                 <div className="about">
-                    <p>Bemutatkozás</p>
+                    <p className="intro">Bemutatkozás</p>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe mollitia laborum quidem sunt accusamus totam, maxime provident reprehenderit enim repudiandae eius corporis voluptatum temporibus non explicabo tenetur rem quo quos? Sint facere voluptates cum totam. Repellat quasi enim cum ex eveniet voluptates, deserunt error quo voluptate, iure molestias dicta voluptatum laudantium atque odio omnis corrupti! Non ratione eius maxime quas molestiae cum nulla et sequi minima. </p>
                 </div>
                 <div className="top-products">
