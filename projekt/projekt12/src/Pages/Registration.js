@@ -3,6 +3,7 @@ import { registrationUser } from '../Services/authentication.js';
 import { API_URL } from '../Constans/firebaseConstans.js';
 import {  createUserWithEmailAndPassword  } from 'firebase/auth';
 import { auth } from '../Constans/firebaseConfig.js';
+import { toast } from "react-toastify";
 import { NavLink, useNavigate } from 'react-router-dom';
 
 
@@ -29,14 +30,18 @@ const Signup = () => {
                 },
                 body: JSON.stringify({uid: userCredential._tokenResponse.localId, name})
             })
+            .then(data => data.json())
+            .then(resp => {
+			            toast.success("Sikeres regisztráció!", {
+				            position: toast.POSITION.TOP_RIGHT,
+			            });
+		    });
             navigate("/belepes")
-            // ...
         })
         .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            console.log(errorCode, errorMessage);
-            // ..
+            toast.error("A regisztráció sikertelen volt!", {
+                position: toast.POSITION.TOP_RIGHT,
+            });
         });
         
    

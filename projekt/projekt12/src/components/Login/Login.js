@@ -4,6 +4,7 @@ import { auth } from '../../Constans/firebaseConfig';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { LoggedInUserContext } from '../../contexts/LoggedInUserContext';
 import { API_URL } from '../../Constans/firebaseConstans';
+import { toast } from "react-toastify";
  
 const Login = () => {
     const navigate = useNavigate();
@@ -15,17 +16,21 @@ const Login = () => {
         signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
             // Signed in
-            console.log(userCredential)
+            toast.success("Sikeres belépés!", {
+				            position: toast.POSITION.TOP_RIGHT,
+			            });
 
             fetch(`${API_URL}vasarlok/${userCredential._tokenResponse.localId}.json`)
             .then(data => data.json())
-            .then(resp => {setUser({name: resp.name}); console.log(resp.name)})
+            .then(resp => {
+                setUser({name: resp.name});
+            })
             navigate("/")
         })
         .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            console.log(errorCode, errorMessage)
+            toast.error("Helytelen email-cím vagy jelszó!", {
+                    position: toast.POSITION.TOP_RIGHT,
+                });
         });
        
     }

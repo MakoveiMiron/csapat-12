@@ -9,6 +9,7 @@ import { Icon } from 'react-icons-kit';
 import {menu} from 'react-icons-kit/feather/menu';
 import {x} from 'react-icons-kit/feather/x';
 import {shoppingCart} from 'react-icons-kit/feather/shoppingCart';
+import { toast } from "react-toastify";
 
 export default function Nav(){
    
@@ -16,7 +17,12 @@ export default function Nav(){
 
    function handleLogOut(){
         signOut(auth)
-        .then(resp => setUser(null))
+        .then(resp =>{
+            setUser(null);
+            toast.success("Sikeres kijelentkezés!", {
+                position: toast.POSITION.TOP_RIGHT,
+            });
+        })
    }
    
    const [toggle, setToggle]=useState(false);
