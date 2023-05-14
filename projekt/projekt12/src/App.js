@@ -63,7 +63,7 @@ const router = createBrowserRouter([
 			},
 			{
 				path: "/admin/termekek",
-				element: <AdminProducts />,
+				element: <Products />,
 			},
 			{
 				path: "/admin/termekek/:id/torles",

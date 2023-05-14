@@ -1,18 +1,22 @@
-import { readProducts } from "../../Services/Crud";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import Pagination from "../Pagination/Pagination";
 import Searchbar from "../SearchBar/Searchbar";
-import ProductCard from "./ProductCard";
-import { SelectSort } from "./SelectSort";
-import "./Product.css";
+import AdminProductCard from "../Admin products/AdminProductCard";
+import ProductCard from "../Products/ProductCard"
+import { readProducts } from "../../Services/Crud";
+import { SelectSort } from "../Products/SelectSort";
+import { LoggedInUserContext } from "../../contexts/LoggedInUserContext";
+import "./Product.css"
 
-export default function Products() {
+
+export default function AdminProducts() {
 	const [productList, setProductList] = useState([]);
 	const [sortedList, setSortedList] = useState([]);
 	const [filteredProducts, setFilteredProducts] = useState([]);
 	const [currentPage, setCurrentPage] = useState(1);
 	const [currentTable, setCurrentTable] = useState([]);
 	const [total, setTotal] = useState(0);
+	const [user,setUser] = useContext(LoggedInUserContext);
 	const limit = 9;
 
 	useEffect(() => {
@@ -33,39 +37,35 @@ export default function Products() {
 
 	useEffect(() => {
 		changeCurrentProducts(sortedList);
-		console.log(sortedList, "sorted");
 	}, [currentPage, sortedList, productList]);
 
-	return (
-		<div className="product-page">
-			<div className="pagination-container">
-				<Pagination
-					total={total}
-					currentPage={currentPage}
-					limit={limit}
-					onPageChange={setCurrentPage}
-				/>
-			</div>
-			<div className="fill-menu">
-				<Searchbar
-					setSortedList={setSortedList}
-					productList={productList}
-					changeCurrentProducts={changeCurrentProducts}
-					setCurrentTable={setCurrentTable}
-					setFilteredProducts={setFilteredProducts}
-					filteredProducts={filteredProducts}
-				/>
-				<SelectSort
-					products={sortedList}
-					setCurrentTable={setCurrentTable}
-					setSortedList={setSortedList}
-				/>
-			</div>
-			<div className="product-box">
+	function handleLogin(){
+		if(user.uid === "KqiGKLztHcVTxJukIfzbmUMgD8E3"){
+			return (
+				<>
+				<div className="products">
+				{currentTable.map((p) => (
+					<AdminProductCard key={p.id} id={p.id} product={p} />
+				))}
+				</div>
+				</>
+			)
+		}
+		else{
+			return (
+				<>
+				<div className="products">
 				{currentTable.map((p) => (
 					<ProductCard key={p.id} id={p.id} product={p} />
 				))}
-			</div>
+				</div>
+				</>
+			)
+		}
+	}
+
+	return (
+		<>
 			<div className="pagination-container">
 				<Pagination
 					total={total}
@@ -74,6 +74,28 @@ export default function Products() {
 					onPageChange={setCurrentPage}
 				/>
 			</div>
-		</div>
+			<Searchbar
+				setSortedList={setSortedList}
+				productList={productList}
+				changeCurrentProducts={changeCurrentProducts}
+				setCurrentTable={setCurrentTable}
+				setFilteredProducts={setFilteredProducts}
+				filteredProducts={filteredProducts}
+			/>
+			<SelectSort
+				products={sortedList}
+				setCurrentTable={setCurrentTable}
+				setSortedList={setSortedList}
+			/>
+			{handleLogin(user)}
+			<div className="pagination-container">
+				<Pagination
+					total={total}
+					currentPage={currentPage}
+					limit={limit}
+					onPageChange={setCurrentPage}
+				/>
+			</div>
+		</>
 	);
 }
