@@ -1,13 +1,18 @@
+.filter {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    min-height: 1.5rem;
+    gap: 0.1rem;
+}
 .searchButton {
     border: bisque;
     background-color:rgb(250, 215, 173);
     border-radius: 0.3em;
     position: relative;
-    right: 1em;
-    padding-top:0.45em;
-    padding-bottom:0.35em ;
-    padding-left: 0.5em;
+    right: 0.6rem;
     align-self: center;
+    min-height: 1.5rem;
    
     
 }
@@ -16,16 +21,10 @@
     background-color:rgb(250, 215, 173);
     border-radius: 0.3em;
     position: relative;
-    right: 1em;
-    padding-top:0.45em;
-    padding-bottom:0.35em ;
     align-self: center;
     position: relative;
     right: 1em;
-}
-.filter {
-    
-    padding: 1em;
+    min-height: 1.5rem;
 }
 
 .searchInput {
@@ -33,5 +32,7 @@
     background-color:bisque;
     border-radius: 0.2em;
     font-size: medium;
-    padding: 0.3em;
+    min-height: 1.5rem;
+    appearance: none;
+    
 }
