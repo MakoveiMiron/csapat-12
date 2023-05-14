@@ -34,11 +34,13 @@ export default function Nav(){
     return(
         <>
             <div className={toggle?'navbar expanded': 'navbar'}>
-            <div className="logo">
+                <div className="logo">
                     <NavLink to="/">Főoldal/logo</NavLink>
                 </div>
-                
-                    <ul className="links">
+                <ul className="links">
+                        <li className="username">
+                        {user && user.name}
+                        </li>
                         <li>
                         <NavLink to="/termekek">Termékek</NavLink>
                         </li>
@@ -48,23 +50,23 @@ export default function Nav(){
                         <li>
                         <NavLink to="/kapcsolat">Kapcsolat</NavLink>
                         </li>
-                        <li>
-                        <NavLink to="/admin">Admin</NavLink>
-                        </li>
+                        {user && user.uid === 'KqiGKLztHcVTxJukIfzbmUMgD8E3' && (
+                            <li>
+                            <NavLink to="/admin">Admin</NavLink>
+                            </li>
+                        )}
                     
                 
-                <div>
-                  {user && user.name}
-                </div>
-                
                     {user ? <button onClick={handleLogOut}>Kijelentkeztes</button> :
-                     <> <li>
-                     <NavLink to="/belepes">Bejelentkezés</NavLink>
-                     </li>
-                     <li>
-                     <NavLink to="/regisztracio">Regisztráció</NavLink>
-                     </li>
-                    </>}
+                     <> 
+                        <li>
+                        <NavLink to="/belepes">Bejelentkezés</NavLink>
+                        </li>
+                        <li>
+                        <NavLink to="/regisztracio">Regisztráció</NavLink>
+                        </li>
+                    </>
+                    }
                  </ul>
                  <div className="toggle-icon" onClick={handleToggle}>{toggle?<Icon icon={x} size={30}/>:<Icon icon={menu} size={30}/>}</div>
                 <div className="chart">
