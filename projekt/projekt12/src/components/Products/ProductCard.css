@@ -6,15 +6,17 @@
     overflow: hidden;
     max-width: 30rem;
     max-height: 15rem;
+    min-height: 15rem;
 }
 
 .product-content{
-    padding: var(--ps-medium);
-    gap: var(--ps-medium);
+    padding-left: 0.2rem;
+    margin-left: 0.2rem;
     display: flex;
-    /* align-items: baseline;
-    align-content: center; */
     flex-wrap: wrap;
+    align-items: center;
+    max-height: 15rem;
+    min-height: 15rem;
 
 }
 
