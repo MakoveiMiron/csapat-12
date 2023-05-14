@@ -38,13 +38,15 @@ export default function Products() {
 
 	return (
 		<div className="product-page">
-			<div className="fill-menu">
+			<div className="pagination-container">
 				<Pagination
 					total={total}
 					currentPage={currentPage}
 					limit={limit}
 					onPageChange={setCurrentPage}
 				/>
+			</div>
+			<div className="fill-menu">
 				<Searchbar
 					setSortedList={setSortedList}
 					productList={productList}
