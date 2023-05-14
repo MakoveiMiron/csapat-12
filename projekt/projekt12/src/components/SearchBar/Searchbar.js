@@ -1,42 +1,6 @@
-// import "./Searchbar-style.css";
-// import { useState } from "react";
-
-// const Searchbar = (props) => {
-// 	const [value, setValue] = useState("");
-
-// 	const onChange = (event) => {
-// 		let text = event.target.value;
-// 		setValue(text.toLowerCase()); /// ez majd extrahoz kell
-// 	};
-
-// 	function handleClick() {
-// 		const filtered = props.productList.filter((product) =>
-// 			product.title.toLowerCase().includes(value)
-// 		);
-
-// 		console.log(filtered);
-// 		props.setSortedList(filtered);
-// 	}
-
-// 	function allProducts() {
-// 		props.setSortedList(props.productList);
-// 	}
-
-// 	return (
-// 		<div className="Filter">
-// 			<input type="text" value={value} onChange={onChange} />
-// 			<button onClick={allProducts}>x</button>
-// 			<button onClick={handleClick}>Kereses</button>
-// 		</div>
-// 	);
-// };
-
-// export default Searchbar;
-
 import "./Searchbar-style.css";
 import { useState } from "react";
-import {FiSearch, FiDelete} from "react-icons/fi"
-
+import { FiSearch, FiDelete } from "react-icons/fi";
 
 const Searchbar = (props) => {
 	const [searchText, setSearchText] = useState("");
@@ -75,7 +39,7 @@ const Searchbar = (props) => {
 
 	return (
 		<div className="filter">
-			<input 
+			<input
 				className="searchInput"
 				type="text"
 				placeholder="Keresés"
@@ -96,8 +60,12 @@ const Searchbar = (props) => {
 				value={maxPrice}
 				onChange={handleMaxPriceInputChange}
 			/>
-			<button className="searchButton" onClick={handleSearchButtonClick}><FiSearch/></button>
-			<button className="searchButtonBack" onClick={handleResetButtonClick}><FiDelete/></button>
+			<button className="searchButton" onClick={handleSearchButtonClick}>
+				<FiSearch />
+			</button>
+			<button className="searchButtonBack" onClick={handleResetButtonClick}>
+				<FiDelete />
+			</button>
 		</div>
 	);
 };

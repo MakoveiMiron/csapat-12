@@ -1,3 +1,4 @@
+import "./App.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./Pages/Home";
 import Products from "./components/Products/Products";
@@ -14,7 +15,8 @@ import Login from "./components/Login/Login";
 import Registration from "./Pages/Registration";
 import { LoggedInUserContext } from "./contexts/LoggedInUserContext";
 import { useState } from "react";
-import './App.css';
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const router = createBrowserRouter([
 	{
@@ -75,12 +77,13 @@ const router = createBrowserRouter([
 	},
 ]);
 function App() {
-  const [user, setUser] = useState(false)
-  return (
-    <LoggedInUserContext.Provider value={[user,setUser]}>
+	const [user, setUser] = useState(false);
+	return (
+		<LoggedInUserContext.Provider value={[user, setUser]}>
 			<RouterProvider router={router} />
+			<ToastContainer />
 		</LoggedInUserContext.Provider>
-  );
+	);
 }
 
 export default App;

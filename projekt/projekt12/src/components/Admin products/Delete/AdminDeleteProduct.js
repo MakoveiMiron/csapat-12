@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { deleteProduct, readProducts } from "../../../Services/Crud";
 import formatData from "../../../Utils/formdata";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function AdminDeleteProduct() {
 	const [productDelete, setProductDelete] = useState("");
@@ -17,8 +19,17 @@ export default function AdminDeleteProduct() {
 			setProductDelete(productToDelete.title);
 		});
 	}, [id]);
+
 	const deleteProductfgv = () => {
-		deleteProduct(id).then((json) => navigate("/admin/termekek"));
+		deleteProduct(id)
+			.then((json) => {
+				navigate("/admin/termekek");
+				toast.success("A termék sikeresen törölve lett");
+			})
+			.catch((err) => {
+				console.error(err);
+				toast.error("Hiba történt a termék törlése során");
+			});
 	};
 
 	return (
