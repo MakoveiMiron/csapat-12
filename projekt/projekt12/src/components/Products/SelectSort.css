@@ -3,16 +3,27 @@
     justify-items: center;
     align-items: center;
     gap: 0.3rem;
-    height: fit-content;
+    min-height: 1.5rem;
+    position: relative;
 }
 
 .sort-text{
     font-size: 1em;
-
+    font-weight: 600;
+    
 }
 
 .select-box{
-    height:fit-content;
-    background-color: azure;
+    background-color: bisque;
     font-weight: 700;
+    padding: 0.25rem;
+    border: 0;
+    width: 8rem;
+    display: flex;
+    justify-content: center;
+}
+
+.select-box:hover{
+    background-color: rgb(228, 191, 147);
+    cursor: pointer;
 }
