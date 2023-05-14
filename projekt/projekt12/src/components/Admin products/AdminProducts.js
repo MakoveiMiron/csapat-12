@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Pagination from "../Pagination/Pagination";
 import Searchbar from "../SearchBar/Searchbar";
-import AdminProductCard from "./AdminProductCard";
+import ProductCard from "../Products/ProductCard";
 import { readProducts } from "../../Services/Crud";
 import { SelectSort } from "../Products/SelectSort";
 
@@ -35,7 +35,7 @@ export default function AdminProducts() {
 	}, [currentPage, sortedList, productList]);
 
 	return (
-		<>
+		<div className="product-page">
 			<div className="pagination-container">
 				<Pagination
 					total={total}
@@ -44,22 +44,24 @@ export default function AdminProducts() {
 					onPageChange={setCurrentPage}
 				/>
 			</div>
-			<Searchbar
-				setSortedList={setSortedList}
-				productList={productList}
-				changeCurrentProducts={changeCurrentProducts}
-				setCurrentTable={setCurrentTable}
-				setFilteredProducts={setFilteredProducts}
-				filteredProducts={filteredProducts}
-			/>
-			<SelectSort
-				products={sortedList}
-				setCurrentTable={setCurrentTable}
-				setSortedList={setSortedList}
-			/>
-			<div className="products">
+			<div className="fill-menu">
+				<Searchbar
+					setSortedList={setSortedList}
+					productList={productList}
+					changeCurrentProducts={changeCurrentProducts}
+					setCurrentTable={setCurrentTable}
+					setFilteredProducts={setFilteredProducts}
+					filteredProducts={filteredProducts}
+				/>
+				<SelectSort
+					products={sortedList}
+					setCurrentTable={setCurrentTable}
+					setSortedList={setSortedList}
+				/>
+			</div>
+			<div className="product-box">
 				{currentTable.map((p) => (
-					<AdminProductCard key={p.id} id={p.id} product={p} />
+					<ProductCard key={p.id} id={p.id} product={p} />
 				))}
 			</div>
 			<div className="pagination-container">
@@ -70,6 +72,6 @@ export default function AdminProducts() {
 					onPageChange={setCurrentPage}
 				/>
 			</div>
-		</>
+		</div>
 	);
 }
