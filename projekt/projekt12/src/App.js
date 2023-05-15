@@ -2,21 +2,22 @@ import "./App.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./Pages/Home";
 import Products from "./components/Products/Products";
-import Admin from "./Pages/Admin";
 import Contact from "./components/Contact/Contact";
 import AboutUs from "./components/AboutUs/AboutUs";
 import Layout from "./components/Layout/Layout";
 import AdminLayout from "./components/Layout/AdminLayout";
 import CreateProduct from "./components/CreateProduct/CreateProduct";
-import AdminProducts from "./components/Admin products/AdminProducts";
 import AdminDeleteProduct from "./components/Admin products/Delete/AdminDeleteProduct";
 import AdminModifyProduct from "./components/Admin products/Modify/AdminModifyProduct";
 import Login from "./components/Login/Login";
 import Registration from "./Pages/Registration";
 import { LoggedInUserContext } from "./contexts/LoggedInUserContext";
+import { AdminContext } from "./contexts/AdminContext";
 import { useState } from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import AdminAuth from "./components/Auth/AdminAuth";
+import AdminLogin from "./components/AdminLogin/AdminLogin";
 
 const router = createBrowserRouter([
 	{
@@ -50,13 +51,17 @@ const router = createBrowserRouter([
 		],
 	},
 	{
+		path: "/admin/belepes",
+		element: <AdminLogin />,
+	},
+	{
 		path: "/admin",
-		element: <AdminLayout />,
+		element: (
+			<AdminAuth>
+				<AdminLayout />
+			</AdminAuth>
+		),
 		children: [
-			{
-				path: "/admin",
-				element: <Admin />,
-			},
 			{
 				path: "/admin/termek-felvetel",
 				element: <CreateProduct />,
@@ -78,11 +83,14 @@ const router = createBrowserRouter([
 ]);
 function App() {
 	const [user, setUser] = useState(false);
+	const [isAdmin, setIsAdmin] = useState(false);
 	return (
-		<LoggedInUserContext.Provider value={[user, setUser]}>
-			<RouterProvider router={router} />
-			<ToastContainer />
-		</LoggedInUserContext.Provider>
+		<AdminContext.Provider value={[isAdmin, setIsAdmin]}>
+			<LoggedInUserContext.Provider value={[user, setUser]}>
+				<RouterProvider router={router} />
+				<ToastContainer />
+			</LoggedInUserContext.Provider>
+		</AdminContext.Provider>
 	);
 }
 
