@@ -6,14 +6,19 @@ import {
 	fromHighToLow,
 } from "../../Utils/ProductSorting";
 import { useState, useEffect } from "react";
+import { useRef } from "react";
 
 export function SelectSort(props) {
 	const [sortDirection, setDirection] = useState("increasing");
+	const prevSortDirectionRef = useRef(sortDirection);
 
 	useEffect(() => {
-		const query = new URLSearchParams(window.location.search);
-		query.set("sortOrientation", sortDirection);
-		window.history.pushState(null, "", `?${query.toString()}`);
+		if (prevSortDirectionRef.current !== sortDirection) {
+			const query = new URLSearchParams(window.location.search);
+			query.set("sortOrientation", sortDirection);
+			window.history.pushState(null, "", `?${query.toString()}`);
+			prevSortDirectionRef.current = sortDirection;
+		}
 	}, [sortDirection]);
 
 	function handleChange(e) {
