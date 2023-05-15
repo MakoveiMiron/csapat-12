@@ -42,7 +42,7 @@ export default function AdminProducts() {
 	}, [currentPage, sortedList, productList]);
 
 	return (
-		<>
+		<div className="product-page">
 			<div className="pagination-container">
 				<Pagination
 					total={total}
@@ -71,7 +71,7 @@ export default function AdminProducts() {
 					))}
 				</div>
 			) : (
-				<div className="products">
+				<div className="product-box">
 					{currentTable.map((p) => (
 						<ProductCard key={p.id} id={p.id} product={p} />
 					))}
@@ -85,6 +85,6 @@ export default function AdminProducts() {
 					onPageChange={setCurrentPage}
 				/>
 			</div>
-		</>
+		</div>
 	);
 }
