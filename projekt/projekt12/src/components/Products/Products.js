@@ -2,12 +2,12 @@ import { useEffect, useState, useContext } from "react";
 import Pagination from "../Pagination/Pagination";
 import Searchbar from "../SearchBar/Searchbar";
 import AdminProductCard from "../Admin products/AdminProductCard";
-import ProductCard from "../Products/ProductCard"
+import ProductCard from "../Products/ProductCard";
 import { readProducts } from "../../Services/Crud";
 import { SelectSort } from "../Products/SelectSort";
-import { LoggedInUserContext } from "../../contexts/LoggedInUserContext";
-import "./Product.css"
-
+import { AdminContext } from "../../contexts/AdminContext";
+import { useLocation } from "react-router-dom";
+import "./Product.css";
 
 export default function AdminProducts() {
 	const [productList, setProductList] = useState([]);
@@ -16,7 +16,9 @@ export default function AdminProducts() {
 	const [currentPage, setCurrentPage] = useState(1);
 	const [currentTable, setCurrentTable] = useState([]);
 	const [total, setTotal] = useState(0);
-	const [user,setUser] = useContext(LoggedInUserContext);
+	const [isAdmin, setisAdmin] = useContext(AdminContext);
+	const location = useLocation();
+
 	const limit = 9;
 
 	useEffect(() => {
@@ -38,31 +40,6 @@ export default function AdminProducts() {
 	useEffect(() => {
 		changeCurrentProducts(sortedList);
 	}, [currentPage, sortedList, productList]);
-
-	function handleLogin(){
-		if(user.uid === "KqiGKLztHcVTxJukIfzbmUMgD8E3"){
-			return (
-				<>
-				<div className="products">
-				{currentTable.map((p) => (
-					<AdminProductCard key={p.id} id={p.id} product={p} />
-				))}
-				</div>
-				</>
-			)
-		}
-		else{
-			return (
-				<>
-				<div className="products">
-				{currentTable.map((p) => (
-					<ProductCard key={p.id} id={p.id} product={p} />
-				))}
-				</div>
-				</>
-			)
-		}
-	}
 
 	return (
 		<>
@@ -87,7 +64,19 @@ export default function AdminProducts() {
 				setCurrentTable={setCurrentTable}
 				setSortedList={setSortedList}
 			/>
-			{handleLogin(user)}
+			{isAdmin && location.pathname.includes("/admin") ? (
+				<div className="products">
+					{currentTable.map((p) => (
+						<AdminProductCard key={p.id} id={p.id} product={p} />
+					))}
+				</div>
+			) : (
+				<div className="products">
+					{currentTable.map((p) => (
+						<ProductCard key={p.id} id={p.id} product={p} />
+					))}
+				</div>
+			)}
 			<div className="pagination-container">
 				<Pagination
 					total={total}
