@@ -71,7 +71,7 @@ export default function Nav() {
 					{toggle ? <Icon icon={x} size={30} /> : <Icon icon={menu} size={30} />}
 				</div>
 				<div className="chart">
-					<NavLink to="/#">
+					<NavLink to="/kosar">
 						<Icon icon={shoppingCart} size={30} />
 					</NavLink>
 				</div>

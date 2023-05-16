@@ -18,6 +18,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import AdminAuth from "./components/Auth/AdminAuth";
 import AdminLogin from "./components/AdminLogin/AdminLogin";
+import Cart from "./components/Cart/Cart";
 
 const router = createBrowserRouter([
 	{
@@ -47,6 +48,10 @@ const router = createBrowserRouter([
 			{
 				path: "/regisztracio",
 				element: <Registration />,
+			},
+			{
+				path: "/kosar",
+				element: <Cart />,
 			},
 		],
 	},
