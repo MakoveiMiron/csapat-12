@@ -1,24 +1,24 @@
 import "./App.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Home from "./Pages/Home";
-import Products from "./components/Products/Products";
-import Contact from "./components/Contact/Contact";
-import AboutUs from "./components/AboutUs/AboutUs";
-import Layout from "./components/Layout/Layout";
-import AdminLayout from "./components/Layout/AdminLayout";
-import CreateProduct from "./components/CreateProduct/CreateProduct";
-import AdminDeleteProduct from "./components/Admin products/Delete/AdminDeleteProduct";
-import AdminModifyProduct from "./components/Admin products/Modify/AdminModifyProduct";
-import Login from "./components/Login/Login";
-import Registration from "./Pages/Registration";
+import Home from "./pages/webshop/Home";
+import Products from "./components/products/Products";
+import Contact from "./pages/webshop/Contact";
+import AboutUs from "./pages/webshop/AboutUs";
+import Layout from "./components/webshop/Layout";
+import AdminLayout from "./components/admin/AdminLayout";
+import CreateProduct from "./pages/admin/CreateProduct";
+import AdminDeleteProduct from "./pages/admin/AdminDeleteProduct";
+import AdminModifyProduct from "./pages/admin/AdminModifyProduct";
+import UserLogin from "./pages/webshop/UserLogin";
+import Registration from "./pages/webshop/Registration";
 import { LoggedInUserContext } from "./contexts/LoggedInUserContext";
 import { AdminContext } from "./contexts/AdminContext";
 import { useState } from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import AdminAuth from "./components/Auth/AdminAuth";
-import AdminLogin from "./components/AdminLogin/AdminLogin";
-import Cart from "./components/Cart/Cart";
+import AdminAuth from "./components/admin/auth/AdminAuth";
+import AdminLogin from "./pages/admin/AdminLogin";
+import Cart from "./pages/webshop/Cart";
 
 const router = createBrowserRouter([
 	{
@@ -43,7 +43,7 @@ const router = createBrowserRouter([
 			},
 			{
 				path: "/belepes",
-				element: <Login />,
+				element: <UserLogin />,
 			},
 			{
 				path: "/regisztracio",

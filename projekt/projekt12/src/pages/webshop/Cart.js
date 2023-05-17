@@ -1,6 +1,6 @@
-import { API_URL } from "../../Constans/firebaseConstans";
+import { API_URL } from "../../constans/firebaseConstans";
 import { useEffect } from "react";
-import { readUsers } from "../../Services/AuthCud";
+import { readUsers } from "../../services/authCrud";
 
 const Cart = () => {
 	const userId = "2qOcQRARk9PyHRzll7O72ADz8df1";

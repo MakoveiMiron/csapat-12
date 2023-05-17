@@ -1,9 +1,9 @@
 import React, { useState, useContext, useEffect } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../Constans/firebaseConfig";
+import { auth } from "../../constans/firebaseConfig";
 import { NavLink, useNavigate } from "react-router-dom";
 import { AdminContext } from "../../contexts/AdminContext";
-import { API_URL } from "../../Constans/firebaseConstans";
+import { API_URL } from "../../constans/firebaseConstans";
 import { toast } from "react-toastify";
 
 const AdminLogin = () => {
@@ -18,7 +18,7 @@ const AdminLogin = () => {
 				toast.success("Sikeres belépés!", {
 					position: toast.POSITION.TOP_RIGHT,
 				});
-
+				// fetchet kitenni services-be
 				fetch(`${API_URL}vasarlok/${userCredential._tokenResponse.localId}.json`)
 					.then((data) => data.json())
 					.then((resp) => {

@@ -1,4 +1,4 @@
-import { API_URL } from "../Constans/firebaseConstans";
+import { API_URL } from "../constans/firebaseConstans";
 
 export function readProducts() {
 	return fetch(`${API_URL}termekek.json`)

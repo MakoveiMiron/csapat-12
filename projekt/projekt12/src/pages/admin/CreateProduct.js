@@ -1,4 +1,4 @@
-import { createProduct, deleteProduct } from "../../Services/Crud";
+import { createProduct } from "../../services/Crud";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";

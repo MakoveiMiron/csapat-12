@@ -1,8 +1,8 @@
 import "./AdminDeleteProduct.css";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { deleteProduct, readProducts } from "../../../Services/Crud";
-import formatData from "../../../Utils/formdata";
+import { deleteProduct, readProducts } from "../../services/Crud";
+import formatData from "../../utils/formdata";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 

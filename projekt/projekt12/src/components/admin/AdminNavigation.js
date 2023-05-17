@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 import { AdminContext } from "../../contexts/AdminContext";
-import { auth } from "../../Constans/firebaseConfig";
+import { auth } from "../../constans/firebaseConfig";
 import { useContext } from "react";
 import { toast } from "react-toastify";
 import { signOut } from "firebase/auth";

@@ -1,9 +1,9 @@
 import React, {useState,useContext,useEffect} from 'react';
 import {  signInWithEmailAndPassword   } from 'firebase/auth';
-import { auth } from '../../Constans/firebaseConfig';
+import { auth } from '../../../constans/firebaseConfig';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { LoggedInUserContext } from '../../contexts/LoggedInUserContext';
-import { API_URL } from '../../Constans/firebaseConstans';
+import { LoggedInUserContext } from '../../../contexts/LoggedInUserContext';
+import { API_URL } from '../../../constans/firebaseConstans';
 import { toast } from "react-toastify";
 import "./login.css";
  

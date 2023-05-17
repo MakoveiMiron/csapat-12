@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { readProducts, updateProduct } from "../../../Services/Crud";
-import formatData from "../../../Utils/formdata";
+import { updateProduct, readProducts } from "../../services/Crud";
+import formatData from "../../utils/formdata";
 import "./AdminModifyProduct.css";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";

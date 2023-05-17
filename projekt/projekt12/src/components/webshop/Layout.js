@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
-import Nav from "../Nav/Nav";
-import Footer from "../Footer/Footer";
+import Nav from "../webshop/nav/Nav";
+import Footer from "../footer/Footer";
 import { useEffect, useContext } from "react";
 import { LoggedInUserContext } from "../../contexts/LoggedInUserContext";
 export default function Layout(){

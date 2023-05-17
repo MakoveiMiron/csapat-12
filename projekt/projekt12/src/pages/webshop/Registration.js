@@ -1,8 +1,8 @@
 import {useState} from 'react';
-import { registrationUser } from '../Services/authentication.js';
-import { API_URL } from '../Constans/firebaseConstans.js';
+import { registrationUser } from '../../services/authentication.js';
+import { API_URL } from '../../constans/firebaseConstans.js';
 import {  createUserWithEmailAndPassword  } from 'firebase/auth';
-import { auth } from '../Constans/firebaseConfig.js';
+import { auth } from '../../constans/firebaseConfig.js';
 import { toast } from "react-toastify";
 import { NavLink, useNavigate } from 'react-router-dom';
 import "./registration.css";

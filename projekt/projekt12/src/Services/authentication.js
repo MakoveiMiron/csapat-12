@@ -1,4 +1,4 @@
-import { API_KEY, API_URL } from "../Constans/firebaseConstans";
+import { API_KEY, API_URL } from "../constans/firebaseConstans";
 
 export async function registrationUser(data){
         return fetch(`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${API_KEY}`,{

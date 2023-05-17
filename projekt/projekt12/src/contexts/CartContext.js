@@ -1,6 +1,6 @@
 import { useState, useEffect, createContext } from "react";
-import cartFormatter from "../Utils/cartFormatter";
-import { readUsers } from "../Services/AuthCud";
+import cartFormatter from "../utils/cartFormatter";
+import { readUsers } from "../services/authCrud";
 
 export const cartContext = createContext([]);
 

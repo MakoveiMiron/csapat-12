@@ -1,10 +1,10 @@
 import "./ProductCard.css";
-import cartFormatter from "../../Utils/cartFormatter";
+import cartFormatter from "../../../utils/cartFormatter";
 import { useContext, useState, useEffect } from "react";
-import { readProducts } from "../../Services/Crud";
-import { createUsersCart } from "../../Services/AuthCud";
-import { cartContext } from "../../contexts/CartContext";
-import { readUsers } from "../../Services/AuthCud";
+import { readProducts } from "../../../services/Crud";
+import { createUsersCart } from "../../../services/authCrud";
+import { cartContext } from "../../../contexts/CartContext";
+import { readUsers } from "../../../services/authCrud";
 import { toast } from "react-toastify";
 
 export default function ProductCard(props) {

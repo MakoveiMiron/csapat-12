@@ -1,10 +1,10 @@
 import { useEffect, useState, useContext } from "react";
-import Pagination from "../Pagination/Pagination";
-import Searchbar from "../SearchBar/Searchbar";
-import AdminProductCard from "../Admin products/AdminProductCard";
-import ProductCard from "../Products/ProductCard";
-import { readProducts } from "../../Services/Crud";
-import { SelectSort } from "../Products/SelectSort";
+import Pagination from "../pagination/Pagination";
+import Searchbar from "../searchBar/Searchbar";
+import AdminProductCard from "../admin/adminProducts/AdminProductCard";
+import ProductCard from "../webshop/productCard/ProductCard";
+import { readProducts } from "../../services/Crud"
+import { SelectSort } from "../products/SelectSort";
 import { AdminContext } from "../../contexts/AdminContext";
 import { useLocation } from "react-router-dom";
 import "./Product.css";

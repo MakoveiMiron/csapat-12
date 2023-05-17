@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./Home.css";
-import ProductCard from "../components/Products/ProductCard";
-import { readProducts } from "../Services/Crud";
+import ProductCard from "../../components/webshop/productCard/ProductCard";
+import { readProducts } from "../../services/Crud";
 export default function Home() {
 	const [featuredProducts, setFeaturedProducts] = useState([]);
 
