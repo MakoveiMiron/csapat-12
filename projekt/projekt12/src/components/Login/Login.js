@@ -5,6 +5,7 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { LoggedInUserContext } from '../../contexts/LoggedInUserContext';
 import { API_URL } from '../../Constans/firebaseConstans';
 import { toast } from "react-toastify";
+import "./login.css";
  
 const Login = () => {
     const navigate = useNavigate();
@@ -42,53 +43,54 @@ const Login = () => {
     return(
         
         <>
-            <main >        
+            <main className='loginMain' >        
                 <section>
-                    <div>                                            
-                        <p> FocusApp </p>                       
+                    <div className='wrapper'>                                                                
                                                        
                         <form>                                              
                             <div>
+                                <h1 className='login-h1'>Bejelentkezés</h1>
                                 <label htmlFor="email-address">
-                                    Email address
                                 </label>
-                                <input
+                                <p><input 
+                                    className='login-input'
                                     id="email-address"
                                     name="email"
                                     type="email"                                    
-                                    required                                                                                
-                                    placeholder="Email address"
+                                    required
+                                    placeholder='Email cim'                                                                                
                                     onChange={(e)=>setEmail(e.target.value)}
-                                />
+                                /></p>
                             </div>
 
                             <div>
                                 <label htmlFor="password">
-                                    Password
                                 </label>
-                                <input
+                                <p><input
+                                    className='login-input'
                                     id="password"
                                     name="password"
                                     type="password"                                    
-                                    required                                                                                
-                                    placeholder="Password"
+                                    required
+                                    placeholder='Jelszó'                                                                                
                                     onChange={(e)=>setPassword(e.target.value)}
-                                />
+                                /></p>
                             </div>
                                                 
                             <div>
-                                <button                                    
+                                <button
+                                    className='login-button'                                    
                                     onClick={onLogin}                                        
                                 >      
-                                    Login                                                                  
+                                    Belépés                                                                  
                                 </button>
                             </div>                               
                         </form>
                        
                         <p className="text-sm text-white text-center">
-                            No account yet? {' '}
-                            <NavLink to="/">
-                                Sign up
+                            Nincs fiókod? {' '}
+                            <NavLink to="/regisztracio">
+                                Regisztrálok
                             </NavLink>
                         </p>
                                                    

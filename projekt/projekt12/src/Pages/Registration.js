@@ -5,6 +5,7 @@ import {  createUserWithEmailAndPassword  } from 'firebase/auth';
 import { auth } from '../Constans/firebaseConfig.js';
 import { toast } from "react-toastify";
 import { NavLink, useNavigate } from 'react-router-dom';
+import "./registration.css";
 
 
 
@@ -47,15 +48,14 @@ const Signup = () => {
    
     }
     return (
-        <main >        
+        <main className='regMain' >        
             <section>
-                <div>
+                <div className='wrapper-reg'>
                     <div>                  
-                        <h1> FocusApp </h1>                                                                            
+                        <h1> Regisztráció </h1>                                                                            
                         <form>    
                         <div>
                                 <label htmlFor="name">
-                                    Full name : 
                                 </label>
                                 <input
                                     type="text"
@@ -63,13 +63,12 @@ const Signup = () => {
                                     value={name}
                                     onChange={(e) => setName(e.target.value)} 
                                     required                                 
-                                    placeholder="Full name"              
+                                    placeholder="Teljes név"              
                                 />
                             </div>  
 
                             <div>
                                 <label htmlFor="email-address">
-                                    Email address : 
                                 </label>
                                 <input
                                     type="email"
@@ -77,13 +76,12 @@ const Signup = () => {
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}  
                                     required                                    
-                                    placeholder="Email address"                                
+                                    placeholder="Email cim"                                
                                 />
                             </div>
     
                             <div>
                                 <label htmlFor="password">
-                                    Password : 
                                 </label>
                                 <input
                                     type="password"
@@ -91,7 +89,7 @@ const Signup = () => {
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)} 
                                     required                                 
-                                    placeholder="Password"              
+                                    placeholder="Jelszó"              
                                 />
                             </div>    
                                             
@@ -100,15 +98,15 @@ const Signup = () => {
                                 type="submit" 
                                 onClick={onSubmit}                        
                             >  
-                                Sign up                                
+                                Regisztráció                              
                             </button>
                                                                          
                         </form>
                        
                         <p>
-                            Already have an account?{' '}
+                            Van már fiókod?{' '}
                             <NavLink to="/belepes" >
-                                Sign in
+                                Belépek
                             </NavLink>
                         </p>                   
                     </div>
