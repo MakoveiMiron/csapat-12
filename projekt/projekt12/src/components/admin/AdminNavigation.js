@@ -20,6 +20,7 @@ export default function AdminNavigation() {
 			<NavLink to="/admin/">Admin</NavLink>
 			<NavLink to="/admin/termek-felvetel">Termék felvétel</NavLink>
 			<NavLink to="/admin/termekek">Termékek</NavLink>
+			<NavLink to="/admin/vasarlok">Vásárlók lista</NavLink>
 			<NavLink to="/">Főoldal</NavLink>
 			{isAdmin && <button onClick={handleLogOut}>Kijelentkeztes</button>}
 		</>

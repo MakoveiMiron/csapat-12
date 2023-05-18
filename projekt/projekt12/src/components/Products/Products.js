@@ -3,8 +3,8 @@ import Pagination from "../pagination/Pagination";
 import Searchbar from "../searchBar/Searchbar";
 import AdminProductCard from "../admin/adminProducts/AdminProductCard";
 import ProductCard from "../webshop/productCard/ProductCard";
-import { readProducts } from "../../services/Crud"
-import { SelectSort } from "../products/SelectSort";
+import { readProducts } from "../../services/Crud";
+import { SelectSort } from "./SelectSort";
 import { AdminContext } from "../../contexts/AdminContext";
 import { useLocation } from "react-router-dom";
 import "./Product.css";

@@ -73,11 +73,12 @@ export default function Nav() {
 				<div className="toggle-icon" onClick={handleToggle}>
 					{toggle ? <Icon icon={x} size={30} /> : <Icon icon={menu} size={30} />}
 				</div>
-				<div className="chart">
+				{user && (<div className="chart">
 					<NavLink to="/kosar">
 						<Icon icon={shoppingCart} size={30} />
 					</NavLink>
-				</div>
+				</div>)}
+			
 			</div>
 		</>
 	);
