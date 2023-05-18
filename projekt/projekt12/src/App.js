@@ -20,6 +20,7 @@ import AdminAuth from "./components/admin/auth/AdminAuth";
 import AdminLogin from "./pages/admin/AdminLogin";
 import Cart from "./pages/webshop/Cart";
 import { CartContext } from "./contexts/CartContext";
+import AdminCustomers from "./pages/admin/AdminCustomers";
 
 const router = createBrowserRouter([
 	{
@@ -84,6 +85,10 @@ const router = createBrowserRouter([
 				path: "/admin/termekek/:id/modositas",
 				element: <AdminModifyProduct />,
 			},
+			{
+				path: "/admin/vasarlok",
+				element: <AdminCustomers />,
+			}
 		],
 	},
 ]);
