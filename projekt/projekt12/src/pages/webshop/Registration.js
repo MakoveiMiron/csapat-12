@@ -1,17 +1,17 @@
-import {useState} from 'react';
-import { registrationUser } from '../../services/authentication.js';
+import {useContext, useState} from 'react';
 import { API_URL } from '../../constans/firebaseConstans.js';
 import {  createUserWithEmailAndPassword  } from 'firebase/auth';
 import { auth } from '../../constans/firebaseConfig.js';
 import { toast } from "react-toastify";
 import { NavLink, useNavigate } from 'react-router-dom';
+import { LoggedInUserContext } from '../../contexts/LoggedInUserContext.js';
 import "./registration.css";
 
 
 
 const Signup = () => {
     const navigate = useNavigate();
- 
+    const [user, setUser] = useContext(LoggedInUserContext);
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('');
     const [name, setName] = useState('');
@@ -22,14 +22,14 @@ const Signup = () => {
       await createUserWithEmailAndPassword(auth, email, password, name)
         .then((userCredential) => {
             // Signed in
-            const user = userCredential.user;
+            setUser({name, email, uid: userCredential.user.uid});
             console.log(user);
             fetch(`${API_URL}vasarlok/${userCredential._tokenResponse.localId}.json`,{
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({uid: userCredential._tokenResponse.localId, name})
+                body: JSON.stringify({uid: userCredential._tokenResponse.localId, name,email})
             })
             .then(data => data.json())
             .then(resp => {

@@ -11,14 +11,17 @@ import { menu } from "react-icons-kit/feather/menu";
 import { x } from "react-icons-kit/feather/x";
 import { shoppingCart } from "react-icons-kit/feather/shoppingCart";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+
 
 export default function Nav() {
 	const [user, setUser] = useContext(LoggedInUserContext);
 	const [isAdmin, setIsAdmin] = useContext(AdminContext);
-
+	const navigate = useNavigate()
 	function handleLogOut() {
 		signOut(auth).then((resp) => {
 			setUser(null);
+			navigate("/")
 			toast.success("Sikeres kijelentkezés!", {
 				position: toast.POSITION.TOP_RIGHT,
 			});

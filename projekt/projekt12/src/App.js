@@ -19,6 +19,7 @@ import "react-toastify/dist/ReactToastify.css";
 import AdminAuth from "./components/admin/auth/AdminAuth";
 import AdminLogin from "./pages/admin/AdminLogin";
 import Cart from "./pages/webshop/Cart";
+import { CartContext } from "./contexts/CartContext";
 
 const router = createBrowserRouter([
 	{
@@ -89,11 +90,14 @@ const router = createBrowserRouter([
 function App() {
 	const [user, setUser] = useState(false);
 	const [isAdmin, setIsAdmin] = useState(false);
+	const [cart,setCart] = useState([]);
 	return (
 		<AdminContext.Provider value={[isAdmin, setIsAdmin]}>
 			<LoggedInUserContext.Provider value={[user, setUser]}>
-				<RouterProvider router={router} />
-				<ToastContainer />
+				<CartContext.Provider value={[cart,setCart]}>
+					<RouterProvider router={router} />
+					<ToastContainer />
+				</CartContext.Provider>
 			</LoggedInUserContext.Provider>
 		</AdminContext.Provider>
 	);

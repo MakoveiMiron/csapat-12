@@ -1,8 +1,9 @@
 import { API_URL } from "../constans/firebaseConstans";
 
-export async function readUsers(url) {
+export async function readUsers(url,id) {
+	if(!id)id=""
 	try {
-		const res = await fetch(`${API_URL}${url}.json`);
+		const res = await fetch(`${API_URL}${url}/${id}.json`);
 		if (!res.ok) {
 			throw Error("Sikertelen betöltés! ");
 		}
@@ -12,19 +13,25 @@ export async function readUsers(url) {
 	}
 }
 
-export async function createUsersCart(url, formData) {
+
+export async function createUsersCart(url, productId, amount) {
 	try {
-		const res = await fetch(`${API_URL}${url}.json`, {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify(formData),
+
+		await fetch(`${url}/${productId}.json`)
+		.then(data => data.json())
+		.then(resp => {
+			console.log("resp: ",resp);
+			const currentValue = resp;
+			const updatedValue = currentValue + amount;
+
+			fetch(`${url}.json`, {
+				method: "PATCH",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({[productId]:updatedValue}),
+			});
 		});
-		if (!res.ok) {
-			throw Error("Nem sikerült létrehozni! ");
-		}
-		return await res.json();
 	} catch (error) {
 		throw Error("Nem sikerült létrehozni! ");
 	}
