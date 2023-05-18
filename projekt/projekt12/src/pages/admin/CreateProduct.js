@@ -1,30 +1,63 @@
-import { createProduct } from "../../services/Crud";
-import { useState } from "react";
+import { createProduct} from "../../services/Crud";
+import { uploadImg } from "../../services/Crud";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { app } from "../../constans/firebaseConfig";
+import {getStorage, ref, uploadBytes, getDownloadURL, listAll } from 'firebase/storage';
 
 export default function CreateProduct() {
 	const [title, setTitle] = useState("");
 	const [price, setPrice] = useState("");
 	const [description, setDescription] = useState("");
 	const navigate = useNavigate();
+	const [file, setFile] = useState(null);
+	const [uploadedUrl, setUploadedUrl] = useState(null);
+	const [imageList, setImageList] = useState([]);
 
-	function Titlechange(e) {
+	function titlechange(e) {
 		setTitle(e.target.value);
 	}
 
-	function Pricechange(e) {
+	function pricechange(e) {
 		setPrice(e.target.value);
 	}
 
-	function Descriptionchange(e) {
+	function descriptionchange(e) {
 		setDescription(e.target.value);
 	}
 
+
+		function fileChange(event){
+			console.log(event.target.files);
+    		setFile(event.target.files[0]);
+		}
+
+		function fileUpload(id){
+			const storage = getStorage(app);
+     		const fileRef = ref(storage, "images/"+file.name);
+
+      		return uploadBytes(fileRef, file)
+      		.then((uploadResult) => {
+        		console.log(uploadResult);
+        		getDownloadURL(uploadResult?.ref)
+				.then(url => uploadImg(url, id.id))
+      		})
+			
+		}
+
+	
+
+
+
 	function handleSubmit(e) {
 		e.preventDefault();
-		const result = createProduct(price, title, description);
+		//fileUpload()
+		createProduct(price, title, description)
+		.then((data) => data.json())
+		.then(id => fileUpload(id))
+		/*
 		if (result.error) {
 			toast.error(result.message, {
 				position: toast.POSITION.TOP_RIGHT,
@@ -35,6 +68,7 @@ export default function CreateProduct() {
 				position: toast.POSITION.TOP_RIGHT,
 			});
 		}
+		*/
 	}
 
 	return (
@@ -45,7 +79,7 @@ export default function CreateProduct() {
 					name="Title"
 					type="text"
 					value={title}
-					onChange={Titlechange}
+					onChange={titlechange}
 					required
 				/>
 
@@ -54,7 +88,7 @@ export default function CreateProduct() {
 					name="Price"
 					type="number"
 					value={price}
-					onChange={Pricechange}
+					onChange={pricechange}
 					required
 				/>
 
@@ -63,10 +97,16 @@ export default function CreateProduct() {
 					name="Description"
 					type="text"
 					value={description}
-					onChange={Descriptionchange}
+					onChange={descriptionchange}
 					required
 				/>
 
+				<label htmlFor="Upload">File feltöltés</label>
+				<input
+					name="image"
+					type="file"
+					onChange={fileChange}
+				/>
 				<button type="submit">Create product</button>
 			</form>
 		</>

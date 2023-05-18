@@ -41,7 +41,7 @@ export default function ProductCard(props) {
 	return (
 		<div className="product-row">
 			<div>
-				<img src="https://picsum.photos/100/100" alt="image" className="image" />
+				<img src={props.product.url} alt="image" className="image" />
 			</div>
 			<div className="product-content">
 				<h1 className="product-title">{props.product.title}</h1>
