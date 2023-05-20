@@ -7,13 +7,13 @@ import { CartContext } from "../../../contexts/CartContext";
 import { readUsers } from "../../../services/authCrud";
 import { toast } from "react-toastify";
 import { API_URL } from "../../../constans/firebaseConstans";
-import { LoggedInUserContext } from "../../../contexts/LoggedInUserContext"
+import { LoggedInUserContext } from "../../../contexts/LoggedInUserContext";
 
 export default function ProductCard(props) {
 	const [productList, setProductList] = useState([]);
 	const [cart, setCart] = useContext(CartContext);
 	const [amount, setAmount] = useState(1);
-	const [user, setUser] = useContext(LoggedInUserContext)
+	const [user, setUser] = useContext(LoggedInUserContext);
 
 	useEffect(() => {
 		readProducts().then((products) => {
@@ -21,41 +21,31 @@ export default function ProductCard(props) {
 		});
 	}, []);
 
-	
 	const addToCart = (e) => {
-			
-			if(user){
-				const item = productList.find((product) => product.id === e.target.name);
-				createUsersCart(`${API_URL}vasarlok/${user.uid}/cart`,item.id,amount )
-					.then(() => readUsers(`vasarlok/${user.uid}/cart`))
-					.then((cartData) => {
-						setCart(cartFormatter(cartData,props.product.id))
-						
-						toast.success("Sikeresen a kosárhoz attad!", {
-							position: toast.POSITION.BOTTOM_RIGHT,
-						});
-					})
-					.catch((error) => {
-						console.error("Hiba a kosárhoz adás közben:", error);
-						toast.error("Hiba a kosárhoz adás közben", {
-							position: toast.POSITION.BOTTOM_RIGHT,
-						});
-					});
-				}
-				else{
-					toast.error("Előbb jelentkezz be!", {
+		if (user) {
+			const productId = e.target.name;
+			const item = productList.find((product) => product.id === productId);
+			createUsersCart(`${API_URL}vasarlok/${user.uid}/cart`, item.id, 1)
+				.then(() => readUsers(`vasarlok/${user.uid}/cart`))
+				.then((cartData) => {
+					setCart(cartFormatter(cartData, productId));
+
+					toast.success("Sikeresen a kosárhoz adtad!", {
 						position: toast.POSITION.BOTTOM_RIGHT,
 					});
-				}
-		};
-
-	function increaseAmount(){
-		setAmount(prev => prev+1)
-	}
-
-	function decreaseAmount(){
-		setAmount(prev => prev-1)
-	}
+				})
+				.catch((error) => {
+					console.error("Hiba a kosárhoz adás közben:", error);
+					toast.error("Hiba a kosárhoz adás közben", {
+						position: toast.POSITION.BOTTOM_RIGHT,
+					});
+				});
+		} else {
+			toast.error("Előbb jelentkezz be!", {
+				position: toast.POSITION.BOTTOM_RIGHT,
+			});
+		}
+	};
 
 	return (
 		<div className="product-row">
@@ -76,9 +66,6 @@ export default function ProductCard(props) {
 				>
 					Kosárba
 				</button>
-				{amount === 0 ? <></> : <button onClick={decreaseAmount}>-</button>}
-				<p>{amount}</p>
-				<button onClick={increaseAmount}>+</button>
 			</div>
 		</div>
 	);
