@@ -37,10 +37,10 @@
     /* width: 80%; */
     /* align-self: center;  */
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+    padding: var(--p-small);
+    gap: 2rem;
     justify-items: center;
-    gap: 34px;
-    margin-top: 57px
     
 }
 
