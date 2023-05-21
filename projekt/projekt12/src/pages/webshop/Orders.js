@@ -1,6 +1,5 @@
 import { LoggedInUserContext } from "../../contexts/LoggedInUserContext"
 import { useContext, useState, useEffect } from "react"
-import { OrdersContext } from "../../contexts/OrdersContext";
 import { getOrderIds, readProducts } from "../../services/Crud";
 
 export default function Orders(){
