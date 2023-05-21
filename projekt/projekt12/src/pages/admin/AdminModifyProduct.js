@@ -44,20 +44,18 @@ export default function AdminModifyProduct() {
 	}
 
 	function handleUrlChange(event){
-	console.log(event.target.files);
-	setNewUrl(event.target.files[0]);
+		setNewUrl(event.target.files[0]);
 	}
 
 	function fileUpload(id){
 		const storage = getStorage(app);
-		 const fileRef = ref(storage, "images/"+newUrL.name);
+		const fileRef = ref(storage, "images/"+newUrL.name);
 
-		  return uploadBytes(fileRef, newUrL)
+		return uploadBytes(fileRef, newUrL)
 		  .then((uploadResult) => {
-			console.log(uploadResult);
 			getDownloadURL(uploadResult?.ref)
 			.then(url => uploadImg(url, id))
-		  })	
+		})	
 	}
 
 	function handleSubmit(e) {
@@ -111,7 +109,7 @@ export default function AdminModifyProduct() {
 					onChange={handleDescChange}
 					required
 				/>
-				<label htmlFor="Upload">File feltöltés</label>
+				<label htmlFor="upload">File feltöltés</label>
 				<input
 					name="image"
 					type="file"
