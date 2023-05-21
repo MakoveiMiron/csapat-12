@@ -2,10 +2,16 @@ import { useEffect, useContext, useState } from "react";
 import { CartContext } from "../../contexts/CartContext";
 import CartUpdater from "../../utils/cartUpdater";
 import { readCartProducts } from "../../services/authCrud";
-
+import { saveOrder } from "../../services/authCrud";
+import { clearCart } from "../../services/authCrud";
+import { LoggedInUserContext } from "../../contexts/LoggedInUserContext";
+import { Navigate } from "react-router-dom";
+import { toast } from "react-toastify";
 const Cart = () => {
 	const [cart, setCart] = useContext(CartContext);
+	const [user, setUser] = useContext(LoggedInUserContext);
 	const [productData, setProductData] = useState([]);
+	const [orderSent, setOrderSent] = useState(false);
 
 	useEffect(() => {
 		const fetchCartData = async () => {
@@ -49,6 +55,25 @@ const Cart = () => {
 		return totalPrice;
 	};
 
+	const sendOrder = async () => {
+		try {
+			await saveOrder(user.uid, cart);
+			toast.success("Sikeresen elküldted a megrendelést!", {
+				position: toast.POSITION.TOP_RIGHT,
+			});
+
+			await clearCart(user.uid);
+			setCart({});
+
+			setOrderSent(true);
+		} catch (error) {
+			console.error("Hiba a megrendelés elküldésekor:", error);
+			toast.error("Hiba a megrendelés elküldésekor!", {
+				position: toast.POSITION.TOP_RIGHT,
+			});
+		}
+	};
+
 	return (
 		<div>
 			<h2>Kosár</h2>
@@ -56,18 +81,27 @@ const Cart = () => {
 			{productData.length === 0 ? (
 				<h3>Nincs termék a kosárban</h3>
 			) : (
-				<div>
-					{productData.map((product) => (
-						<div key={product.id}>
-							<h3>{product.title}</h3>
-							<p>Ár: {product.price * cart[product.id]} Ft</p>
-							<p>Darabszám: {cart[product.id]}</p>
-							<button onClick={() => incrementAmount(product.id)}>Növelés</button>
-							<button onClick={() => decrementAmount(product.id)}>Csökkentés</button>
-						</div>
-					))}
+				<>
+					<div>
+						{orderSent ? (
+							((<h3>A megrendelés sikeresen elküldve!</h3>), (<Navigate to="/" />))
+						) : (
+							<div>
+								{productData.map((product) => (
+									<div key={product.id}>
+										<h3>{product.title}</h3>
+										<p>Ár: {product.price * cart[product.id]} Ft</p>
+										<p>Darabszám: {cart[product.id]}</p>
+										<button onClick={() => incrementAmount(product.id)}>+</button>
+										<button onClick={() => decrementAmount(product.id)}>-</button>
+									</div>
+								))}
+							</div>
+						)}
+					</div>
 					<p>Végösszeg: {totalPrice()} Ft</p>
-				</div>
+					<button onClick={sendOrder}>Megrendelés</button>
+				</>
 			)}
 		</div>
 	);

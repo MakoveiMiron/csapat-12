@@ -95,3 +95,59 @@ export function readCartProducts() {
 			console.log(err.message);
 		});
 }
+
+export const saveOrder = async (uid, products) => {
+	try {
+		// Megrendelés létrehozása a Firebasen
+		const response = await fetch(`${API_URL}/orders.json`, {
+			method: "POST",
+			body: JSON.stringify({
+				uid: uid,
+				products: products,
+			}),
+		});
+
+		if (!response.ok) {
+			throw new Error("Hiba a megrendelés mentésekor.");
+		}
+
+		const data = await response.json();
+		const orderId = data.name; // Az újonnan generált azonosító
+
+		// Az objektum összeállítása a megrendeléshez
+		const orderData = {
+			id: orderId,
+			uid: uid,
+			products: products,
+		};
+
+		// Az adatok frissítése a megrendelésben
+		const putResponse = await fetch(`${API_URL}/orders/${orderId}.json`, {
+			method: "PUT",
+			body: JSON.stringify(orderData),
+		});
+
+		if (!putResponse.ok) {
+			throw new Error("Hiba a megrendelés frissítésekor.");
+		}
+
+		return { success: true };
+	} catch (error) {
+		return { success: false, error: error.message };
+	}
+};
+export async function clearCart(uid) {
+	try {
+		const response = await fetch(`${API_URL}vasarlok/${uid}/cart.json`, {
+			method: "DELETE",
+		});
+
+		if (!response.ok) {
+			throw new Error("Hiba a kosár ürítésekor.");
+		}
+
+		return { success: true };
+	} catch (error) {
+		return { success: false, error: error.message };
+	}
+}
