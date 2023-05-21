@@ -1,4 +1,4 @@
-import "./Searchbar-style.css";
+import "./Searchbar.css";
 import { useState } from "react";
 import { FiSearch, FiDelete } from "react-icons/fi";
 
@@ -39,13 +39,17 @@ const Searchbar = (props) => {
 
 	return (
 		<div className="filter">
-			<input
-				className="searchInput"
-				type="text"
-				placeholder="Keresés"
-				value={searchText}
-				onChange={handleSearchInputChange}
-			/>
+			<div className="search-field">			
+				<input
+					className="searchInput"
+					type="text"
+					placeholder="Keresés"
+					value={searchText}
+					onChange={handleSearchInputChange}
+				/>				
+			</div>
+
+			<div className="search-price">
 			<input
 				className="searchInput"
 				type="number"
@@ -60,12 +64,18 @@ const Searchbar = (props) => {
 				value={maxPrice}
 				onChange={handleMaxPriceInputChange}
 			/>
-			<button className="searchButton" onClick={handleSearchButtonClick}>
-				<FiSearch />
-			</button>
-			<button className="searchButtonBack" onClick={handleResetButtonClick}>
-				<FiDelete />
-			</button>
+			</div>
+			
+			<div className="search-icons">
+				<button className="searchButton" onClick={handleSearchButtonClick}>
+					<FiSearch />
+				</button>
+				<button className="searchButtonBack" onClick={handleResetButtonClick}>
+					<FiDelete />
+				</button>
+			</div>
+			
+			
 		</div>
 	);
 };

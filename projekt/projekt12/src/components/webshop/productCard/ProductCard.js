@@ -42,9 +42,9 @@ export default function ProductCard(props) {
 	};
 	return (
 		<div className="product-row">
-			<div>
+		
 				<img src={props.product.url} alt="image" className="image" />
-			</div>
+			
 			<div className="product-content">
 				<h1 className="product-title">{props.product.title}</h1>
 
