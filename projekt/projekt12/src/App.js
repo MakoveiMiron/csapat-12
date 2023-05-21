@@ -21,6 +21,7 @@ import AdminLogin from "./pages/admin/AdminLogin";
 import Cart from "./pages/webshop/Cart";
 import { CartContext } from "./contexts/CartContext";
 import AdminCustomers from "./pages/admin/AdminCustomers";
+import Orders from "./pages/webshop/Orders";
 
 const router = createBrowserRouter([
 	{
@@ -54,6 +55,10 @@ const router = createBrowserRouter([
 			{
 				path: "/kosar",
 				element: <Cart />,
+			},
+			{
+				path: "/megrendeleseim",
+				element: <Orders />,
 			},
 		],
 	},
@@ -96,7 +101,7 @@ function App() {
 	const [user, setUser] = useState(false);
 	const [isAdmin, setIsAdmin] = useState(false);
 	const [cart, setCart] = useState([]);
-
+	
 	return (
 		<AdminContext.Provider value={[isAdmin, setIsAdmin]}>
 			<LoggedInUserContext.Provider value={[user, setUser]}>
