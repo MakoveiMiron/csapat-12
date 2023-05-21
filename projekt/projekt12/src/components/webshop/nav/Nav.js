@@ -53,6 +53,9 @@ export default function Nav() {
 					<li>
 						<NavLink to="/kapcsolat">Kapcsolat</NavLink>
 					</li>
+					<li>
+						<NavLink to="/megrendeleseim">Megrendeléseim</NavLink>
+					</li>
 					{isAdmin && (
 						<li>
 							<NavLink to="/admin">Admin</NavLink>

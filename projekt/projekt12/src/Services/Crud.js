@@ -75,6 +75,11 @@ export function deleteProduct(id) {
 		});
 }
 
+export function getOrderIds(){
+	return fetch(`${API_URL}orders.json`)
+	.then(data => data.json())
+}
+
 // export function deleteProduct(id) {
 // 	return fetch(`${API_URL}termekek/${id}.json`, {
 // 		method: "DELETE",
