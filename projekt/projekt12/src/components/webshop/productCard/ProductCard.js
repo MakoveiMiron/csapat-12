@@ -1,35 +1,29 @@
 import "./ProductCard.css";
-import cartFormatter from "../../../utils/cartFormatter";
-import { useContext, useState, useEffect } from "react";
-import { readProducts } from "../../../services/Crud";
+import { useContext, useState } from "react";
 import { createUsersCart } from "../../../services/authCrud";
 import { CartContext } from "../../../contexts/CartContext";
-import { readUsers } from "../../../services/authCrud";
+import getUserCart from "../../../services/authCrud";
 import { toast } from "react-toastify";
 import { API_URL } from "../../../constans/firebaseConstans";
 import { LoggedInUserContext } from "../../../contexts/LoggedInUserContext";
 
 export default function ProductCard(props) {
-	const [productList, setProductList] = useState([]);
 	const [cart, setCart] = useContext(CartContext);
 	const [amount, setAmount] = useState(1);
 	const [user, setUser] = useContext(LoggedInUserContext);
 
-	useEffect(() => {
-		readProducts().then((products) => {
-			setProductList(Object.values(products));
-		});
-	}, []);
-
 	const addToCart = (e) => {
 		if (user) {
 			const productId = e.target.name;
-			const item = productList.find((product) => product.id === productId);
-			createUsersCart(`${API_URL}vasarlok/${user.uid}/cart`, item.id, 1)
-				.then(() => readUsers(`vasarlok/${user.uid}/cart`))
-				.then((cartData) => {
-					setCart(cartFormatter(cartData, productId));
+			const updatedAmount = amount;
 
+			createUsersCart(
+				`${API_URL}vasarlok/${user.uid}/cart`,
+				productId,
+				updatedAmount
+			)
+				.then(() => getUserCart(user.uid, setCart))
+				.then(() => {
 					toast.success("Sikeresen a kosárhoz adtad!", {
 						position: toast.POSITION.BOTTOM_RIGHT,
 					});
@@ -46,7 +40,6 @@ export default function ProductCard(props) {
 			});
 		}
 	};
-
 	return (
 		<div className="product-row">
 			<div>

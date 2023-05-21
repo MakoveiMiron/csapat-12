@@ -1,84 +1,75 @@
-import { API_URL } from "../../constans/firebaseConstans";
 import { useEffect, useContext, useState } from "react";
-import { readUsers } from "../../services/authCrud";
-import { LoggedInUserContext } from "../../contexts/LoggedInUserContext";
-import { Navigate } from "react-router-dom";
-import { readProducts } from "../../services/Crud";
-import formatData from "../../utils/formdata";
-import { updateCart } from "../../services/authCrud";
+import { CartContext } from "../../contexts/CartContext";
+import CartUpdater from "../../utils/cartUpdater";
+import { readCartProducts } from "../../services/authCrud";
 
 const Cart = () => {
-	const [user, setUser] = useContext(LoggedInUserContext);
-	const [productsInCart, setProductsInCart] = useState([]);
-	const [productList, setProductList] = useState([]);
-	const [amounts, setAmounts] = useState({});
+	const [cart, setCart] = useContext(CartContext);
+	const [productData, setProductData] = useState([]);
 
 	useEffect(() => {
-		readProducts().then((resp) => {
-			setProductList(formatData(resp));
-			readUsers(`vasarlok/${user.uid}/cart`).then((resp) => {
-				setProductsInCart(resp);
-				setAmounts(getInitialAmounts(resp));
-			});
-		});
-	}, []);
+		const fetchCartData = async () => {
+			try {
+				const productIds = Object.keys(cart);
 
-	if (!productsInCart) return <h2>nincs termék a kosárban</h2>;
+				if (productIds.length === 0) return;
 
-	const getInitialAmounts = (cart) => {
-		const initialAmounts = {};
-		Object.keys(cart).forEach((productId) => {
-			initialAmounts[productId] = 1;
-		});
-		console.log(initialAmounts);
-		return initialAmounts;
+				const fetchedProducts = await readCartProducts();
+				const filteredProducts = fetchedProducts.filter((product) =>
+					productIds.includes(product.id)
+				);
+				setProductData(filteredProducts);
+			} catch (error) {
+				console.error("Hiba a kosár és termékadatok betöltésekor:", error);
+			}
+		};
+
+		fetchCartData();
+	}, [cart]);
+
+	const incrementAmount = (productId) => {
+		const updatedCart = { ...cart, [productId]: cart[productId] + 1 };
+		setCart(updatedCart);
 	};
 
-	const increaseAmount = (productId) => {
-		setAmounts((prevAmounts) => ({
-			...prevAmounts,
-			[productId]: prevAmounts[productId] + 1,
-		}));
-		updateCart(user, productId, amounts[productId]);
+	const decrementAmount = (productId) => {
+		if (cart[productId] > 1) {
+			const updatedCart = { ...cart, [productId]: cart[productId] - 1 };
+			setCart(updatedCart);
+		}
 	};
 
-	const decreaseAmount = (productId) => {
-		setAmounts((prevAmounts) => ({
-			...prevAmounts,
-			[productId]: prevAmounts[productId] - 1,
-		}));
-		console.log(productId);
-		// updateCart(user, productId, amounts[productId]);
+	const totalPrice = () => {
+		let totalPrice = 0;
+		productData.forEach((product) => {
+			const amount = cart[product.id];
+			const productPrice = product.price * amount;
+			totalPrice += productPrice;
+		});
+		return totalPrice;
 	};
 
 	return (
-		<>
-			<ul>
-				{Object.entries(productsInCart).map((data) => {
-					const productId = data[0];
-					const product = productList.find((product) => product.id === productId);
-					if (!product) return null;
-					return (
-						<li key={`${productId}title`}>
-							{product.title} Ár: {product.price * amounts[productId]} Ft Mennyiség:{" "}
-							{amounts[productId]}
-							{amounts[productId] === 0 ? null : (
-								<>
-									<button
-										disabled={amounts[productId] === 1}
-										onClick={() => decreaseAmount(productId)}
-									>
-										-
-									</button>
-									<p>{amounts[productId]}</p>
-								</>
-							)}
-							<button onClick={() => increaseAmount(productId)}>+</button>
-						</li>
-					);
-				})}
-			</ul>
-		</>
+		<div>
+			<h2>Kosár</h2>
+			<CartUpdater />
+			{productData.length === 0 ? (
+				<h3>Nincs termék a kosárban</h3>
+			) : (
+				<div>
+					{productData.map((product) => (
+						<div key={product.id}>
+							<h3>{product.title}</h3>
+							<p>Ár: {product.price * cart[product.id]} Ft</p>
+							<p>Darabszám: {cart[product.id]}</p>
+							<button onClick={() => incrementAmount(product.id)}>Növelés</button>
+							<button onClick={() => decrementAmount(product.id)}>Csökkentés</button>
+						</div>
+					))}
+					<p>Végösszeg: {totalPrice()} Ft</p>
+				</div>
+			)}
+		</div>
 	);
 };
 

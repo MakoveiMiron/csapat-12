@@ -34,8 +34,9 @@ export async function createUsersCart(url, productId, amount) {
 		throw new Error("Nem sikerült létrehozni!");
 	}
 }
-export async function updateCart(user, productId, amount) {
-	const url = `${API_URL}/vasarlok/${user.uid}/cart.json`;
+export async function updateCart(user, cart) {
+	const userId = user.uid;
+	const url = `${API_URL}vasarlok/${userId}/cart.json`;
 
 	try {
 		const response = await fetch(url, {
@@ -43,15 +44,54 @@ export async function updateCart(user, productId, amount) {
 			headers: {
 				"Content-Type": "application/json",
 			},
-			body: JSON.stringify({ [productId]: amount }),
+			body: JSON.stringify(cart),
 		});
 
+		const responseData = await response.json();
+
 		if (!response.ok) {
-			throw new Error("Hiba a kosár frissítése közben");
+			const error = new Error(responseData.error.message);
+			error.response = response;
+			throw error;
 		}
 
-		return true;
+		return responseData;
 	} catch (error) {
-		throw new Error("Hiba a kosár frissítése közben");
+		throw new Error("Hiba a kosár frissítése közben: " + error.message);
 	}
+}
+
+const getUserCart = (userId, setCart) => {
+	return fetch(`${API_URL}vasarlok/${userId}/cart.json`)
+		.then((response) => {
+			if (!response.ok) {
+				throw new Error("Hiba a kosár lekérésekor");
+			}
+			return response.json();
+		})
+		.then((cartData) => {
+			setCart(cartData);
+			return cartData;
+		})
+		.catch((error) => {
+			console.error("Hiba a kosár lekérésekor:", error);
+			throw error;
+		});
+};
+export default getUserCart;
+
+export function readCartProducts() {
+	return fetch(`${API_URL}termekek.json`)
+		.then((resp) => {
+			if (!resp.ok) {
+				throw new Error("Hiba a termékek lekérdezése során.");
+			}
+			return resp.json();
+		})
+		.then((data) => {
+			return Object.values(data);
+		})
+		.catch((err) => {
+			console.log(err.message);
+		});
 }

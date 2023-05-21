@@ -88,19 +88,20 @@ const router = createBrowserRouter([
 			{
 				path: "/admin/vasarlok",
 				element: <AdminCustomers />,
-			}
+			},
 		],
 	},
 ]);
 function App() {
 	const [user, setUser] = useState(false);
 	const [isAdmin, setIsAdmin] = useState(false);
-	const [cart,setCart] = useState([]);
+	const [cart, setCart] = useState([]);
+
 	return (
 		<AdminContext.Provider value={[isAdmin, setIsAdmin]}>
 			<LoggedInUserContext.Provider value={[user, setUser]}>
-				<CartContext.Provider value={[cart,setCart]}>
-					<RouterProvider router={router} />
+				<CartContext.Provider value={[cart, setCart]}>
+					<RouterProvider router={router}></RouterProvider>
 					<ToastContainer />
 				</CartContext.Provider>
 			</LoggedInUserContext.Provider>
