@@ -4,7 +4,7 @@ import {
 	fromZtoA,
 	fromLowToHigh,
 	fromHighToLow
-} from "../../utils/ProductSorting";
+} from "../../utils/productSorting";
 import { useState, useEffect } from "react";
 import { useRef } from "react";
 

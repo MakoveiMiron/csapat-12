@@ -11,14 +11,19 @@ import { menu } from "react-icons-kit/feather/menu";
 import { x } from "react-icons-kit/feather/x";
 import { shoppingCart } from "react-icons-kit/feather/shoppingCart";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import { CartContext } from "../../../contexts/CartContext";
 
 export default function Nav() {
 	const [user, setUser] = useContext(LoggedInUserContext);
 	const [isAdmin, setIsAdmin] = useContext(AdminContext);
-
+	const [cart, setCart] = useContext(CartContext);
+	const navigate = useNavigate();
 	function handleLogOut() {
 		signOut(auth).then((resp) => {
 			setUser(null);
+			setCart(null);
+			navigate("/");
 			toast.success("Sikeres kijelentkezés!", {
 				position: toast.POSITION.TOP_RIGHT,
 			});
@@ -70,11 +75,13 @@ export default function Nav() {
 				<div className="toggle-icon" onClick={handleToggle}>
 					{toggle ? <Icon icon={x} size={30} /> : <Icon icon={menu} size={30} />}
 				</div>
-				<div className="chart">
-					<NavLink to="/kosar">
-						<Icon icon={shoppingCart} size={30} />
-					</NavLink>
-				</div>
+				{user && (
+					<div className="chart">
+						<NavLink to="/kosar">
+							<Icon icon={shoppingCart} size={30} />
+						</NavLink>
+					</div>
+				)}
 			</div>
 		</>
 	);

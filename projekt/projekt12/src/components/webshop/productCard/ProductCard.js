@@ -1,42 +1,44 @@
 import "./ProductCard.css";
-import cartFormatter from "../../../utils/cartFormatter";
-import { useContext, useState, useEffect } from "react";
-import { readProducts } from "../../../services/Crud";
+import { useContext, useState } from "react";
 import { createUsersCart } from "../../../services/authCrud";
-import { cartContext } from "../../../contexts/CartContext";
-import { readUsers } from "../../../services/authCrud";
+import { CartContext } from "../../../contexts/CartContext";
+import getUserCart from "../../../services/authCrud";
 import { toast } from "react-toastify";
+import { API_URL } from "../../../constans/firebaseConstans";
+import { LoggedInUserContext } from "../../../contexts/LoggedInUserContext";
 
 export default function ProductCard(props) {
-	const [productList, setProductList] = useState([]);
-	const [cart, setCart] = useContext(cartContext);
-	const userId = "2qOcQRARk9PyHRzll7O72ADz8df1";
-
-	useEffect(() => {
-		readProducts().then((products) => {
-			setProductList(Object.values(products));
-		});
-	}, []);
+	const [cart, setCart] = useContext(CartContext);
+	const [amount, setAmount] = useState(1);
+	const [user, setUser] = useContext(LoggedInUserContext);
 
 	const addToCart = (e) => {
-		const item = productList.find((product) => product.id === e.target.name);
-		console.log(item);
+		if (user) {
+			const productId = e.target.name;
+			const updatedAmount = amount;
 
-		createUsersCart(`vasarlok/${userId}/cart`, item)
-			.then(() => readUsers(`vasarlok/${userId}/cart`))
-			.then((data) => cartFormatter(data))
-			.then((formattedData) => {
-				setCart(formattedData);
-				toast.success("Termék hozzáadva a kosárhoz!", {
-					position: toast.POSITION.TOP_RIGHT,
+			createUsersCart(
+				`${API_URL}vasarlok/${user.uid}/cart`,
+				productId,
+				updatedAmount
+			)
+				.then(() => getUserCart(user.uid, setCart))
+				.then(() => {
+					toast.success("Sikeresen a kosárhoz adtad!", {
+						position: toast.POSITION.BOTTOM_RIGHT,
+					});
+				})
+				.catch((error) => {
+					console.error("Hiba a kosárhoz adás közben:", error);
+					toast.error("Hiba a kosárhoz adás közben", {
+						position: toast.POSITION.BOTTOM_RIGHT,
+					});
 				});
-			})
-			.catch((error) => {
-				console.error("Hiba a kosárhoz adás közben:", error);
-				toast.error("Hiba a kosárhoz adás közben", {
-					position: toast.POSITION.TOP_RIGHT,
-				});
+		} else {
+			toast.error("Előbb jelentkezz be!", {
+				position: toast.POSITION.BOTTOM_RIGHT,
 			});
+		}
 	};
 	return (
 		<div className="product-row">
