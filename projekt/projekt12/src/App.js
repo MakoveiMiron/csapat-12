@@ -22,6 +22,7 @@ import Cart from "./pages/webshop/Cart";
 import { CartContext } from "./contexts/CartContext";
 import AdminCustomers from "./pages/admin/AdminCustomers";
 import Orders from "./pages/webshop/Orders";
+import AdminOrders from "./pages/admin/AdminOrders";
 
 const router = createBrowserRouter([
 	{
@@ -93,6 +94,10 @@ const router = createBrowserRouter([
 			{
 				path: "/admin/vasarlok",
 				element: <AdminCustomers />,
+			},
+			{
+				path: "/admin/megrendelesek",
+				element: <AdminOrders />,
 			},
 		],
 	},

@@ -7,7 +7,9 @@ export default function Orders(){
     const [user, setUser] = useContext(LoggedInUserContext);
     const [orders,setOrders] = useState({});
     const [productList,setProductList] = useState([]);
+    const [orderId,setOrderId] = useState("");
     const foundProducts = [];
+    const orderedAmount = [];
 
     useEffect(() => {
         getOrderIds()
@@ -25,9 +27,11 @@ export default function Orders(){
     orderIds.forEach((id) => {
         if (orders[id].uid === user.uid) {
             const productIds = Object.keys(orders[id].products);
+            orderedAmount.push(Object.values(orders[id].products));
             productIds.forEach((productId) => {
             const orderedProducts = productList.filter((product) => product.id === productId);
             foundProducts.push(...orderedProducts);
+            console.log(orders)
         });
         }
     });
@@ -38,17 +42,16 @@ export default function Orders(){
    
     return (
         <>
-        <ul>
+        
         {foundProducts.map((product, index) => (
-            <li key={index}>
                 <div>
-                    <h2>{product.title}</h2>
-                    <p>{product.price}</p>
-                    <p>{product.description}</p>
+                    <p className="orderId">{orders[orderIds[index]].uid === user.uid ? orderIds[index] : null}</p>
+                        <p>{product.title}</p>
+                        <p>{product.price}</p>
+                        <p>{orderedAmount[0][index]}</p>
                 </div>
-            </li>
         ))}
-        </ul>
+        
         </>
     );
 }
