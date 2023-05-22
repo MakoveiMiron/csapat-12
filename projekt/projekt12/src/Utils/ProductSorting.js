@@ -12,6 +12,7 @@ export function fromAtoZ(products) {
 	});
 }
 
+
 export function fromZtoA(products) {
 	let sortedProducts = [...products];
 	return sortedProducts.sort((a, b) => {
