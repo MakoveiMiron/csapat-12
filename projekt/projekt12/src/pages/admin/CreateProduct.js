@@ -1,30 +1,51 @@
-import { createProduct } from "../../services/Crud";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { createProduct} from "../../services/Crud";
+import { uploadImg } from "../../services/Crud";
+import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { app } from "../../constans/firebaseConfig";
+import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
 export default function CreateProduct() {
 	const [title, setTitle] = useState("");
 	const [price, setPrice] = useState("");
 	const [description, setDescription] = useState("");
-	const navigate = useNavigate();
+	const [file, setFile] = useState(null);
 
-	function Titlechange(e) {
+	function titlechange(e) {
 		setTitle(e.target.value);
 	}
 
-	function Pricechange(e) {
+	function pricechange(e) {
 		setPrice(e.target.value);
 	}
 
-	function Descriptionchange(e) {
+	function descriptionchange(e) {
 		setDescription(e.target.value);
+	}
+
+
+	function fileChange(event){
+    	setFile(event.target.files[0]);
+	}
+
+	function fileUpload(id){
+		const storage = getStorage(app);
+     	const fileRef = ref(storage, "images/"+file.name);
+
+    	return uploadBytes(fileRef, file)
+     		.then((uploadResult) => {
+        		getDownloadURL(uploadResult?.ref)
+				.then(url => uploadImg(url, id.id))
+      		})
 	}
 
 	function handleSubmit(e) {
 		e.preventDefault();
-		const result = createProduct(price, title, description);
+		createProduct(price, title, description)
+		.then((data) => data.json())
+		.then(id => fileUpload(id))
+		/*
 		if (result.error) {
 			toast.error(result.message, {
 				position: toast.POSITION.TOP_RIGHT,
@@ -35,38 +56,45 @@ export default function CreateProduct() {
 				position: toast.POSITION.TOP_RIGHT,
 			});
 		}
+		*/
 	}
 
 	return (
 		<>
 			<form onSubmit={handleSubmit}>
-				<label htmlFor="Title">Termék neve:</label>
+				<label htmlFor="title">Termék neve:</label>
 				<input
-					name="Title"
+					name="title"
 					type="text"
 					value={title}
-					onChange={Titlechange}
+					onChange={titlechange}
 					required
 				/>
 
-				<label htmlFor="Price">Ár</label>
+				<label htmlFor="price">Ár</label>
 				<input
-					name="Price"
+					name="price"
 					type="number"
 					value={price}
-					onChange={Pricechange}
+					onChange={pricechange}
 					required
 				/>
 
-				<label htmlFor="Description">Leírás</label>
+				<label htmlFor="description">Leírás</label>
 				<input
-					name="Description"
+					name="description"
 					type="text"
 					value={description}
-					onChange={Descriptionchange}
+					onChange={descriptionchange}
 					required
 				/>
 
+				<label htmlFor="upload">File feltöltés</label>
+				<input
+					name="image"
+					type="file"
+					onChange={fileChange}
+				/>
 				<button type="submit">Create product</button>
 			</form>
 		</>

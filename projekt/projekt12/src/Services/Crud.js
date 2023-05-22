@@ -60,6 +60,22 @@ export function updateProduct(id, title, price, description) {
 		});
 }
 
+export function uploadImg(url, id) {
+	return fetch(`${API_URL}termekek/${id}.json`, {
+		method: "PATCH",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify({ url}),
+	})
+		.then((data) => {
+			if (!data.ok) {
+				throw new Error("Hiba a termék frissítése során.");
+			}
+			return data.json();
+		})
+}
+
 export function deleteProduct(id) {
 	return fetch(`${API_URL}termekek/${id}.json`, {
 		method: "DELETE",
@@ -79,6 +95,39 @@ export function getOrderIds(){
 	return fetch(`${API_URL}orders.json`)
 	.then(data => data.json())
 }
+
+export function createCategory(name) {
+	return fetch(`${API_URL}category.json`, {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify({ name }),
+		})
+		.then((data) => {
+			if (!data.ok) {
+				throw new Error("Hiba az új termék létrehozása során.");
+			}
+			return data.json();
+		})
+		.then((resp) =>
+			setCategoryId(resp.name)
+		)
+		.catch((err) => {
+			console.log(err.message);
+	});  
+}
+
+function setCategoryId(id){
+	fetch(`${API_URL}category/${id}.json`, {
+		method: "PATCH",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify({ id: id }),
+	})
+}
+
 
 // export function deleteProduct(id) {
 // 	return fetch(`${API_URL}termekek/${id}.json`, {

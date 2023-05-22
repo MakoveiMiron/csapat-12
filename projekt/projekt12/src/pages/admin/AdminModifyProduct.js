@@ -5,12 +5,16 @@ import formatData from "../../utils/formdata";
 import "./AdminModifyProduct.css";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { app } from "../../constans/firebaseConfig";
+import {getStorage, ref, uploadBytes, getDownloadURL, listAll } from 'firebase/storage';
+import { uploadImg } from "../../services/Crud";
 
 export default function AdminModifyProduct() {
 	const [productModify, setProductModify] = useState("");
 	const [newTitle, setNewTitle] = useState("");
 	const [newPrice, setNewPrice] = useState("");
 	const [newDescription, setNewDescription] = useState("");
+	const [newUrL, setNewUrl] = useState(null);
 	const { id } = useParams();
 	const navigate = useNavigate();
 
@@ -23,8 +27,9 @@ export default function AdminModifyProduct() {
 			setNewTitle(productModify.title);
 			setNewPrice(productModify.price);
 			setNewDescription(productModify.description);
+			setNewUrl(productModify.url);
 		});
-	}, [id, productModify.title, productModify.price, productModify.description]);
+	}, [id, productModify.title, productModify.price, productModify.description, productModify.url]);
 
 	function handleTitleChange(e) {
 		setNewTitle(e.target.value);
@@ -38,9 +43,25 @@ export default function AdminModifyProduct() {
 		setNewDescription(e.target.value);
 	}
 
+	function handleUrlChange(event){
+		setNewUrl(event.target.files[0]);
+	}
+
+	function fileUpload(id){
+		const storage = getStorage(app);
+		const fileRef = ref(storage, "images/"+newUrL.name);
+
+		return uploadBytes(fileRef, newUrL)
+		  .then((uploadResult) => {
+			getDownloadURL(uploadResult?.ref)
+			.then(url => uploadImg(url, id))
+		})	
+	}
+
 	function handleSubmit(e) {
 		e.preventDefault();
 		updateProduct(id, newTitle, newPrice, newDescription)
+		.then(() => fileUpload(id))
 			.then(() => {
 				navigate("/admin/termekek");
 				toast.success("Termék sikeresen módosítva!", {
@@ -87,6 +108,12 @@ export default function AdminModifyProduct() {
 					value={newDescription}
 					onChange={handleDescChange}
 					required
+				/>
+				<label htmlFor="upload">File feltöltés</label>
+				<input
+					name="image"
+					type="file"
+					onChange={handleUrlChange}
 				/>
 
 				<button type="submit">Mentés</button>

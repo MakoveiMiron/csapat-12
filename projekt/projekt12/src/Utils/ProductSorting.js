@@ -32,3 +32,5 @@ export function fromLowToHigh(products) {
 export function fromHighToLow(products) {
 	return [...products].sort((a, b) => b.price - a.price);
 }
+
+
