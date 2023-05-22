@@ -60,6 +60,22 @@ export function updateProduct(id, title, price, description) {
 		});
 }
 
+export function uploadImg(url, id) {
+	return fetch(`${API_URL}termekek/${id}.json`, {
+		method: "PATCH",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify({ url}),
+	})
+		.then((data) => {
+			if (!data.ok) {
+				throw new Error("Hiba a termék frissítése során.");
+			}
+			return data.json();
+		})
+}
+
 export function deleteProduct(id) {
 	return fetch(`${API_URL}termekek/${id}.json`, {
 		method: "DELETE",
