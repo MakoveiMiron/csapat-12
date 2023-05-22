@@ -7,6 +7,8 @@ import { clearCart } from "../../services/authCrud";
 import { LoggedInUserContext } from "../../contexts/LoggedInUserContext";
 import { Navigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import CartItem from "./CartItem";
+
 const Cart = () => {
 	const [cart, setCart] = useContext(CartContext);
 	const [user, setUser] = useContext(LoggedInUserContext);
@@ -82,20 +84,30 @@ const Cart = () => {
 				<h3>Nincs termék a kosárban</h3>
 			) : (
 				<>
-					<div>
+					<div className="container">
 						{orderSent ? (
-							((<h3>A megrendelés sikeresen elküldve!</h3>), (<Navigate to="/" />))
+							<>
+								<h3>A megrendelés sikeresen elküldve!</h3>
+								<Navigate to="/" />
+							</>
 						) : (
-							<div>
-								{productData.map((product) => (
-									<div key={product.id}>
-										<h3>{product.title}</h3>
-										<p>Ár: {product.price * cart[product.id]} Ft</p>
-										<p>Darabszám: {cart[product.id]}</p>
-										<button onClick={() => incrementAmount(product.id)}>+</button>
-										<button onClick={() => decrementAmount(product.id)}>-</button>
-									</div>
-								))}
+							<div className="cart-heading">
+								<p>Item</p>
+								<p className="cart-hide">Price</p>
+								<p>Mennyiség</p>
+								<p className="cart-hide">Összesen</p>
+								<p>Eltávolít</p>.
+								<div className="cart-item">
+									{productData.map((product) => (
+										<CartItem
+											key={product.id}
+											product={product}
+											cartItemAmount={cart[product.id]}
+											incrementAmount={incrementAmount}
+											decrementAmount={decrementAmount}
+										/>
+									))}
+								</div>
 							</div>
 						)}
 					</div>
