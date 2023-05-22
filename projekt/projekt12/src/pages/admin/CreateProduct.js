@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { app } from "../../constans/firebaseConfig";
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import "./CreateProduct.css";
 
 export default function CreateProduct() {
 	const [title, setTitle] = useState("");
@@ -61,7 +62,8 @@ export default function CreateProduct() {
 
 	return (
 		<>
-			<form onSubmit={handleSubmit}>
+		<div className="create-product">
+			<form onSubmit={handleSubmit} className="product-form">
 				<label htmlFor="title">Termék neve:</label>
 				<input
 					name="title"
@@ -71,7 +73,7 @@ export default function CreateProduct() {
 					required
 				/>
 
-				<label htmlFor="price">Ár</label>
+				<label htmlFor="price">Ár:</label>
 				<input
 					name="price"
 					type="number"
@@ -80,7 +82,7 @@ export default function CreateProduct() {
 					required
 				/>
 
-				<label htmlFor="description">Leírás</label>
+				<label htmlFor="description">Leírás:</label>
 				<input
 					name="description"
 					type="text"
@@ -97,6 +99,7 @@ export default function CreateProduct() {
 				/>
 				<button type="submit">Create product</button>
 			</form>
+		</div>
 		</>
 	);
 }
