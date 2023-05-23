@@ -9,10 +9,10 @@ import { useContext } from "react";
 import { Icon } from "react-icons-kit";
 import { menu } from "react-icons-kit/feather/menu";
 import { x } from "react-icons-kit/feather/x";
-import { shoppingCart } from "react-icons-kit/feather/shoppingCart";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { CartContext } from "../../../contexts/CartContext";
+import CartHeader from "../../../pages/webshop/CartHeader";
 
 export default function Nav() {
 	const [user, setUser] = useContext(LoggedInUserContext);
@@ -78,13 +78,7 @@ export default function Nav() {
 				<div className="toggle-icon" onClick={handleToggle}>
 					{toggle ? <Icon icon={x} size={30} /> : <Icon icon={menu} size={30} />}
 				</div>
-				{user && (
-					<div className="chart">
-						<NavLink to="/kosar">
-							<Icon icon={shoppingCart} size={30} />
-						</NavLink>
-					</div>
-				)}
+				{user && <CartHeader />}
 			</div>
 		</>
 	);

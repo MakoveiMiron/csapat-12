@@ -24,6 +24,7 @@ import AdminCustomers from "./pages/admin/AdminCustomers";
 import Orders from "./pages/webshop/Orders";
 import AdminOrders from "./pages/admin/AdminOrders";
 import AdminOrdersDetails from "./pages/admin/AdminOrdersDetails";
+import AdminCategory from "./pages/admin/AdminCategory";
 
 const router = createBrowserRouter([
 	{
@@ -104,6 +105,10 @@ const router = createBrowserRouter([
 				path: "/admin/megrendelesek/:megrendelesId",
 				element: <AdminOrdersDetails />,
 			},
+			{
+				path: "/admin/kategoriak/uj-kategoria",
+				element: <AdminCategory />
+			}
 		],
 	},
 ]);
