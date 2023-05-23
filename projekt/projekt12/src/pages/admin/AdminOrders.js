@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from "react"
+import { useState, useEffect } from "react"
 import { getOrderIds, readProducts, } from "../../services/Crud";
 import { readUsers } from "../../services/authCrud";
 import { useNavigate } from "react-router-dom";
@@ -53,7 +53,8 @@ export default function AdminOrders(){
                                 <ul>
                                     <li>Vevő neve: {Object.values(orders).map((order,idx) => users.map((user) => {if(index === idx && order.uid === user.uid){
                                         return user.name
-                                        }}))}</li>
+                                        }}))}
+                                    </li>
                                     <li>Vevő uid: {Object.values(orders).map((order,idx) => users.map((user) => {if(index === idx && order.uid === user.uid){
                                         return user.uid
                                         }}))}
