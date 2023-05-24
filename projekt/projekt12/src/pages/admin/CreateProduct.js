@@ -116,9 +116,9 @@ export default function CreateProduct() {
 					required
 				/>
 				<label htmlFor="category">kategóriák</label>
-				<select defaultValue={""} onChange={categoryChange}>
+				<select value={""} onChange={categoryChange}>
 					<option key={0} value={""}>
-						---
+						besorolatlan
 					</option>
 					{categoryList.map((category, idx) => {
 						return (
