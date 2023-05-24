@@ -19,6 +19,7 @@
 .prodact-card-style {
 	display: flex;
 	justify-items: end;
+<<<<<<< Updated upstream
 	
 }
 
@@ -89,4 +90,11 @@ button.current, button.notCurrent:hover{
 .stepPage:hover{
 	background-color:rgb(218, 180, 133);
 	cursor: pointer;
+=======
+}
+
+button.current {
+	background-color: red;
+	color: white;
+>>>>>>> Stashed changes
 }

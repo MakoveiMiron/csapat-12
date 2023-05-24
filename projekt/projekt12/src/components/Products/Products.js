@@ -1,6 +1,6 @@
 import { useEffect, useState, useContext } from "react";
 import Pagination from "../pagination/Pagination";
-import Searchbar from "../searchBar/Searchbar";
+import Searchbar from "../SearchBar/Searchbar";
 import AdminProductCard from "../admin/adminProducts/AdminProductCard";
 import ProductCard from "../webshop/productCard/ProductCard";
 import { readProducts } from "../../services/Crud";

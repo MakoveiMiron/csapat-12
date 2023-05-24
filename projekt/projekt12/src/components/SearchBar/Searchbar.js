@@ -66,6 +66,8 @@ const Searchbar = (props) => {
 			<button className="searchButtonBack" onClick={handleResetButtonClick}>
 				<FiDelete />
 			</button>
+			<button onClick={handleSearchButtonClick}>Keresés</button>
+			<button onClick={handleResetButtonClick}>Visszaállítás</button>
 		</div>
 	);
 };
