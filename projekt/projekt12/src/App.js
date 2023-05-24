@@ -25,6 +25,7 @@ import Orders from "./pages/webshop/Orders";
 import AdminOrders from "./pages/admin/AdminOrders";
 import AdminOrdersDetails from "./pages/admin/AdminOrdersDetails";
 import AdminCategory from "./pages/admin/AdminCategory";
+import UserProfile from "./pages/webshop/UserProfile";
 
 const router = createBrowserRouter([
 	{
@@ -63,6 +64,10 @@ const router = createBrowserRouter([
 				path: "/megrendeleseim",
 				element: <Orders />,
 			},
+			{
+				path: "/:uid/profil",
+				element: <UserProfile/>
+			}
 		],
 	},
 	{
