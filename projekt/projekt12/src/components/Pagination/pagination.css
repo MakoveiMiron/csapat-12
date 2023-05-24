@@ -19,8 +19,6 @@
 .prodact-card-style {
 	display: flex;
 	justify-items: end;
-<<<<<<< Updated upstream
-	
 }
 
 button.current {
@@ -35,7 +33,6 @@ button.current {
 	align-items: stretch;
 	margin-right: 0.2em;
 	margin-left: 0.2em;
-
 }
 
 button.notCurrent {
@@ -52,15 +49,15 @@ button.notCurrent {
 	margin-left: 0.2em;
 }
 
-button.current, button.notCurrent:hover{
+button.current,
+button.notCurrent:hover {
 	cursor: pointer;
 }
 
-
-.activeStepPage{
+.activeStepPage {
 	background-color: rgb(219, 217, 213);
 	color: rgb(173, 151, 125);
-	border:#1a171400 ;
+	border: #1a171400;
 	margin-right: 0.3em;
 	margin-left: 0.3em;
 	padding-left: 3em;
@@ -73,9 +70,9 @@ button.current, button.notCurrent:hover{
 }
 
 .stepPage {
-	background-color:bisque;
+	background-color: bisque;
 	color: rgb(173, 151, 125);
-	border:#1a171400 ;
+	border: #1a171400;
 	margin-right: 0.3em;
 	margin-left: 0.3em;
 	padding-left: 3em;
@@ -87,14 +84,7 @@ button.current, button.notCurrent:hover{
 	align-items: stretch;
 }
 
-.stepPage:hover{
-	background-color:rgb(218, 180, 133);
+.stepPage:hover {
+	background-color: rgb(218, 180, 133);
 	cursor: pointer;
-=======
-}
-
-button.current {
-	background-color: red;
-	color: white;
->>>>>>> Stashed changes
 }

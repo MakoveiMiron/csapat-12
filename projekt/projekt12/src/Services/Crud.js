@@ -53,14 +53,14 @@ export function createProduct(price, title, description, categoryId, url) {
 			console.log(error.message);
 		});
 }
-
-export function updateProduct(id, title, price, description) {
+console.log("sasy");
+export function updateProduct(id, title, price, description, categoryId) {
 	return fetch(`${API_URL}termekek/${id}.json`, {
 		method: "PATCH",
 		headers: {
 			"Content-Type": "application/json",
 		},
-		body: JSON.stringify({ title, price, description }),
+		body: JSON.stringify({ title, price, description, categoryId }),
 	})
 		.then((data) => {
 			if (!data.ok) {
