@@ -1,16 +1,14 @@
 import "../products/SelectSort.css";
-import {
-	orderfromAtoZ,
-	orderfromZtoA
-} from "../../utils/orderSorting";
-import { useState, useEffect} from "react";
+import { orderfromAtoZ, orderfromZtoA } from "../../utils/orderSorting";
+import { customersfromAtoZ, customersfromZtoA } from "../../utils/userSorting";
+import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { useRef } from "react";
-
 
 export default function AdminSelectSort(props) {
 	const [sortDirection, setDirection] = useState("increasing");
 	const prevSortDirectionRef = useRef(sortDirection);
-	
+	const location = useLocation();
 
 	useEffect(() => {
 		if (prevSortDirectionRef.current !== sortDirection) {
@@ -22,14 +20,26 @@ export default function AdminSelectSort(props) {
 	}, [sortDirection]);
 
 	function handleChange(e) {
-		if (e.target.value === "a-z") {
-			setDirection("increasing");
-			const sortedProducts = orderfromAtoZ(props.products);
-			props.setSortedList(sortedProducts);
-		} else if (e.target.value === "z-a") {
-			setDirection("decreasing");
-			const sortedProducts = orderfromZtoA(props.products);
-			props.setSortedList(sortedProducts);
+		if (location.pathname.includes("/admin/megrendelesek")) {
+			if (e.target.value === "a-z") {
+				setDirection("increasing");
+				const sortedProducts = orderfromAtoZ(props.products);
+				props.setSortedList(sortedProducts);
+			} else if (e.target.value === "z-a") {
+				setDirection("decreasing");
+				const sortedProducts = orderfromZtoA(props.products);
+				props.setSortedList(sortedProducts);
+			}
+		} else {
+			if (e.target.value === "a-z") {
+				setDirection("increasing");
+				const sortedCustomers = customersfromAtoZ(props.customers);
+				props.setSortedList(sortedCustomers);
+			} else if (e.target.value === "z-a") {
+				setDirection("decreasing");
+				const sortedCustomers = customersfromZtoA(props.customers);
+				props.setSortedList(sortedCustomers);
+			}
 		}
 	}
 
