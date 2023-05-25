@@ -37,6 +37,7 @@ const AdminLogin = () => {
 		<>
 			<main>
 				<section>
+				<NavLink to={"/"}>Főoldal</NavLink>
 					<div>
 						<p> Admin Belépés</p>
 

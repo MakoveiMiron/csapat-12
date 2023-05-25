@@ -1,57 +1,72 @@
-import { LoggedInUserContext } from "../../contexts/LoggedInUserContext"
 import { useContext, useState, useEffect } from "react"
-import { getOrderIds, readProducts } from "../../services/Crud";
+import { getOrderIds, readProducts, } from "../../services/Crud";
+import { LoggedInUserContext} from "../../contexts/LoggedInUserContext"
+import "./Orders.css"
 
-export default function Orders(){
-    const [orderIds, setOrderIds] = useState([])
-    const [user, setUser] = useContext(LoggedInUserContext);
-    const [orders,setOrders] = useState({});
-    const [productList,setProductList] = useState([]);
-    const [orderId,setOrderId] = useState("");
-    const foundProducts = [];
-    const orderedAmount = [];
+export default function AdminOrders(){
+    const [orders, setOrders] = useState([]);
+    const [productList, setProductList] = useState([]);
+    const [user,setUser] = useContext(LoggedInUserContext);
 
+    
     useEffect(() => {
         getOrderIds()
         .then(resp =>{
-            setOrderIds(Object.keys(resp));
             setOrders(resp)
         });
+    },[]);
+
+    useEffect(() => {
         readProducts()
-        .then(resp => setProductList(Object.values(resp)))
-    },[])
-      
-    if (!user) return <h2>Ehhez jelentkezz be előbb!</h2>;
+        .then(resp => {
+            setProductList(resp);
+        })
+    },[]);
 
-
-    orderIds.forEach((id) => {
-        if (orders[id].uid === user.uid) {
-            const productIds = Object.keys(orders[id].products);
-            orderedAmount.push(Object.values(orders[id].products));
-            productIds.forEach((productId) => {
-            const orderedProducts = productList.filter((product) => product.id === productId);
-            foundProducts.push(...orderedProducts);
-            console.log(orders)
-        });
+    
+    if(!user)return<h1>Ehhez bekell jelentkezned előbb!</h1>
+    function listProducts(orderId){
+        const order = Object.values(orders)
+        let result;
+        
+        order.forEach(ord => {
+            if(ord.id === orderId){
+                result = Object.entries(ord.products)
+            }
+        })
+        return result
         }
-    });
+        function productName(id){
+            let title;
+            Object.values(productList).forEach(product => {if(id === product.id){ title = product.title}});
+            return title
+        }
+        function productPrice(id){
+            let price;
+            Object.values(productList).forEach(product => {if(id === product.id){ price = product.price}});
+            return price
+        }
 
-    if (foundProducts.length === 0) {
-        return <h2>Nincs rendelésed!</h2>;
-    }
-   
-    return (
-        <>
-        
-        {foundProducts.map((product, index) => (
-                <div>
-                    <p className="orderId">{orders[orderIds[index]].uid === user.uid ? orderIds[index] : null}</p>
-                        <p>{product.title}</p>
-                        <p>{product.price}</p>
-                        <p>{orderedAmount[0][index]}</p>
-                </div>
-        ))}
-        
-        </>
-    );
+        return(
+            <>
+                    <h1>Rendeleseim</h1>
+                    <div className="orders-container">
+                        <>   
+                                {Object.values(orders).map((order,idx) => {if(user.uid === order.uid){
+                                    return(
+                                        <>
+                                        <div className="order-card">
+                                            <h2 key={order.id}>Rendelés ID: {order.id}</h2>
+                                            <ul>
+                                                {listProducts(order.id).map(id => <li key={id}>{`${id[1]}db `} {productName(id[0])}  {productPrice(id[0]) * id[1]}Ft</li>)}
+                                            </ul>
+                                        </div>
+                                        </>
+                                    )
+                                }})}
+                        </>
+                    </div>
+            </>
+        )
+    
 }
