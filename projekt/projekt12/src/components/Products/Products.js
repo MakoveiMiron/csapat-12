@@ -9,7 +9,7 @@ import { AdminContext } from "../../contexts/AdminContext";
 import { useLocation } from "react-router-dom";
 import "./Product.css";
 
-export default function AdminProducts() {
+export default function Products() {
 	const [productList, setProductList] = useState([]);
 	const [sortedList, setSortedList] = useState([]);
 	const [filteredProducts, setFilteredProducts] = useState([]);
