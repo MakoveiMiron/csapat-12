@@ -14,7 +14,11 @@
     width: 40rem;
     border-radius: 1rem;
     padding: 1rem;
+    z-index: 1;
 }
 h1{
     text-align: center;
+}
+.no-orders{
+    grid-area: 1 / 1 / 2 / 3;
 }
