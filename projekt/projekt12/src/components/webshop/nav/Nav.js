@@ -9,6 +9,9 @@ import { useContext } from "react";
 import { Icon } from "react-icons-kit";
 import { menu } from "react-icons-kit/feather/menu";
 import { x } from "react-icons-kit/feather/x";
+import {logIn} from 'react-icons-kit/feather/logIn'
+import {userPlus} from 'react-icons-kit/feather/userPlus';
+import {logOut} from 'react-icons-kit/feather/logOut'
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { CartContext } from "../../../contexts/CartContext";
@@ -43,7 +46,6 @@ export default function Nav() {
 					<NavLink to="/">Főoldal/logo</NavLink>
 				</div>
 				<ul className="links">
-					<li className="username">{(user && user.name) || (isAdmin && "admin")}</li>
 					<li>
 						<NavLink to="/termekek">Termékek</NavLink>
 					</li>
@@ -61,24 +63,26 @@ export default function Nav() {
 							<NavLink to="/admin">Admin</NavLink>
 						</li>
 					)}
-
-					{user ? (
-						<button onClick={handleLogOut}>Kijelentkeztes</button>
-					) : (
-						<>
-							<li>
-								<NavLink to="/belepes">Bejelentkezés</NavLink>
-							</li>
-							<li>
-								<NavLink to="/regisztracio">Regisztráció</NavLink>
-							</li>
-						</>
-					)}
+					
 				</ul>
+			<div className="top-right">
+				<div className="profile">
+					{user ? (
+						<button onClick={handleLogOut} className="signOut"><Icon icon={logOut} size={30}/></button>
+						) : (
+							<>
+							
+								<NavLink to="/belepes"><Icon icon={logIn} size={30}/></NavLink>
+								<NavLink to="/regisztracio"><Icon icon={userPlus} size={30}/></NavLink>
+							</>
+					)}
+				</div>
 				<div className="toggle-icon" onClick={handleToggle}>
 					{toggle ? <Icon icon={x} size={30} /> : <Icon icon={menu} size={30} />}
 				</div>
-				{user && <CartHeader />}
+				{user && <CartHeader className="chart"/>}
+					<div className="username">{(user && user.name) || (isAdmin && "admin")}</div>
+			</div>
 			</div>
 		</>
 	);

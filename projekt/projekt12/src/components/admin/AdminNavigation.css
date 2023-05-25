@@ -11,8 +11,6 @@
   .navbar .links {
     list-style: none;
     display: flex;
-    position: absolute;
-    left: 0;
     
   }
 
@@ -88,9 +86,10 @@
         
           .navbar .toggle-icon{
             display: block;
+            order: 4;
             color: var(--clr-dark-dark);
             position: absolute;
-            top: 1rem;
+            top: 0;
             right: 1.2rem;
           }
         
