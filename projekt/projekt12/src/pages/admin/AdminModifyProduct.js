@@ -6,8 +6,15 @@ import "./AdminModifyProduct.css";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { app } from "../../constans/firebaseConfig";
-import {getStorage, ref, uploadBytes, getDownloadURL, listAll } from 'firebase/storage';
+import {
+	getStorage,
+	ref,
+	uploadBytes,
+	getDownloadURL,
+	listAll,
+} from "firebase/storage";
 import { uploadImg } from "../../services/Crud";
+import getCategoryList from "../../services/Crud";
 
 export default function AdminModifyProduct() {
 	const [productModify, setProductModify] = useState("");
@@ -17,6 +24,8 @@ export default function AdminModifyProduct() {
 	const [newUrL, setNewUrl] = useState(null);
 	const { id } = useParams();
 	const navigate = useNavigate();
+	const [category, setCategory] = useState("");
+	const [categoryList, setCategoryList] = useState([]);
 
 	useEffect(() => {
 		readProducts().then((data) => {
@@ -28,8 +37,20 @@ export default function AdminModifyProduct() {
 			setNewPrice(productModify.price);
 			setNewDescription(productModify.description);
 			setNewUrl(productModify.url);
+			setCategory(productModify.categoryId);
 		});
-	}, [id, productModify.title, productModify.price, productModify.description, productModify.url]);
+	}, [
+		id,
+		productModify.title,
+		productModify.price,
+		productModify.description,
+		productModify.url,
+		productModify.categoryId,
+	]);
+
+	useEffect(() => {
+		getCategoryList().then((json) => setCategoryList(Object.values(json)));
+	}, []);
 
 	function handleTitleChange(e) {
 		setNewTitle(e.target.value);
@@ -43,25 +64,26 @@ export default function AdminModifyProduct() {
 		setNewDescription(e.target.value);
 	}
 
-	function handleUrlChange(event){
+	function handleUrlChange(event) {
 		setNewUrl(event.target.files[0]);
 	}
+	function categoryChange(e) {
+		setCategory(e.target.value);
+	}
 
-	function fileUpload(id){
+	function fileUpload(id) {
 		const storage = getStorage(app);
-		const fileRef = ref(storage, "images/"+newUrL.name);
+		const fileRef = ref(storage, "images/" + newUrL.name);
 
-		return uploadBytes(fileRef, newUrL)
-		  .then((uploadResult) => {
-			getDownloadURL(uploadResult?.ref)
-			.then(url => uploadImg(url, id))
-		})	
+		return uploadBytes(fileRef, newUrL).then((uploadResult) => {
+			getDownloadURL(uploadResult?.ref).then((url) => uploadImg(url, id));
+		});
 	}
 
 	function handleSubmit(e) {
 		e.preventDefault();
-		updateProduct(id, newTitle, newPrice, newDescription)
-		.then(() => fileUpload(id))
+		updateProduct(id, newTitle, newPrice, newDescription, category)
+			.then(() => fileUpload(id))
 			.then(() => {
 				navigate("/admin/termekek");
 				toast.success("Termék sikeresen módosítva!", {
@@ -109,12 +131,21 @@ export default function AdminModifyProduct() {
 					onChange={handleDescChange}
 					required
 				/>
+				<label htmlFor="category">kategóriák</label>
+				<select value={category} onChange={categoryChange}>
+					<option key={0} value={""}>
+						Válassz kategóriát!
+					</option>
+					{categoryList.map((category, idx) => {
+						return (
+							<option key={idx + 1} value={category.id}>
+								{category.name}
+							</option>
+						);
+					})}
+				</select>
 				<label htmlFor="upload">File feltöltés</label>
-				<input
-					name="image"
-					type="file"
-					onChange={handleUrlChange}
-				/>
+				<input name="image" type="file" onChange={handleUrlChange} />
 
 				<button type="submit">Mentés</button>
 			</form>

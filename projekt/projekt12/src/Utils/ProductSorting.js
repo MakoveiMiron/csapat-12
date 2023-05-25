@@ -8,10 +8,10 @@ export function fromAtoZ(products) {
 			return 1;
 		}
 
+		// names must be equal
 		return 0;
 	});
 }
-
 
 export function fromZtoA(products) {
 	let sortedProducts = [...products];
@@ -23,6 +23,7 @@ export function fromZtoA(products) {
 			return 1;
 		}
 
+		// names must be equal
 		return 0;
 	});
 }
@@ -33,5 +34,3 @@ export function fromLowToHigh(products) {
 export function fromHighToLow(products) {
 	return [...products].sort((a, b) => b.price - a.price);
 }
-
-
