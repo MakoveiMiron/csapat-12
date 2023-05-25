@@ -129,6 +129,26 @@ function setCategoryId(id){
 }
 
 
+export function getCategoryList() {
+    return fetch(`${API_URL}category.json`)
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error("Hiba a kategórialista lekérésekor");
+            }
+            return response.json();
+        })
+        .then((data) => {
+            return data;
+        })
+        .catch((error) => {
+            console.error("Hiba a kategórialista lekérésekor:", error);
+            throw error;
+        });
+};
+
+
+
+
 // export function deleteProduct(id) {
 // 	return fetch(`${API_URL}termekek/${id}.json`, {
 // 		method: "DELETE",
