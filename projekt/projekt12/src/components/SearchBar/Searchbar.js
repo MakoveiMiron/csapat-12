@@ -64,18 +64,18 @@ const Searchbar = (props) => {
 				value={maxPrice}
 				onChange={handleMaxPriceInputChange}
 			/>
+
 			</div>
-			
 			<div className="search-icons">
 				<button className="searchButton" onClick={handleSearchButtonClick}>
-					<FiSearch />
+				<FiSearch />
 				</button>
 				<button className="searchButtonBack" onClick={handleResetButtonClick}>
-					<FiDelete />
+				<FiDelete />
 				</button>
+				<button onClick={handleSearchButtonClick}>Keresés</button>
+				<button onClick={handleResetButtonClick}>Visszaállítás</button>
 			</div>
-			
-			
 		</div>
 	);
 };

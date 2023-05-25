@@ -8,6 +8,7 @@ export function fromAtoZ(products) {
 			return 1;
 		}
 
+		// names must be equal
 		return 0;
 	});
 }
@@ -22,6 +23,7 @@ export function fromZtoA(products) {
 			return 1;
 		}
 
+		// names must be equal
 		return 0;
 	});
 }

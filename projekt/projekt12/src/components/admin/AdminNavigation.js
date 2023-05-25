@@ -27,6 +27,7 @@ export default function AdminNavigation() {
 	};
 	return (
 		<>
+
 		<div className={toggle ? "navbar expanded" : "navbar"}>
 			<ul className="links">
 				<li className="main">
@@ -41,6 +42,12 @@ export default function AdminNavigation() {
 				<li className="costumer-list">
 					<NavLink to="/admin/vasarlok">Vásárlók lista</NavLink>
 				</li>
+				<li>
+					<NavLink to="/admin/megrendelesek">Rendelések</NavLink>
+				</li>
+				<li>
+					<NavLink to="/admin/kategoriak/uj-kategoria">Kategória felvétel</NavLink>
+				</li>
 				<li className="home-page">
 					<NavLink to="/">Főoldal</NavLink>
 					{isAdmin && <button className="sign-out" onClick={handleLogOut}>Kijelentkeztes</button>}
@@ -50,6 +57,7 @@ export default function AdminNavigation() {
 					{toggle ? <Icon icon={x} size={30} /> : <Icon icon={menu} size={30} />}
 			</div>
 		</div>
+
 		</>
 	);
 }

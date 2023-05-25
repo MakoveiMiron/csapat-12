@@ -1,5 +1,5 @@
 import { API_URL } from "../../constans/firebaseConstans";
-import { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react';
 import "./adminCustomers.css"
 
 export default function AdminCustomers(){
@@ -19,18 +19,22 @@ export default function AdminCustomers(){
 
     return(
         <>
-        <div className="customer-container">
+            <table className="customersTable">
+                    <tr className="customersHeader">
+                        <th><h1>Name</h1></th>
+                        <th><h1>UID</h1></th>
+                        <th><h1>Email</h1></th>
+                    </tr>
+                
             {customer.map(x =>(
-                <>
-                <div className="customer">
-                    <h1 className="name"><span>Név:</span> {x.name}</h1>
-                    <p className="id"><span>Id:</span> {x.uid}</p>
-                    <hr></hr>
-                </div>
-                </>
+                    <tr className="customersData">
+                        <td><h3>{x.name}</h3></td>
+                        <td><p>{x.uid}</p></td>
+                        <td><p>{!x.email ? "Nincs megadott email" : x.email}</p></td>
+                    </tr>
             )
             )}
-        </div>
+            </table>
         </>
     )
 }

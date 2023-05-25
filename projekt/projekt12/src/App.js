@@ -21,6 +21,10 @@ import AdminLogin from "./pages/admin/AdminLogin";
 import Cart from "./pages/webshop/Cart";
 import { CartContext } from "./contexts/CartContext";
 import AdminCustomers from "./pages/admin/AdminCustomers";
+import Orders from "./pages/webshop/Orders";
+import AdminOrders from "./pages/admin/AdminOrders";
+import AdminOrdersDetails from "./pages/admin/AdminOrdersDetails";
+import AdminCategory from "./pages/admin/AdminCategory";
 
 const router = createBrowserRouter([
 	{
@@ -55,6 +59,10 @@ const router = createBrowserRouter([
 				path: "/kosar",
 				element: <Cart />,
 			},
+			{
+				path: "/megrendeleseim",
+				element: <Orders />,
+			},
 		],
 	},
 	{
@@ -88,6 +96,18 @@ const router = createBrowserRouter([
 			{
 				path: "/admin/vasarlok",
 				element: <AdminCustomers />,
+			},
+			{
+				path: "/admin/megrendelesek",
+				element: <AdminOrders />,
+			},
+			{
+				path: "/admin/megrendelesek/:megrendelesId",
+				element: <AdminOrdersDetails />,
+			},
+			{
+				path: "/admin/kategoriak/uj-kategoria",
+				element: <AdminCategory />,
 			},
 		],
 	},

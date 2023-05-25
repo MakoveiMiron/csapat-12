@@ -3,7 +3,7 @@ import {
 	fromAtoZ,
 	fromZtoA,
 	fromLowToHigh,
-	fromHighToLow
+	fromHighToLow,
 } from "../../utils/productSorting";
 import { useState, useEffect } from "react";
 import { useRef } from "react";
