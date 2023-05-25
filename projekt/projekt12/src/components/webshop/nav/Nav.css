@@ -8,7 +8,7 @@ body {
 
 .navbar{
     width: 100%;
-    height: 3rem;
+    height: var(--nav-height);
     padding: 1.8rem;
     background-color: var(--clr-light-brown);
     display: flex;
@@ -129,7 +129,7 @@ body {
       transition: all 0.3s ease-in-out;
     }
   
-    .navbar .links li{
+    .navbar .links li {
       margin: 1rem 0;
       font-size: 1.4rem;
     }

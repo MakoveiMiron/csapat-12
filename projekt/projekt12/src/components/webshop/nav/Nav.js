@@ -12,7 +12,7 @@ import { x } from "react-icons-kit/feather/x";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { CartContext } from "../../../contexts/CartContext";
-import CartHeader from "../../../pages/webshop/CartHeader";
+import CartHeader from "../../../pages/webshop/CartHeader"
 
 export default function Nav() {
 	const [user, setUser] = useContext(LoggedInUserContext);
