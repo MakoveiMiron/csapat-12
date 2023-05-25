@@ -107,8 +107,8 @@ const router = createBrowserRouter([
 			},
 			{
 				path: "/admin/kategoriak/uj-kategoria",
-				element: <AdminCategory />
-			}
+				element: <AdminCategory />,
+			},
 		],
 	},
 ]);
@@ -116,7 +116,7 @@ function App() {
 	const [user, setUser] = useState(false);
 	const [isAdmin, setIsAdmin] = useState(false);
 	const [cart, setCart] = useState([]);
-	
+
 	return (
 		<AdminContext.Provider value={[isAdmin, setIsAdmin]}>
 			<LoggedInUserContext.Provider value={[user, setUser]}>
