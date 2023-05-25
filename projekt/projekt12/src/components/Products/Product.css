@@ -1,7 +1,20 @@
-.product-page{
+.product-container{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     
+}
+
+.products-aside {
+    width: 20%;
+    border: 1px solid black;
+    margin-top: 2rem;
+    /* flex:  */
+}
+
+.products-main {
+    width: 80%;
+    border: 1px solid rgb(182, 58, 58);
+
 }
 
 .fill-menu{
@@ -15,15 +28,20 @@
 }
 
 .product-box{
-    display: flex;
+    /* display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
     align-items: center;
     align-content: center;
     flex-direction: row;
     gap: 1rem 1rem;
-    width: 80%;
-    align-self: center;
+    /* width: 80%; */
+    /* align-self: center;  */
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+    padding: var(--p-small);
+    gap: 2rem;
+    justify-items: center;
     
 }
 
@@ -33,6 +51,8 @@
     align-self: center;
     margin: 0.5rem 0;
 }
+
+
 
 @media(max-width:900px){
     .fill-menu{

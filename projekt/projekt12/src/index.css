@@ -7,21 +7,38 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+*{
+  box-sizing: border-box;
+}
+
+
 :root { 
-  --clr-light-white: #ffffff; --clr-dark-white: #e7e7e7; 
-  --clr-light-brown: #d7b550; --clr-dark-brown: #846300;
-  --clr-light-dark: #3d3d3d; --clr-dark-dark: #000000;
-  --clr-light-yellow: #ffe96e; --clr-dark-yellow: #e5c302;
+
+  --clr-light-white: #ffffff; 
+  --clr-dark-white: #e7e7e7; 
+  --clr-light-brown: #d7b550; 
+  --clr-dark-brown: #846300;
+  --clr-medium-brown: #4e3b00;
+  --clr-light-dark: #3d3d3d; 
+  --clr-dark-dark: #000000;
+  --clr-light-yellow: #ffe96e; 
+  --clr-dark-yellow: #e5c302;
+  --clr-light: #787878; 
+
+
   --p-none: 0;
   --p-small: 1rem;
   --p-medium: 2rem; 
   --p-large: 3rem;
+
   --m-none: 0;
   --m-small: 0.5rem; 
   --m-medium: 1rem; 
   --m-large: 1.5rem;
+
   --ff-primary: "sans-serif";
   --ff-secondary: "Droid Sans";
+
   --fs-h1: 1.75rem;
   --fs-h2: 1rem;
   --fs-h3: 0.75;
@@ -33,6 +50,7 @@ body {
   --lh-small: 0.5em;
   --lh-medium: 0.75em;
 
+  --nav-height: 10vh;
 
 
 }
