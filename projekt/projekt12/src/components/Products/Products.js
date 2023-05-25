@@ -9,7 +9,7 @@ import { AdminContext } from "../../contexts/AdminContext";
 import { useLocation } from "react-router-dom";
 import "./Product.css";
 
-export default function AdminProducts() {
+export default function Products() {
 	const [productList, setProductList] = useState([]);
 	const [sortedList, setSortedList] = useState([]);
 	const [filteredProducts, setFilteredProducts] = useState([]);
@@ -42,48 +42,55 @@ export default function AdminProducts() {
 	}, [currentPage, sortedList, productList]);
 
 	return (
-		<div className="product-page">
-			<div className="pagination-container">
-				<Pagination
-					total={total}
-					currentPage={currentPage}
-					limit={limit}
-					onPageChange={setCurrentPage}
+		<div className="product-container">
+			
+			<div className="products-aside">
+				<Searchbar
+					setSortedList={setSortedList}
+					productList={productList}
+					changeCurrentProducts={changeCurrentProducts}
+					setCurrentTable={setCurrentTable}
+					setFilteredProducts={setFilteredProducts}
+					filteredProducts={filteredProducts}
+				/>
+				<SelectSort
+					products={sortedList}
+					setCurrentTable={setCurrentTable}
+					setSortedList={setSortedList}
 				/>
 			</div>
-			<Searchbar
-				setSortedList={setSortedList}
-				productList={productList}
-				changeCurrentProducts={changeCurrentProducts}
-				setCurrentTable={setCurrentTable}
-				setFilteredProducts={setFilteredProducts}
-				filteredProducts={filteredProducts}
-			/>
-			<SelectSort
-				products={sortedList}
-				setCurrentTable={setCurrentTable}
-				setSortedList={setSortedList}
-			/>
-			{isAdmin && location.pathname.includes("/admin") ? (
-				<div className="products">
-					{currentTable.map((p) => (
-						<AdminProductCard key={p.id} id={p.id} product={p} />
-					))}
+
+			<div className="products-main">
+				<div className="pagination-container">
+					<Pagination
+						total={total}
+						currentPage={currentPage}
+						limit={limit}
+						onPageChange={setCurrentPage}
+					/>
 				</div>
-			) : (
-				<div className="product-box">
-					{currentTable.map((p) => (
-						<ProductCard key={p.id} id={p.id} product={p} />
-					))}
+			
+				{isAdmin && location.pathname.includes("/admin") ? (
+					<div className="products">
+						{currentTable.map((p) => (
+							<AdminProductCard key={p.id} id={p.id} product={p} />
+						))}
+					</div>
+				) : (
+					<div className="product-box">
+						{currentTable.map((p) => (
+							<ProductCard key={p.id} id={p.id} product={p} />
+						))}
+					</div>
+				)}
+				<div className="pagination-container">
+					<Pagination
+						total={total}
+						currentPage={currentPage}
+						limit={limit}
+						onPageChange={setCurrentPage}
+					/>
 				</div>
-			)}
-			<div className="pagination-container">
-				<Pagination
-					total={total}
-					currentPage={currentPage}
-					limit={limit}
-					onPageChange={setCurrentPage}
-				/>
 			</div>
 		</div>
 	);

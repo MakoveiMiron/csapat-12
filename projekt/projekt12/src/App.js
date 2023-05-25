@@ -25,12 +25,10 @@ import Orders from "./pages/webshop/Orders";
 import AdminOrders from "./pages/admin/AdminOrders";
 import AdminOrdersDetails from "./pages/admin/AdminOrdersDetails";
 import AdminNewCategory from "./pages/admin/AdminNewCategory";
-import AdminCategory from "./pages/admin/AdminNewCategory";
-import CategoryList from "./pages/admin/AdminCategoryList";
 import AdminCategoryList from "./pages/admin/AdminCategoryList";
-import AdminCategoryDelete from "./pages/admin/AdminDeleteCategory";
 import AdminDeleteCategory from "./pages/admin/AdminDeleteCategory";
 import AdminModifyCategory from "./pages/admin/AdminModifyCategory"
+import UserProfile from "./pages/webshop/UserProfile";
 
 const router = createBrowserRouter([
 	{
@@ -69,6 +67,10 @@ const router = createBrowserRouter([
 				path: "/megrendeleseim",
 				element: <Orders />,
 			},
+			{
+				path: "/:uid/profil",
+				element: <UserProfile/>
+			}
 		],
 	},
 	{
@@ -134,7 +136,7 @@ function App() {
 	const [user, setUser] = useState(false);
 	const [isAdmin, setIsAdmin] = useState(false);
 	const [cart, setCart] = useState([]);
-	
+
 	return (
 		<AdminContext.Provider value={[isAdmin, setIsAdmin]}>
 			<LoggedInUserContext.Provider value={[user, setUser]}>
