@@ -1,4 +1,4 @@
-.navbar{
+.navbar-admin{
     width: 100%;
     height: var(--nav-height);
     padding: 1.8rem;
@@ -8,13 +8,13 @@
     align-items: center;
   }
 
-  .navbar .links {
+  .navbar-admin .links {
     list-style: none;
     display: flex;
     
   }
 
-  .navbar .links a{
+  .navbar-admin .links a{
     text-decoration: none;
     color: var(--clr-dark-dark);
     cursor: pointer;
@@ -22,21 +22,21 @@
     
   }
 
-  .navbar .links li a{
+  .navbar-admin .links li a{
     margin: 0 0.6rem;
     font-weight: 600;
   }
 
-  .navbar .links li a:hover{
+  .navbar-admin .links li a:hover{
     color: var(--clr-light-yellow);
     box-shadow: 0 0.1rem 0 var(--clr-light-dark);
   }
   
-  .navbar .toggle-icon{
+  .navbar-admin .toggle-icon{
     display: none
   }
 
-  .navbar .links button{
+  .navbar-admin .links button{
     border: none;
     margin: 0 0.6rem;
     font-weight: 600;
@@ -45,7 +45,7 @@
     font-family: inherit;
   }
 
-  .navbar .links button:hover{
+  .navbar-admin .links button:hover{
     color: var(--clr-light-yellow);
     box-shadow: 0 0.1rem 0 var(--clr-light-dark);
   }
@@ -58,16 +58,16 @@
 
 
   @media(max-width: 900px){
-        .navbar{
+        .navbar-admin{
         position: relative;
         transition: 0.3s all ease-in-out;
         }
     
-        .navbar.expanded{
-        height: 28rem;
+        .navbar-admin.expanded{
+        height: 37rem;
         }
     
-        .navbar.expanded .links{
+        .navbar-admin.expanded .links{
         position: absolute;
         top: 2rem;
         left: 0;
@@ -79,21 +79,20 @@
         opacity: 1;
         }
     
-        .navbar.expanded .links li a{
+        .navbar-admin.expanded .links li a{
         margin: 1rem 0;
         font-size: 1.5rem;
         }
         
-          .navbar .toggle-icon{
+          .navbar-admin .toggle-icon{
             display: block;
-            order: 4;
             color: var(--clr-dark-dark);
             position: absolute;
-            top: 0;
-            right: 1.2rem;
+            top: 1rem;
+            right: 1rem;
           }
         
-          .navbar .links{
+          .navbar-admin .links{
             position: absolute;
             top: -300px;
             left: 0;
@@ -106,12 +105,12 @@
             transition: all 0.3s ease-in-out;
           }
         
-          .navbar .links li{
+          .navbar-admin .links li{
             margin: 1rem 0;
             font-size: 1.4rem;
           }
 
-          .navbar .home-page{
+          .navbar-admin .home-page{
             display: flex;
             flex-direction: column;
             align-items: center;
