@@ -24,7 +24,10 @@ import AdminCustomers from "./pages/admin/AdminCustomers";
 import Orders from "./pages/webshop/Orders";
 import AdminOrders from "./pages/admin/AdminOrders";
 import AdminOrdersDetails from "./pages/admin/AdminOrdersDetails";
-import AdminCategory from "./pages/admin/AdminCategory";
+import AdminNewCategory from "./pages/admin/AdminNewCategory";
+import AdminCategoryList from "./pages/admin/AdminCategoryList";
+import AdminDeleteCategory from "./pages/admin/AdminDeleteCategory";
+import AdminModifyCategory from "./pages/admin/AdminModifyCategory"
 import UserProfile from "./pages/webshop/UserProfile";
 
 const router = createBrowserRouter([
@@ -112,8 +115,20 @@ const router = createBrowserRouter([
 			},
 			{
 				path: "/admin/kategoriak/uj-kategoria",
-				element: <AdminCategory />,
+				element: <AdminNewCategory />
 			},
+			{
+				path: "/admin/kategoria",
+				element: <AdminCategoryList/>
+			},
+			{
+				path: "/admin/kategoria/:kategoriaID/torles",
+				element: <AdminDeleteCategory />
+			},
+			{
+				path: "/admin/kategoria/:kategoriaID/modositas",
+				element:<AdminModifyCategory />
+			}
 		],
 	},
 ]);

@@ -6,7 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { app } from "../../constans/firebaseConfig";
 import "./CreateProduct.css";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import getCategoryList from "../../services/Crud";
+import {getCategoryList} from "../../services/Crud";
 import { Navigate } from "react-router-dom";
 
 export default function CreateProduct() {

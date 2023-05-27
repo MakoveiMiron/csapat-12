@@ -48,6 +48,9 @@ export default function AdminNavigation() {
 				<li>
 					<NavLink to="/admin/kategoriak/uj-kategoria">Kategória felvétel</NavLink>
 				</li>
+				<li>
+					<NavLink to="/admin/kategoria">Kategoria lista</NavLink>
+				</li>
 				<li className="home-page">
 					<NavLink to="/">Főoldal</NavLink>
 					{isAdmin && <button className="sign-out" onClick={handleLogOut}>Kijelentkeztes</button>}
