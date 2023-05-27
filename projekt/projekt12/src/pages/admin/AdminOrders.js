@@ -81,7 +81,9 @@ export default function AdminOrders(){
 				        changeCurrentProducts={changeCurrentProducts}
 				        setCurrentTable={setCurrentTable}
 				        setFilteredProducts={setFilteredProducts}
-				        filteredProducts={filteredProducts}/>
+				        filteredProducts={filteredProducts}
+                        setCurrentPage={setCurrentPage}    
+                    />
 
                     <AdminSelectSort 
                         products={sortedList}

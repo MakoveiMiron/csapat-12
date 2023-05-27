@@ -12,11 +12,11 @@ const AdminSearchbar = (props) => {
 	};
 
 	const handleSearchButtonClick = () => {
-		if (location.pathname.includes("/megrendeleseim")) {
+		if (location.pathname.includes("/megrendeleseim") || location.pathname.includes("/admin/megrendelesek")) {
 			const filtered = (props.orders).filter(
 				(order) => order.uid.includes(searchText) || order.id.includes(searchText)
 			);
-			console.log(filtered)
+			props.setCurrentPage(1)
 			props.setSortedList(filtered);
 		}
 		else {
