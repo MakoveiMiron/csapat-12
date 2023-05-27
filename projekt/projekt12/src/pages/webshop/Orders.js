@@ -1,7 +1,9 @@
 import { useContext, useState, useEffect } from "react"
 import { getOrderIds, readProducts, } from "../../services/Crud";
-import { LoggedInUserContext} from "../../contexts/LoggedInUserContext"
-import "./Orders.css"
+import { LoggedInUserContext} from "../../contexts/LoggedInUserContext";
+import "./Orders.css";
+import { deleteOrder } from "../../services/authCrud"
+import { toast } from "react-toastify";
 
 export default function AdminOrders(){
     const [orders, setOrders] = useState([]);
@@ -14,7 +16,7 @@ export default function AdminOrders(){
         .then(resp =>{
             setOrders(resp)
         });
-    },[]);
+    },[orders]);
 
     useEffect(() => {
         readProducts()
@@ -23,8 +25,8 @@ export default function AdminOrders(){
         })
     },[]);
 
-    
     if(!user)return<h1>Ehhez bekell jelentkezned előbb!</h1>
+    if(!orders)return<h1>Nincsenek rendeléseid!</h1>
     function listProducts(orderId){
         const order = Object.values(orders)
         let result;
@@ -47,9 +49,23 @@ export default function AdminOrders(){
             return price
         }
 
+        function removeOrder(orderId){
+            try{
+                deleteOrder(orderId);
+                toast.success("Sikeresen törölted a megrendelést!", {
+                    position: toast.POSITION.BOTTOM_RIGHT,
+                });
+            }
+            catch (error){
+                toast.error("Hiba a megrendelés törlésekor!", {
+                    position: toast.POSITION.TOP_RIGHT,
+                });
+            }
+        }
+
         return(
             <>
-                    <h1>Rendeleseim</h1>
+                    <h1>Rendeléseim</h1>
                     <div className="orders-container">
                         <>   
                                 {Object.values(orders).map((order,idx) => {if(user.uid === order.uid){
@@ -60,9 +76,15 @@ export default function AdminOrders(){
                                             <ul>
                                                 {listProducts(order.id).map(id => <li key={id}>{`${id[1]}db `} {productName(id[0])}  {productPrice(id[0]) * id[1]}Ft</li>)}
                                             </ul>
+                                            <button onClick={() => removeOrder(order.id)}>Rendelés visszavonása</button>
                                         </div>
                                         </>
                                     )
+                                }
+                                else{
+                                    if(Object.values(orders).length-1 === idx){
+                                        return<h1 className="no-orders">Nincsenek  rendeléseid!</h1>
+                                    }
                                 }})}
                         </>
                     </div>

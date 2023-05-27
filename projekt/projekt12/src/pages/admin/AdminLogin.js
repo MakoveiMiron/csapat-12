@@ -11,19 +11,29 @@ const AdminLogin = () => {
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 	const [isAdmin, setisAdmin] = useContext(AdminContext);
+
 	const onLogin = (e) => {
 		e.preventDefault();
 		signInWithEmailAndPassword(auth, username, password)
 			.then((userCredential) => {
-				toast.success("Sikeres belépés!", {
-					position: toast.POSITION.TOP_RIGHT,
-				});
-				// fetchet kitenni services-be
-				fetch(`${API_URL}vasarlok/${userCredential._tokenResponse.localId}.json`)
-					.then((data) => data.json())
-					.then((resp) => {
-						setisAdmin(true);
-						navigate("/admin");
+				const userId = userCredential.user.uid;
+				fetch(`${API_URL}admins/${userId}.json`)
+					.then((response) => response.json())
+					.then((adminData) => {
+						if (adminData) {
+							setisAdmin(true);
+							toast.success("Sikeres belépés!", {
+								position: toast.POSITION.TOP_RIGHT,
+							});
+							navigate("/admin");
+						} else {
+							toast.error("Nincs admin jogosultság!", {
+								position: toast.POSITION.TOP_RIGHT,
+							});
+						}
+					})
+					.catch((error) => {
+						console.error(error);
 					});
 			})
 			.catch((error) => {
@@ -37,7 +47,7 @@ const AdminLogin = () => {
 		<>
 			<main>
 				<section>
-				<NavLink to={"/"}>Főoldal</NavLink>
+					<NavLink to={"/"}>Főoldal</NavLink>
 					<div>
 						<p> Admin Belépés</p>
 

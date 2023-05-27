@@ -15,7 +15,8 @@ import {logOut} from 'react-icons-kit/feather/logOut'
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { CartContext } from "../../../contexts/CartContext";
-import CartHeader from "../../../pages/webshop/CartHeader"
+import CartHeader from "../../../pages/webshop/CartHeader";
+import { FiUser } from "react-icons/fi";
 
 export default function Nav() {
 	const [user, setUser] = useContext(LoggedInUserContext);
@@ -63,7 +64,9 @@ export default function Nav() {
 							<NavLink to="/admin">Admin</NavLink>
 						</li>
 					)}
+
 					
+
 				</ul>
 			<div className="top-right">
 				<div className="profile">
@@ -75,7 +78,13 @@ export default function Nav() {
 								<NavLink to="/belepes"><Icon icon={logIn} size={30}/></NavLink>
 								<NavLink to="/regisztracio"><Icon icon={userPlus} size={30}/></NavLink>
 							</>
+							
 					)}
+					{user ? (<>
+								<NavLink to={`/${user.uid}/profil`}>
+									<FiUser/>
+								</NavLink>
+							</>) : null}
 				</div>
 				<div className="toggle-icon" onClick={handleToggle}>
 					{toggle ? <Icon icon={x} size={30} /> : <Icon icon={menu} size={30} />}
