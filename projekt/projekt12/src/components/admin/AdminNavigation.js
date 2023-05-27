@@ -28,7 +28,7 @@ export default function AdminNavigation() {
 	return (
 		<>
 
-		<div className={toggle ? "navbar expanded" : "navbar"}>
+		<div className={toggle ? "navbar-admin expanded" : "navbar-admin"}>
 			<ul className="links">
 				<li className="main">
 					<NavLink to="/admin/">Admin</NavLink>

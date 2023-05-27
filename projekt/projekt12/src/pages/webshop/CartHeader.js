@@ -53,11 +53,11 @@ const CartHeader = () => {
 		<div className="cart-header">
 			<NavLink to="/kosar">
 				<Icon icon={shoppingCart} size={30} />
-			</NavLink>
-
 			{productData.length !== 0 && (
 				<span className="badge total-price"> Végösszeg: {totalPrice} Ft</span>
 			)}
+			</NavLink>
+
 		</div>
 	);
 };

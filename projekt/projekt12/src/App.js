@@ -122,11 +122,11 @@ const router = createBrowserRouter([
 				element: <AdminCategoryList/>
 			},
 			{
-				path: "/admin/kategoria/:kategoriaID/torles",
+				path: "/admin/kategoria/:id/torles",
 				element: <AdminDeleteCategory />
 			},
 			{
-				path: "/admin/kategoria/:kategoriaID/modositas",
+				path: "/admin/kategoria/:id/modositas",
 				element:<AdminModifyCategory />
 			}
 		],
