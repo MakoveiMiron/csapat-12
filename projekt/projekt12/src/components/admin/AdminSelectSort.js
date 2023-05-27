@@ -30,7 +30,19 @@ export default function AdminSelectSort(props) {
 				const sortedProducts = orderfromZtoA(props.products);
 				props.setSortedList(sortedProducts);
 			}
-		} else {
+		} 
+		else if(location.pathname.includes("/megrendeleseim")){
+			if (e.target.value === "a-z") {
+				setDirection("increasing");
+				const sortedOrders = orderfromAtoZ(props.orders);
+				props.setSortedList(sortedOrders);
+			} else if (e.target.value === "z-a") {
+				setDirection("decreasing");
+				const sortedOrders = orderfromZtoA(props.orders);
+				props.setSortedList(sortedOrders);
+			}
+		}
+		else {
 			if (e.target.value === "a-z") {
 				setDirection("increasing");
 				const sortedCustomers = customersfromAtoZ(props.customers);

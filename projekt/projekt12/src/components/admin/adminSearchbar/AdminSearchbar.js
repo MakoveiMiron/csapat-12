@@ -12,24 +12,24 @@ const AdminSearchbar = (props) => {
 	};
 
 	const handleSearchButtonClick = () => {
-		if (location.pathname.includes("/admin/megrendelesek")) {
-			const filtered = props.orders.filter(
+		if (location.pathname.includes("/megrendeleseim")) {
+			const filtered = (props.orders).filter(
 				(order) => order.uid.includes(searchText) || order.id.includes(searchText)
 			);
-
+			console.log(filtered)
 			props.setSortedList(filtered);
-		} else {
+		}
+		else {
 			const filtered = props.customers.filter(
 				(customer) =>
 					customer.uid.includes(searchText) || customer.name.includes(searchText)
 			);
-
 			props.setSortedList(filtered);
 		}
 	};
 
 	const handleResetButtonClick = () => {
-		if (location.pathname.includes("/admin/megrendelesek")) {
+		if (location.pathname.includes("/admin/megrendelesek") || location.pathname.includes("/megrendeleseim")) {
 			setSearchText("");
 			props.setSortedList(props.orders);
 		} else {
