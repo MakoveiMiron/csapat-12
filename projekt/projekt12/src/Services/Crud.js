@@ -156,17 +156,36 @@ export function getCategoryList() {
         });
 };
 
+export function updateCategory(id, name) {
+	return fetch(`${API_URL}category/${id}.json`, {
+		method: "PATCH",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify({ name }),
+	})
+		.then((data) => {
+			if (!data.ok) {
+				throw new Error("Hiba a termék frissítése során.");
+			}
+			return data.json();
+		})
+		.catch((err) => {
+			console.log(err.message);
+		});
+}
 
-
-
-// export function deleteProduct(id) {
-// 	return fetch(`${API_URL}termekek/${id}.json`, {
-// 		method: "DELETE",
-// 	}).then((response) => {
-// 		if (!response.ok) {
-// 			throw new Error("Hiba történt a termék törlése során.");
-// 		}
-// 		// szimulál egy hibát a folyamat során.
-// 		throw new Error("Szimulált hiba a termék törlése során.");
-// 	});
-// }
+export function deleteCategory(id) {
+	return fetch(`${API_URL}category/${id}.json`, {
+		method: "DELETE",
+	})
+		.then((data) => {
+			if (!data.ok) {
+				throw new Error("Hiba a kategória törlése során.");
+			}
+			return data;
+		})
+		.catch((err) => {
+			console.log(err.message);
+		});
+	}
