@@ -16,6 +16,12 @@
 	cursor: pointer;
 }
 
+.all{
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+}
+
 .prodact-card-style {
 	display: flex;
 	justify-items: end;
@@ -58,6 +64,8 @@ button.notCurrent:hover {
 	background-color: rgb(219, 217, 213);
 	color: rgb(173, 151, 125);
 	border: #1a171400;
+	display: flex;
+	justify-content: center;
 	margin-right: 0.3em;
 	margin-left: 0.3em;
 	padding-left: 3em;
@@ -73,6 +81,8 @@ button.notCurrent:hover {
 	background-color: bisque;
 	color: rgb(173, 151, 125);
 	border: #1a171400;
+	display: flex;
+	justify-content: center;
 	margin-right: 0.3em;
 	margin-left: 0.3em;
 	padding-left: 3em;
@@ -87,4 +97,41 @@ button.notCurrent:hover {
 .stepPage:hover {
 	background-color: rgb(218, 180, 133);
 	cursor: pointer;
+}
+
+@media(max-width:800px){
+	.stepPage{
+		padding-left: 2rem;
+		padding-right: 2rem;
+	}
+	.activeStepPage{
+		padding-left: 2rem;
+		padding-right: 2rem;
+	}
+}
+@media(max-width:558px){
+	.stepPage{
+		padding-left: 1rem;
+		padding-right: 1rem;
+	}
+	.activeStepPage{
+		padding-left: 1rem;
+		padding-right: 1rem;
+	}
+}
+
+@media(max-width:405px){
+	.stepPage{
+		padding-left: 0.5rem;
+		padding-right: 0.5rem;
+	}
+	.activeStepPage{
+		padding-left: 0.5rem;
+		padding-right: 0.5rem;
+	}	
+}
+
+@media(max-width:310px){
+	.stepPage{display: none;}
+	.activeStepPage{display:none}
 }
