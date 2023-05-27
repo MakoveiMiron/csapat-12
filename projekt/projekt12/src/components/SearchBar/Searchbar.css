@@ -1,16 +1,27 @@
-.filter {
+/* .filter-main {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    padding: 1rem;
+    justify-content: flex-start;
+    padding: 2rem;
+    
 }
-.searchButton {
+
+.search-field{
+    display: flex;
+    justify-content: center;
+    width: max-content;
+}
+
+.search-price{
+    display: flex;
+    flex-direction: column;
+    width: max-content;
+}
+
+.filter-main .searchButton {
     border: bisque;
     background-color:rgb(250, 215, 173);
     border-radius: 0.3em;
-    position: relative;
-    right: 0.5rem;
     align-self: center;
     min-height: 1.5rem;
     min-width: 1.5rem;
@@ -18,14 +29,10 @@
     
 }
 
-.searchButtonBack{
+.filter-main.searchButtonBack{
     border: rgb(18, 16, 13);
     background-color:rgb(250, 215, 173);
     border-radius: 0.3em;
-    position: relative;
-    align-self: center;
-    position: relative;
-    right: 1em;
     min-height: 1.5rem;
 }
 
@@ -38,3 +45,9 @@
     appearance: none;
     
 }
+
+.search-icons{
+    display: flex;
+    flex-direction: row;
+    width: max-content;
+} */

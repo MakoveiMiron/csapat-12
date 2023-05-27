@@ -5,11 +5,15 @@
     gap: 0.3rem;
     min-height: 1.5rem;
     position: relative;
+    padding: 0.5rem;
 }
 
 .sort-text{
     font-size: 1em;
     font-weight: 600;
+    width: 25%;
+    display: flex;
+    justify-content: center;
     
 }
 
@@ -21,9 +25,19 @@
     width: 8rem;
     display: flex;
     justify-content: center;
+    width: 75%;
 }
 
 .select-box:hover{
     background-color: rgb(228, 191, 147);
     cursor: pointer;
+}
+
+@media(max-width:900px){
+    .sort-text{
+        width: 100%;
+    }
+    .select-box{
+        width: 100%;
+    }
 }

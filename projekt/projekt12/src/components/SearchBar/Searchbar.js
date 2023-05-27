@@ -38,7 +38,7 @@ const Searchbar = (props) => {
 	};
 
 	return (
-		<div className="filter">
+		<div className="filter-main">
 			<div className="search-field">			
 				<input
 					className="searchInput"
@@ -47,6 +47,8 @@ const Searchbar = (props) => {
 					value={searchText}
 					onChange={handleSearchInputChange}
 				/>				
+			
+				
 			</div>
 
 			<div className="search-price">
@@ -64,17 +66,17 @@ const Searchbar = (props) => {
 				value={maxPrice}
 				onChange={handleMaxPriceInputChange}
 			/>
-
+				
 			</div>
 			<div className="search-icons">
 				<button className="searchButton" onClick={handleSearchButtonClick}>
-				<FiSearch />
+					<FiSearch />
 				</button>
 				<button className="searchButtonBack" onClick={handleResetButtonClick}>
-				<FiDelete />
+					<FiDelete />
 				</button>
-				{/* <button onClick={handleSearchButtonClick}>Keresés</button>
-				<button onClick={handleResetButtonClick}>Visszaállítás</button> */}
+					{/* <button onClick={handleSearchButtonClick}>Keresés</button>
+					<button onClick={handleResetButtonClick}>Visszaállítás</button> */}
 			</div>
 		</div>
 	);
