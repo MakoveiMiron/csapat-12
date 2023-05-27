@@ -14,7 +14,7 @@ import {
 	listAll,
 } from "firebase/storage";
 import { uploadImg } from "../../services/Crud";
-import getCategoryList from "../../services/Crud";
+import {getCategoryList} from "../../services/Crud";
 
 export default function AdminModifyProduct() {
 	const [productModify, setProductModify] = useState("");

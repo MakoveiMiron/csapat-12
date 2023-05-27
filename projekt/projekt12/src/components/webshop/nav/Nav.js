@@ -12,7 +12,8 @@ import { x } from "react-icons-kit/feather/x";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { CartContext } from "../../../contexts/CartContext";
-import CartHeader from "../../../pages/webshop/CartHeader"
+import CartHeader from "../../../pages/webshop/CartHeader";
+import { FiUser } from "react-icons/fi";
 
 export default function Nav() {
 	const [user, setUser] = useContext(LoggedInUserContext);
@@ -74,6 +75,13 @@ export default function Nav() {
 							</li>
 						</>
 					)}
+					{user ? (<>
+							<li>
+								<NavLink to={`/${user.uid}/profil`}>
+									<FiUser/>
+								</NavLink>
+							</li>
+							</>) : null}
 				</ul>
 				<div className="toggle-icon" onClick={handleToggle}>
 					{toggle ? <Icon icon={x} size={30} /> : <Icon icon={menu} size={30} />}

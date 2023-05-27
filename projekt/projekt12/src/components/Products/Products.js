@@ -79,7 +79,7 @@ export default function Products() {
 				) : (
 					<div className="product-box">
 						{currentTable.map((p) => (
-							<ProductCard key={p.id} id={p.id} product={p} />
+							<ProductCard key={p.id} id={p.id} product={p} currentPage={currentPage} />
 						))}
 					</div>
 				)}

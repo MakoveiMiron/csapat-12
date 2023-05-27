@@ -150,4 +150,21 @@ export async function clearCart(uid) {
 	} catch (error) {
 		return { success: false, error: error.message };
 	}
+
+}
+
+export async function deleteOrder(orderId){
+	try {
+		const response = await fetch(`${API_URL}orders/${orderId}.json`, {
+			method: "DELETE",
+		});
+
+		if (!response.ok) {
+			throw new Error("Hiba a rendelés törlésekor!");
+		}
+
+		return { success: true };
+	} catch (error) {
+		return { success: false, error: error.message };
+	}
 }
