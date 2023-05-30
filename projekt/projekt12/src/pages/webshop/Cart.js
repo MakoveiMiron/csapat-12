@@ -8,12 +8,14 @@ import { LoggedInUserContext } from "../../contexts/LoggedInUserContext";
 import { Navigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import CartItem from "./CartItem";
+import "./Cart.css";
 
 const Cart = () => {
 	const [cart, setCart] = useContext(CartContext);
 	const [user, setUser] = useContext(LoggedInUserContext);
 	const [productData, setProductData] = useState([]);
 	const [orderSent, setOrderSent] = useState(false);
+	const [emptyCart, setEmptyCart] = useState(false);
 
 	useEffect(() => {
 		const fetchCartData = async () => {
@@ -47,6 +49,29 @@ const Cart = () => {
 		}
 	};
 
+	const removeItem = (productId) => {
+		const updatedCart = { ...cart };
+		delete updatedCart[productId];
+		setCart(updatedCart);
+		clearCart(user.uid, productId); // Új sor: a termék törlése a backenden
+	};
+	const removeCart = async () => {
+		try {
+			await clearCart(user.uid);
+			setCart({});
+			setEmptyCart(true);
+
+			toast.success("Sikeresen törölted a kosarad!", {
+				position: toast.POSITION.TOP_RIGHT,
+			});
+		} catch (error) {
+			console.error("Hiba a kosár törlésekor:", error);
+			toast.error("Hiba a kosár törlésekor!", {
+				position: toast.POSITION.TOP_RIGHT,
+			});
+		}
+	};
+
 	const totalPrice = () => {
 		let totalPrice = 0;
 		productData.forEach((product) => {
@@ -77,27 +102,28 @@ const Cart = () => {
 	};
 
 	return (
-		<div>
-			<h2>Kosár</h2>
-			<CartUpdater />
-			{productData.length === 0 ? (
-				<h3>Nincs termék a kosárban</h3>
-			) : (
-				<>
-					<div className="container">
-						{orderSent ? (
-							<>
-								<h3>A megrendelés sikeresen elküldve!</h3>
-								<Navigate to="/" />
-							</>
-						) : (
-							<div className="cart-heading">
-								<p>Item</p>
-								<p className="cart-hide">Price</p>
-								<p>Mennyiség</p>
-								<p className="cart-hide">Összesen</p>
-								<p>Eltávolít</p>.
-								<div className="cart-item">
+		<section className="grid-container">
+			<div className="cart-container">
+				<CartUpdater />
+				{productData.length === 0 ? (
+					<h3>Nincs termék a kosárban</h3>
+				) : (
+					<>
+						<div className="wrap">
+							{orderSent || emptyCart ? (
+								<>
+									<h3>A megrendelés sikeresen elküldve!</h3>
+									<Navigate to="/" />
+								</>
+							) : (
+								<div className="container">
+									<div className="cart-row-head">
+										<div className="product">Termék</div>
+										<div className="price">Ár</div>
+										<div className="amount">Mennyiség</div>
+										<div className="remove">Eltávolít</div>
+									</div>
+
 									{productData.map((product) => (
 										<CartItem
 											key={product.id}
@@ -105,17 +131,24 @@ const Cart = () => {
 											cartItemAmount={cart[product.id]}
 											incrementAmount={incrementAmount}
 											decrementAmount={decrementAmount}
+											removeItem={removeItem}
 										/>
 									))}
+
+									<div className="row total">
+										<div className="price">Végösszeg: {totalPrice()} Ft</div>
+									</div>
+									<div className="row checkout">
+										<button onClick={sendOrder}>Megrendelés</button>
+										<button onClick={removeCart}>kosár törlése</button>
+									</div>
 								</div>
-							</div>
-						)}
-					</div>
-					<p>Végösszeg: {totalPrice()} Ft</p>
-					<button onClick={sendOrder}>Megrendelés</button>
-				</>
-			)}
-		</div>
+							)}
+						</div>
+					</>
+				)}
+			</div>
+		</section>
 	);
 };
 

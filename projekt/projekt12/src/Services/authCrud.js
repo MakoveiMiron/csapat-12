@@ -136,9 +136,14 @@ export const saveOrder = async (uid, products) => {
 		return { success: false, error: error.message };
 	}
 };
-export async function clearCart(uid) {
+export async function clearCart(uid, productId = null) {
 	try {
-		const response = await fetch(`${API_URL}vasarlok/${uid}/cart.json`, {
+		let url = `${API_URL}vasarlok/${uid}/cart.json`;
+		if (productId) {
+			url = `${API_URL}vasarlok/${uid}/cart/${productId}.json`;
+		}
+
+		const response = await fetch(url, {
 			method: "DELETE",
 		});
 
@@ -150,10 +155,9 @@ export async function clearCart(uid) {
 	} catch (error) {
 		return { success: false, error: error.message };
 	}
-
 }
 
-export async function deleteOrder(orderId){
+export async function deleteOrder(orderId) {
 	try {
 		const response = await fetch(`${API_URL}orders/${orderId}.json`, {
 			method: "DELETE",
