@@ -1,0 +1,111 @@
+.grid-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.cart-container {
+	width: 100%;
+	max-width: 90%;
+	padding: 20px;
+}
+
+.wrap {
+	display: flex;
+	flex-direction: column;
+}
+
+.container {
+	margin-top: 20px;
+}
+
+.cart-row-head {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr;
+	align-items: center;
+	padding: 10px;
+	font-weight: bold;
+}
+
+.cart-row {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr;
+	align-items: center;
+	column-gap: 10px;
+	padding: 10px;
+}
+
+.product-details {
+	display: flex;
+	align-items: center;
+}
+.product-details img {
+	width: 80px;
+	height: 80px;
+	object-fit: cover;
+	margin-right: 10px;
+}
+.product-details p {
+	margin: 0;
+}
+
+.price {
+	text-align: center;
+}
+.product {
+	text-align: center;
+}
+
+.amount {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.amount button {
+	background-color: grey;
+	font-size: 10px;
+	padding: 2px 5px;
+	cursor: pointer;
+
+	margin: 8px;
+}
+
+.remove {
+	text-align: center;
+}
+
+.remove button {
+	border: none;
+	background: none;
+	cursor: pointer;
+	font-weight: bold;
+	color: red;
+}
+
+.row.total {
+	display: flex;
+	justify-content: flex-end;
+	margin-top: 20px;
+	font-weight: bold;
+}
+
+.row.checkout {
+	display: flex;
+	justify-content: flex-end;
+	margin-top: 20px;
+}
+
+button {
+	padding: 10px 20px;
+	background-color: #333;
+	color: #fff;
+	border: none;
+	cursor: pointer;
+}
+
+h3 {
+	margin: 0;
+	font-size: 20px;
+	font-weight: bold;
+}
