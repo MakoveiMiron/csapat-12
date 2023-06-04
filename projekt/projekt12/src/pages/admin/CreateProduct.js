@@ -6,8 +6,10 @@ import "react-toastify/dist/ReactToastify.css";
 import { app } from "../../constans/firebaseConfig";
 import "./CreateProduct.css";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import {getCategoryList} from "../../services/Crud";
+import { getCategoryList } from "../../services/Crud";
 import { Navigate } from "react-router-dom";
+import { validateInput } from "../../utils/InputValidation";
+import InputValidation from "../../utils/InputValidation";
 
 export default function CreateProduct() {
 	const [title, setTitle] = useState("");
@@ -53,6 +55,9 @@ export default function CreateProduct() {
 
 	function handleSubmit(e) {
 		e.preventDefault();
+		if (!validateInput(title, price)) {
+			return;
+		}
 
 		if (file) {
 			fileUpload(file)
@@ -89,53 +94,51 @@ export default function CreateProduct() {
 	}
 	return (
 		<>
-		<div className="create-product">
-			<form onSubmit={handleSubmit} className="product-form">
-				<label htmlFor="title">Termék neve:</label>
-				<input
-					name="title"
-					type="text"
-					value={title}
-					onChange={titlechange}
-					required
-				/>
+			<div className="create-product">
+				<form onSubmit={handleSubmit} className="product-form">
+					<InputValidation
+						label="Termék neve"
+						name="title"
+						type="text"
+						value={title}
+						onChange={titlechange}
+					/>
 
-				<label htmlFor="price">Ár:</label>
-				<input
-					name="price"
-					type="number"
-					value={price}
-					onChange={pricechange}
-					required
-				/>
+					<InputValidation
+						label="Termék Ára"
+						name="price"
+						type="number"
+						value={price}
+						onChange={pricechange}
+					/>
 
-				<label htmlFor="description">Leírás:</label>
-				<input
-					name="description"
-					type="text"
-					value={description}
-					onChange={descriptionchange}
-					required
-				/>
-				<label htmlFor="category">kategóriák</label>
-				<select value={""} onChange={categoryChange}>
-					<option key={0} value={""}>
-						besorolatlan
-					</option>
-					{categoryList.map((category, idx) => {
-						return (
-							<option key={idx + 1} value={category.id}>
-								{category.name}
-							</option>
-						);
-					})}
-				</select>
+					<label htmlFor="description">Leírás:</label>
+					<input
+						name="description"
+						type="text"
+						value={description}
+						onChange={descriptionchange}
+						required
+					/>
+					<label htmlFor="category">kategóriák</label>
+					<select value={""} onChange={categoryChange}>
+						<option key={0} value={""}>
+							besorolatlan
+						</option>
+						{categoryList.map((category, idx) => {
+							return (
+								<option key={idx + 1} value={category.id}>
+									{category.name}
+								</option>
+							);
+						})}
+					</select>
 
-				<label htmlFor="upload">File feltöltés</label>
-				<input name="image" type="file" onChange={fileChange} />
-				<button type="submit">Create product</button>
-			</form>
-		</div>
+					<label htmlFor="upload">File feltöltés</label>
+					<input name="image" type="file" onChange={fileChange} />
+					<button type="submit">Create product</button>
+				</form>
+			</div>
 		</>
 	);
 }

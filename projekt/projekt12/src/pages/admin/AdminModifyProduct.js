@@ -6,82 +6,91 @@ import "./AdminModifyProduct.css";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { app } from "../../constans/firebaseConfig";
-import {
-	getStorage,
-	ref,
-	uploadBytes,
-	getDownloadURL,
-	listAll,
-} from "firebase/storage";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { uploadImg } from "../../services/Crud";
-import {getCategoryList} from "../../services/Crud";
+import { getCategoryList } from "../../services/Crud";
+import InputValidation from "../../utils/InputValidation";
+import { validateInput } from "../../utils/InputValidation";
 
-export default function AdminModifyProduct() {
-	const [productModify, setProductModify] = useState("");
+const AdminModifyProduct = () => {
+	const [productModify, setProductModify] = useState(null);
 	const [newTitle, setNewTitle] = useState("");
 	const [newPrice, setNewPrice] = useState("");
 	const [newDescription, setNewDescription] = useState("");
-	const [newUrL, setNewUrl] = useState(null);
+	const [newUrl, setNewUrl] = useState(null);
 	const { id } = useParams();
 	const navigate = useNavigate();
 	const [category, setCategory] = useState("");
 	const [categoryList, setCategoryList] = useState([]);
 
 	useEffect(() => {
-		readProducts().then((data) => {
-			const productToModify = formatData(data).find(
-				(product) => product.id === id
-			);
-			setProductModify(productToModify);
-			setNewTitle(productModify.title);
-			setNewPrice(productModify.price);
-			setNewDescription(productModify.description);
-			setNewUrl(productModify.url);
-			setCategory(productModify.categoryId);
-		});
-	}, [
-		id,
-		productModify.title,
-		productModify.price,
-		productModify.description,
-		productModify.url,
-		productModify.categoryId,
-	]);
+		const fetchData = async () => {
+			try {
+				const data = await readProducts();
+				const formattedData = formatData(data);
+				const productToModify = formattedData.find((product) => product.id === id);
+				setProductModify(productToModify);
+				setNewTitle(productToModify.title);
+				setNewPrice(productToModify.price);
+				setNewDescription(productToModify.description);
+				setNewUrl(productToModify.url);
+				setCategory(productToModify.categoryId);
+			} catch (error) {
+				console.log(error);
+			}
+		};
+
+		fetchData();
+	}, [id]);
 
 	useEffect(() => {
-		getCategoryList().then((json) => setCategoryList(Object.values(json)));
+		const fetchCategoryList = async () => {
+			try {
+				const json = await getCategoryList();
+				setCategoryList(Object.values(json));
+			} catch (error) {
+				console.log(error);
+			}
+		};
+
+		fetchCategoryList();
 	}, []);
 
-	function handleTitleChange(e) {
+	const handleTitleChange = (e) => {
 		setNewTitle(e.target.value);
-	}
+	};
 
-	function handlePriceChange(e) {
+	const handlePriceChange = (e) => {
 		setNewPrice(e.target.value);
-	}
+	};
 
-	function handleDescChange(e) {
+	const handleDescChange = (e) => {
 		setNewDescription(e.target.value);
-	}
+	};
 
-	function handleUrlChange(event) {
+	const handleUrlChange = (event) => {
 		setNewUrl(event.target.files[0]);
-	}
-	function categoryChange(e) {
+	};
+
+	const categoryChange = (e) => {
 		setCategory(e.target.value);
-	}
+	};
 
-	function fileUpload(id) {
+	const fileUpload = (id) => {
 		const storage = getStorage(app);
-		const fileRef = ref(storage, "images/" + newUrL.name);
+		const fileRef = ref(storage, "images/" + newUrl.name);
 
-		return uploadBytes(fileRef, newUrL).then((uploadResult) => {
+		return uploadBytes(fileRef, newUrl).then((uploadResult) => {
 			getDownloadURL(uploadResult?.ref).then((url) => uploadImg(url, id));
 		});
-	}
+	};
 
-	function handleSubmit(e) {
+	const handleSubmit = (e) => {
 		e.preventDefault();
+		if (!validateInput(newTitle, newPrice)) {
+			return;
+		}
+
 		updateProduct(id, newTitle, newPrice, newDescription, category)
 			.then(() => fileUpload(id))
 			.then(() => {
@@ -91,34 +100,32 @@ export default function AdminModifyProduct() {
 				});
 			})
 			.catch((error) => {
-				toast.error(`Hiba történt a termék módosítása közben: ${error.message}`, {
-					position: toast.POSITION.TOP_RIGHT,
-				});
+				toast.error(
+					`Hiba történt a termék módosítása közben: ${console.log(error.message)}`,
+					{
+						position: toast.POSITION.TOP_RIGHT,
+					}
+				);
 			});
-	}
+	};
 
 	return (
 		<>
 			<form onSubmit={handleSubmit}>
-				<label htmlFor="title">Új név:</label>
-				<input
-					className="input"
-					maxLength={100}
-					id="title"
+				<InputValidation
+					label="Új név:"
 					type="text"
+					name="title"
 					value={newTitle}
 					onChange={handleTitleChange}
-					required
 				/>
 
-				<label htmlFor="price">Új ár:</label>
-				<input
-					className="input"
-					id="price"
+				<InputValidation
+					label="Új ár:"
 					type="number"
+					name="price"
 					value={newPrice}
 					onChange={handlePriceChange}
-					required
 				/>
 
 				<label htmlFor="description">Új leírás:</label>
@@ -131,9 +138,10 @@ export default function AdminModifyProduct() {
 					onChange={handleDescChange}
 					required
 				/>
+
 				<label htmlFor="category">kategóriák</label>
 				<select value={category} onChange={categoryChange}>
-					<option key={0} value={""}>
+					<option key={0} value="">
 						Válassz kategóriát!
 					</option>
 					{categoryList.map((category, idx) => {
@@ -144,6 +152,7 @@ export default function AdminModifyProduct() {
 						);
 					})}
 				</select>
+
 				<label htmlFor="upload">File feltöltés</label>
 				<input name="image" type="file" onChange={handleUrlChange} />
 
@@ -152,4 +161,6 @@ export default function AdminModifyProduct() {
 			<button onClick={() => navigate("/admin/termekek")}>Mégsem</button>
 		</>
 	);
-}
+};
+
+export default AdminModifyProduct;
