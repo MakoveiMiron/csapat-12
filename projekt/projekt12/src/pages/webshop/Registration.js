@@ -1,18 +1,12 @@
 import { useContext, useState } from "react";
 import { API_URL } from "../../constans/firebaseConstans.js";
-import {
-	createUserWithEmailAndPassword,
-	fetchSignInMethodsForEmail,
-} from "firebase/auth";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../constans/firebaseConfig.js";
 import { toast } from "react-toastify";
 import { NavLink, useNavigate } from "react-router-dom";
 import { LoggedInUserContext } from "../../contexts/LoggedInUserContext.js";
 import "./registration.css";
-import {
-	validateEmail,
-	checkEmailAvailability,
-} from "../../utils/registerValidation.js";
+import { validateSignupForm } from "../../utils/registerValidation.js";
 
 const Signup = () => {
 	const navigate = useNavigate();
@@ -20,40 +14,64 @@ const Signup = () => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [name, setName] = useState("");
-	const [emailError, setEmailError] = useState("");
+	const [errors, setErrors] = useState({});
 
-	const handleEmailChange = (e) => {
+	const handleEmailChange = async (e) => {
 		const newEmail = e.target.value;
 		setEmail(newEmail);
-		const emailValidation = validateEmail(newEmail);
-		setEmailError(emailValidation.errorMessage);
 
-		if (emailValidation.isValid) {
-			checkEmailAvailability(newEmail).then((isEmailAvailable) => {
-				setEmailError(isEmailAvailable.errorMessage);
-			});
-		}
+		const formErrors = await validateSignupForm(name, newEmail, password);
+		setErrors((prevErrors) => ({
+			...prevErrors,
+			emailError: formErrors.emailError,
+		}));
 	};
 
-	const onSubmit = async (e) => {
+	const handlePasswordChange = async (e) => {
+		const newPassword = e.target.value;
+		setPassword(newPassword);
+
+		const formErrors = await validateSignupForm(name, email, newPassword);
+		setErrors((prevErrors) => ({
+			...prevErrors,
+			passwordError: formErrors.passwordError, // Módosított sor
+		}));
+	};
+
+	const handleNameChange = async (e) => {
+		const newName = e.target.value;
+		setName(newName);
+
+		const formErrors = await validateSignupForm(newName, email, password);
+		setErrors((prevErrors) => ({
+			...prevErrors,
+			nameError: formErrors.nameError, // Módosított sor
+		}));
+	};
+
+	const handleSubmit = async (e) => {
 		e.preventDefault();
 
-		if (emailError) {
+		const formErrors = await validateSignupForm(name, email, password);
+
+		if (!formErrors.isValid) {
+			setErrors(formErrors);
 			return;
 		}
 
-		const isEmailAvailable = await checkEmailAvailability(email);
-		if (!isEmailAvailable.isValid) {
-			setEmailError(isEmailAvailable.errorMessage);
-			return;
-		}
+		try {
+			const userCredential = await createUserWithEmailAndPassword(
+				auth,
+				email,
+				password
+			);
 
-		await createUserWithEmailAndPassword(auth, email, password, name)
-			.then((userCredential) => {
-				// Signed in
-				setUser({ name, email, uid: userCredential.user.uid });
-				console.log(user);
-				fetch(`${API_URL}vasarlok/${userCredential._tokenResponse.localId}.json`, {
+			setUser({ name, email, uid: userCredential.user.uid });
+			console.log(user);
+
+			const response = await fetch(
+				`${API_URL}vasarlok/${userCredential._tokenResponse.localId}.json`,
+				{
 					method: "PATCH",
 					headers: {
 						"Content-Type": "application/json",
@@ -63,20 +81,24 @@ const Signup = () => {
 						name,
 						email,
 					}),
-				})
-					.then((data) => data.json())
-					.then((resp) => {
-						toast.success("Sikeres regisztráció!", {
-							position: toast.POSITION.TOP_RIGHT,
-						});
-					});
+				}
+			);
+
+			if (response.ok) {
+				toast.success("Sikeres regisztráció!", {
+					position: toast.POSITION.TOP_RIGHT,
+				});
 				navigate("/belepes");
-			})
-			.catch((error) => {
+			} else {
 				toast.error("A regisztráció sikertelen volt!", {
 					position: toast.POSITION.TOP_RIGHT,
 				});
+			}
+		} catch (error) {
+			toast.error("A regisztráció sikertelen volt!", {
+				position: toast.POSITION.TOP_RIGHT,
 			});
+		}
 	};
 
 	return (
@@ -90,41 +112,40 @@ const Signup = () => {
 								<label htmlFor="name"></label>
 								<input
 									type="text"
-									label="Full name"
 									value={name}
-									onChange={(e) => setName(e.target.value)}
+									onChange={handleNameChange}
 									required
 									placeholder="Teljes név"
 								/>
+								{errors.nameError && <p className="error">{errors.nameError}</p>}
 							</div>
 
 							<div>
 								<label htmlFor="email-address"></label>
 								<input
 									type="email"
-									label="Email address"
 									value={email}
 									onChange={handleEmailChange}
-									onBlur={handleEmailChange} // Kilépés az input mezőből
 									required
 									placeholder="Email cím"
 								/>
-								{emailError && <p>{emailError}</p>}
+								{errors.emailError && <p className="error">{errors.emailError}</p>}
 							</div>
 
 							<div>
 								<label htmlFor="password"></label>
 								<input
 									type="password"
-									label="Create password"
 									value={password}
-									onChange={(e) => setPassword(e.target.value)}
-									required
+									onChange={handlePasswordChange}
 									placeholder="Jelszó"
 								/>
+								{errors.passwordError && (
+									<p className="error">{errors.passwordError}</p>
+								)}
 							</div>
 
-							<button type="submit" onClick={onSubmit}>
+							<button type="submit" onClick={handleSubmit}>
 								Regisztráció
 							</button>
 						</form>
