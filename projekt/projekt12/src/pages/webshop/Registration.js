@@ -34,7 +34,7 @@ const Signup = () => {
 		const formErrors = await validateSignupForm(name, email, newPassword);
 		setErrors((prevErrors) => ({
 			...prevErrors,
-			passwordError: formErrors.passwordError, // Módosított sor
+			passwordError: formErrors.passwordError,
 		}));
 	};
 
@@ -45,7 +45,7 @@ const Signup = () => {
 		const formErrors = await validateSignupForm(newName, email, password);
 		setErrors((prevErrors) => ({
 			...prevErrors,
-			nameError: formErrors.nameError, // Módosított sor
+			nameError: formErrors.nameError,
 		}));
 	};
 
