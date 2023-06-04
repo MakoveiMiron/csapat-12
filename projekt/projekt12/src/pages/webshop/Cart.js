@@ -140,7 +140,6 @@ const Cart = () => {
 									</div>
 									<div className="row checkout">
 										<button onClick={sendOrder}>Megrendelés</button>
-										<button onClick={removeCart}>kosár törlése</button>
 									</div>
 								</div>
 							)}
